@@ -5,24 +5,28 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import CardData from "../utils/CardData";
-import StateContext from "../Context/Hooks/StateContext";
 import { Divider, TextField, Typography } from "@mui/material";
 import InputAdornment from "@mui/material/InputAdornment";
 import SearchIcon from "@mui/icons-material/Search";
-// import MainLoader from "../utils/MainLoader";
+import MainLoader from "../utils/MainLoader";
+import BlogData from "../utils/BlogData";
+import StateContext from "../context/Hooks/StateContext";
+
 // import Footer from "../utils/Footer";
 
 const MainBlog = () => {
-  const { category, handleChange, search, handleSearch, isLoading } =
-    useContext(StateContext);
+  // const { category, handleChange, search, handleSearch, isLoading } =
+  //   useContext(StateContext);
+
+  const { isLoading, items } = useContext(StateContext);
+
   return (
     <>
       {isLoading ? (
         <MainLoader />
       ) : (
         <Box marginTop={"10%"}>
-          <Stack direction={"row"} justifyContent={"center"}>
+          {/* <Stack direction={"row"} justifyContent={"center"}>
             <Stack direction={"row"} width="250px">
               <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-label">Category</InputLabel>
@@ -58,10 +62,10 @@ const MainBlog = () => {
                 onChange={handleSearch}
               />
             </FormControl>
-          </Stack>
+          </Stack> */}
 
           <Box marginY={"20px"}>
-            <CardData />
+            <BlogData items={items} />
           </Box>
           {/* <Footer /> */}
         </Box>

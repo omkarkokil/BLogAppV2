@@ -4,13 +4,14 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
-// import MainBlog from "./pages/MainBlog";
+import MainBlog from "./pages/MainBlog";
 // import MyBlog from "./pages/MyBlog";
 import Navbar from "./utils/Navbar";
 import StateProvider from "./context/Hooks/StateProvider";
 import FunctionProvider from "./context/Function/FunctionProvider";
 import Login from "./Auth/Login";
 import Register from "./Auth/Register";
+import Blog from "./utils/Blog";
 
 function App() {
   return (
@@ -26,8 +27,9 @@ function App() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
 
-                {/* <Route path="/allblogs" element={<MainBlog />} />
-            <Route path="/myblog" element={<MyBlog />} /> */}
+                <Route path="/allblog" element={<MainBlog />} />
+                <Route path="/blog/:id" element={<Blog />} />
+                {/* <Route path="/myblog" element={<MyBlog />} /> */}
               </Routes>
             </FunctionProvider>
           </StateProvider>

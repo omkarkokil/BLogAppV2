@@ -17,6 +17,10 @@ const StateProvider = ({ children }) => {
     pic: "",
   });
 
+  const [isLoading, setIsLoading] = useState(false);
+  const [items, setItems] = useState([]);
+  const [item, setItem] = useState();
+
   return (
     <StateContext.Provider
       value={{
@@ -26,6 +30,12 @@ const StateProvider = ({ children }) => {
         setUser,
         currentUser,
         setCurrentUser,
+        items,
+        setItems,
+        isLoading,
+        setIsLoading,
+        item,
+        setItem,
       }}
     >
       {children}

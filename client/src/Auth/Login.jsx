@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 
 import { Container, Box } from "@mui/system";
 import Typography from "@mui/material/Typography";
@@ -7,7 +7,11 @@ import { Link, useNavigate } from "react-router-dom";
 import InputAdornment from "@mui/material/InputAdornment";
 import PersonIcon from "@mui/icons-material/Person";
 import KeyIcon from "@mui/icons-material/Key";
+import StateContext from "../context/Hooks/StateContext";
+import FunctionContext from "../context/Function/FunctionContext";
 const Login = () => {
+  const { user } = useContext(StateContext);
+  const { handleUser, LoginUser } = useContext(FunctionContext);
   return (
     <>
       <Box
@@ -37,6 +41,8 @@ const Login = () => {
             margin="dense"
             variant="outlined"
             name="email"
+            value={user.email}
+            onChange={handleUser}
             sx={{ width: "400px" }}
           />
         </FormControl>
@@ -56,6 +62,8 @@ const Login = () => {
             margin="dense"
             variant="outlined"
             name="password"
+            value={user.password}
+            onChange={handleUser}
             sx={{ width: "400px" }}
           />
         </FormControl>
@@ -74,7 +82,12 @@ const Login = () => {
         </Box>
 
         <Box>
-          <Button variant="contained" color="warning" sx={{ width: "400px" }}>
+          <Button
+            variant="contained"
+            onClick={LoginUser}
+            color="warning"
+            sx={{ width: "400px" }}
+          >
             Log in
           </Button>
         </Box>

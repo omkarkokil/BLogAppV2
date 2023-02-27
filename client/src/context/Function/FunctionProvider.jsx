@@ -7,9 +7,20 @@ import jwt_decode from "jwt-decode";
 import { toast } from "react-toastify";
 
 const FunctionProvider = ({ children }) => {
-  const Navigate = useNavigate();
-  const { user, setUser, currentUser, setCurrentUser, setIsLogin } =
-    useContext(StateContext);
+  const navigate = useNavigate();
+  const {
+    user,
+    setUser,
+    currentUser,
+    setCurrentUser,
+    setIsLogin,
+    items,
+    setItems,
+    isLoading,
+    setIsLoading,
+    item,
+    setItem,
+  } = useContext(StateContext);
 
   useEffect(() => {
     if (localStorage.getItem("user")) {
@@ -68,7 +79,29 @@ const FunctionProvider = ({ children }) => {
       if (data.status) {
         toast.success(data.msg, toastOption);
         localStorage.setItem("user", data.token);
-        Navigate("/");
+        navigate("/");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const LoginUser = async () => {
+    try {
+      const { email, password } = user;
+      const { data } = await axios.post(
+        "http://localhost:5000/api/auth/loginUser",
+        { email, password }
+      );
+
+      if (!data.status) {
+        toast.error(data.msg, toastOption);
+        return false;
+      }
+      if (data.status) {
+        toast.success(data.msg, toastOption);
+        localStorage.setItem("user", data.token);
+        navigate("/");
       }
     } catch (error) {
       console.log(error);
@@ -77,12 +110,49 @@ const FunctionProvider = ({ children }) => {
 
   const logOut = () => {
     localStorage.clear();
-    Navigate("/");
+    toast.success("Log out successfully", toastOption);
+    setIsLogin(false);
+    navigate("/");
+  };
+
+  const getBlogs = async () => {
+    try {
+      setIsLoading(true);
+      const { data } = await axios.get(
+        "http://localhost:5000/api/blog/getAllBlogs"
+      );
+
+      setItems(data);
+      setIsLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getBlogs();
+  }, [window.location.pathname]);
+
+  const getBlog = async (id) => {
+    setIsLoading(true);
+    const { data } = await axios.get(
+      `http://localhost:5000/api/blog/getBlog/${id}`
+    );
+    setItem(data);
+    // console.log(item);
+    setIsLoading(false);
   };
 
   return (
     <FunctionContext.Provider
-      value={{ logOut, handleUser, handlePic, RegisterUser }}
+      value={{
+        logOut,
+        handleUser,
+        handlePic,
+        RegisterUser,
+        LoginUser,
+        getBlog,
+      }}
     >
       {children}
     </FunctionContext.Provider>
