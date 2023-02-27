@@ -1,0 +1,162 @@
+@import url("https://fonts.googleapis.com/css2?family=Playball&family=Rubik&family=Kaushan+Script&family=Tapestry&family=Trade+Winds&family=Work+Sans&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Rubik", sans-serif !important;
+  text-decoration: none;
+}
+
+.homeBack {
+  background: linear-gradient(132deg, rgb(1, 96, 105) 0%, rgb(0, 72, 95) 100%);
+  position: relative;
+}
+
+.imaginary {
+  position: absolute;
+  bottom: -5%;
+  height: 50vh;
+  z-index: 3;
+}
+
+.img2 {
+  right: 0% !important;
+  bottom: -10% !important;
+  animation-delay: 0.5s !important;
+  height: 40vh !important;
+}
+
+.img3 {
+  left: -5% !important;
+  top: 10% !important;
+  animation-delay: 0.6s !important;
+  height: 60vh !important;
+  z-index: 0 !important;
+}
+.img4 {
+  left: 15% !important;
+  top: 50% !important;
+  animation-delay: 0.5s !important;
+  height: 20vh !important;
+}
+.imaginaryLeft {
+  position: absolute;
+  bottom: 0;
+  animation-delay: 0.5s !important;
+  right: 10%;
+  height: 30vh;
+  z-index: 1 !important;
+}
+a {
+  color: #000;
+  text-decoration: none;
+}
+
+.scale {
+  transition: all 1s;
+}
+.scale:hover {
+  scale: 1.03;
+}
+
+.blk .class-a {
+  color: #000;
+  margin: 0 12px;
+  transition: 0.4s;
+}
+.blk .class-a:hover {
+  transform: translateY(-2px);
+}
+
+.logoFor {
+  font-family: "Kaushan Script", cursive !important;
+
+  font-weight: bold;
+  font-size: 2em;
+  text-shadow: 0 0 5px #333;
+}
+
+.basic {
+  font-size: 1.2em;
+  font-family: "Kaushan Script", cursive !important;
+  color: orangered;
+  text-shadow: 0 0 5px #333;
+  font-weight: bold !important;
+}
+
+.typeone {
+  font-family: "Kaushan Script", cursive !important;
+  font-size: 4em;
+  color: #f3f3f3;
+  text-shadow: 0 0 5px #333;
+  font-weight: bold !important;
+  background-clip: text;
+}
+
+.appeareffect {
+  transform: translateY(-50px);
+  visibility: hidden;
+  opacity: 0;
+  animation: 1s appear forwards;
+}
+
+@keyframes appear {
+  100% {
+    transform: translateY(0px);
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+.newEffect {
+  transform: translateY(1000px);
+  animation: 1s effect forwards;
+}
+
+@keyframes effect {
+  100% {
+    transform: translateY(0px);
+    /* visibility: visible;
+    opacity: 1; */
+  }
+}
+
+.preloaderBg {
+  position: fixed;
+  z-index: 10;
+  top: 25%;
+  background: #fff;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+
+.preloader {
+  margin: auto;
+  /* background: url("./img/android-chrome-192x192.png") no-repeat center; */
+  background-size: 150px;
+  width: 300px;
+  height: 300px;
+}
+
+.preloader2 {
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #f00;
+  border-radius: 50%;
+  width: 250px;
+  height: 250px;
+  animation: spin 1s ease-in-out infinite;
+  position: relative;
+  margin: auto;
+  top: -280px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
