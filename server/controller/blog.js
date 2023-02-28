@@ -16,8 +16,12 @@ const createBlog = async (req, res) => {
       userPic,
     });
 
+    if ((!title, !desc, !category)) {
+      return res.json({ msg: "All fields are madatory", status: false });
+    }
+
     if (!blogPic) {
-      return res.json({ note, msg: "image not fetched", status: false });
+      return res.json({ msg: "image not fetched", status: false });
     }
     return res.json({ note, msg: "Blog created successfully", status: true });
   } catch (error) {

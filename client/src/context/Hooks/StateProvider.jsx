@@ -4,8 +4,8 @@ import StateContext from "./StateContext";
 const StateProvider = ({ children }) => {
   const [isLogin, setIsLogin] = useState(false);
   const [user, setUser] = useState({
-    name: "",
-    email: "",
+    title: "",
+    desc: "",
     password: "",
     pic: "",
   });
@@ -19,7 +19,15 @@ const StateProvider = ({ children }) => {
 
   const [isLoading, setIsLoading] = useState(false);
   const [items, setItems] = useState([]);
-  const [item, setItem] = useState();
+  const [item, setItem] = useState([]);
+  const [makeComment, setMakeComment] = useState(undefined);
+  const [comments, setComments] = useState([]);
+  const [allComments, setAllComments] = useState([]);
+  const [select, setSelect] = useState("Entertainment");
+  const [blog, setBlog] = useState({
+    title: "",
+    desc: "",
+  });
 
   return (
     <StateContext.Provider
@@ -36,6 +44,16 @@ const StateProvider = ({ children }) => {
         setIsLoading,
         item,
         setItem,
+        comments,
+        setComments,
+        makeComment,
+        setMakeComment,
+        allComments,
+        setAllComments,
+        select,
+        setSelect,
+        blog,
+        setBlog,
       }}
     >
       {children}

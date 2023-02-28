@@ -49,7 +49,7 @@ const BlogData = (props) => {
                 />
 
                 <CardMedia
-                  sx={{ height: 140 }}
+                  sx={{ height: 200 }}
                   image={`http://localhost:5000/public/${ele.blogPic}`}
                 />
                 <CardContent>

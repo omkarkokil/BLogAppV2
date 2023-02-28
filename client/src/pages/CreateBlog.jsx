@@ -6,12 +6,16 @@ import { Button, FormControl, TextField } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import InputAdornment from "@mui/material/InputAdornment";
 import PersonIcon from "@mui/icons-material/Person";
-import KeyIcon from "@mui/icons-material/Key";
 import FunctionContext from "../context/Function/FunctionContext";
 import StateContext from "../context/Hooks/StateContext";
-const Register = () => {
-  const { user } = useContext(StateContext);
-  const { handleUser, handlePic, RegisterUser } = useContext(FunctionContext);
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
+import AssignmentIcon from "@mui/icons-material/Assignment";
+const CreateBlog = () => {
+  const { user, select, blog } = useContext(StateContext);
+  const { handleSelect, createBlog, handleBlog, handlePic } =
+    useContext(FunctionContext);
 
   return (
     <>
@@ -26,13 +30,13 @@ const Register = () => {
         className="appeareffect"
       >
         <Typography variant="h4" color="initial" marginBottom={"15px"}>
-          Register your account
+          Create Blog
         </Typography>
 
         <FormControl margin="dense">
           <TextField
             id="filled-basic"
-            label="Enter name"
+            label="Enter title"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -42,53 +46,54 @@ const Register = () => {
             }}
             margin="dense"
             variant="outlined"
-            name="name"
-            value={user.name}
-            onChange={handleUser}
-            sx={{ width: "400px" }}
+            name="title"
+            value={blog.title}
+            onChange={handleBlog}
+            sx={{ width: "500px" }}
           />
         </FormControl>
 
         <FormControl margin="dense">
           <TextField
             id="filled-basic"
-            label="Enter email"
+            label="Enter description"
+            multiline
+            rows={10}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
-                  <PersonIcon />
+                  <AssignmentIcon />
                 </InputAdornment>
               ),
             }}
             margin="dense"
             variant="outlined"
-            name="email"
-            value={user.email}
-            onChange={handleUser}
-            sx={{ width: "400px" }}
+            name="desc"
+            value={blog.desc}
+            onChange={handleBlog}
+            sx={{ width: "500px" }}
           />
         </FormControl>
 
-        <FormControl margin="dense">
-          <TextField
-            type={"password"}
-            id="filled-basic"
-            label="Enter password"
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <KeyIcon />
-                </InputAdornment>
-              ),
-            }}
-            margin="dense"
-            variant="outlined"
-            name="password"
-            value={user.password}
-            onChange={handleUser}
-            sx={{ width: "400px" }}
-          />
-        </FormControl>
+        <Box sx={{ width: "500px" }}>
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Category</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={select}
+              label="Category"
+              onChange={handleSelect}
+            >
+              <MenuItem value={"Entertainment"}>Entertainment</MenuItem>
+              <MenuItem value={"Education"}>Education</MenuItem>
+              <MenuItem value={"Sports"}>Sports</MenuItem>
+              <MenuItem value={"Technology"}>Technology</MenuItem>
+              <MenuItem value={"polytics"}>polytics</MenuItem>
+              <MenuItem value={"Vlogs"}>Vlogs</MenuItem>
+            </Select>
+          </FormControl>
+        </Box>
 
         <FormControl margin="dense">
           <TextField
@@ -97,32 +102,19 @@ const Register = () => {
             id="filled-basic"
             margin="dense"
             variant="outlined"
-            name="myFile"
-            sx={{ width: "400px" }}
+            name="blogFile"
+            sx={{ width: "500px" }}
           />
         </FormControl>
 
         <Box>
-          <Typography
-            sx={{
-              marginY: "20px",
-              width: "400px",
-              color: "#666",
-            }}
-            paragraph
-          >
-            Already have an account <Link to="/login">Login</Link>
-          </Typography>
-        </Box>
-
-        <Box>
           <Button
             variant="contained"
-            onClick={RegisterUser}
+            onClick={createBlog}
             color="warning"
-            sx={{ width: "400px" }}
+            sx={{ width: "500px" }}
           >
-            Register
+            Publish blog
           </Button>
         </Box>
       </Box>
@@ -130,4 +122,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default CreateBlog;

@@ -17,7 +17,7 @@ import pens from "../img/pens.png";
 const Home = () => {
   const navigate = useNavigate();
 
-  // const { isLogin } = useContext(StateContext);
+  const { isLogin } = useContext(StateContext);
   return (
     <>
       <Stack
@@ -62,9 +62,9 @@ const Home = () => {
               width: "200px",
               ":hover": { background: "#ff4500ad" },
             }}
-            // onClick={() => {
-            //   isLogin ? navigate("/createblog") : navigate("/login");
-            // }}
+            onClick={() => {
+              isLogin ? navigate("/createblog") : navigate("/login");
+            }}
           >
             Create your blog
           </Button>

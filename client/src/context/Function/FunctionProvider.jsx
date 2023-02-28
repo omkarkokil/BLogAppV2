@@ -20,6 +20,16 @@ const FunctionProvider = ({ children }) => {
     setIsLoading,
     item,
     setItem,
+    comments,
+    setComments,
+    makeComment,
+    setMakeComment,
+    allComments,
+    setAllComments,
+    select,
+    setSelect,
+    blog,
+    setBlog,
   } = useContext(StateContext);
 
   useEffect(() => {
@@ -56,8 +66,22 @@ const FunctionProvider = ({ children }) => {
     });
   };
 
+  const handleBlog = (e) => {
+    const { name, value } = e.target;
+    setBlog(() => {
+      return {
+        ...blog,
+        [name]: value,
+      };
+    });
+  };
+
   const handlePic = (e) => {
     setUser({ ...user, pic: e.target.files[0] });
+  };
+
+  const handleSelect = (e) => {
+    setSelect(e.target.value);
   };
 
   const RegisterUser = async () => {
@@ -134,13 +158,136 @@ const FunctionProvider = ({ children }) => {
   }, [window.location.pathname]);
 
   const getBlog = async (id) => {
-    setIsLoading(true);
-    const { data } = await axios.get(
-      `http://localhost:5000/api/blog/getBlog/${id}`
-    );
-    setItem(data);
-    // console.log(item);
-    setIsLoading(false);
+    try {
+      setIsLoading(true);
+      const { data } = await axios.get(
+        `http://localhost:5000/api/blog/getBlog/${id}`
+      );
+      setItem(data);
+      // console.log(item);
+      setIsLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getComments = async (id) => {
+    try {
+      setIsLoading(true);
+      const { data } = await axios.get(
+        `http://localhost:5000/api/blog/getcomment/${id}`
+      );
+      setComments(data);
+      setIsLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getAllComments = async (id) => {
+    try {
+      setIsLoading(true);
+      const { data } = await axios.get(
+        `http://localhost:5000/api/blog/getAllComment/${id}`
+      );
+      setAllComments(data);
+      setIsLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleComment = (e) => {
+    setMakeComment(e.target.value);
+  };
+
+  const createComment = async (id) => {
+    try {
+      if (!localStorage.getItem("user")) {
+        navigate("/login");
+        return false;
+      }
+      const { data } = await axios.post(
+        `http://localhost:5000/api/blog/comment/${id}`,
+
+        { comment: makeComment, author: currentUser._id, to: id },
+        {
+          headers: {
+            Authorization: localStorage.getItem("user"),
+          },
+        }
+      );
+      if (!data.status) {
+        toast.error(data.msg, toastOption);
+        return false;
+      }
+
+      if (data.status) {
+        toast.success(data.msg, toastOption);
+        navigate("/");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const createBlog = async () => {
+    try {
+      const month = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+      ];
+
+      const nowdate = new Date();
+      const date =
+        month[nowdate.getMonth()] +
+        " " +
+        nowdate.getDate() +
+        ", " +
+        nowdate.getFullYear();
+
+      const { title, desc, pic } = blog;
+      const formdata = new FormData();
+      formdata.append("title", title);
+      formdata.append("desc", desc);
+      formdata.append("category", select);
+      formdata.append("userId", currentUser.id);
+      formdata.append("name", currentUser.name);
+      formdata.append("userPic", currentUser.pic);
+      formdata.append("date", date);
+      formdata.append("blogFile", user.pic);
+      const { data } = await axios.post(
+        "http://localhost:5000/api/blog/createBlog",
+        formdata,
+        {
+          headers: {
+            Authorization: localStorage.getItem("user"),
+          },
+        }
+      );
+
+      if (!data.status) {
+        toast.error(data.msg, toastOption);
+        return false;
+      }
+
+      if (data.status) {
+        toast.success(data.msg, toastOption);
+        navigate("/");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -152,6 +299,14 @@ const FunctionProvider = ({ children }) => {
         RegisterUser,
         LoginUser,
         getBlog,
+        getComments,
+        createComment,
+        handleComment,
+        getAllComments,
+        handleSelect,
+        handleBlog,
+
+        createBlog,
       }}
     >
       {children}

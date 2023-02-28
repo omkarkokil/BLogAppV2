@@ -22,6 +22,7 @@ const Login = () => {
           flexDirection: "column",
           height: "100vh",
         }}
+        className="appeareffect"
       >
         <Typography variant="h4" color="initial" marginBottom={"15px"}>
           login your account

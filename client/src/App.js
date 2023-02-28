@@ -12,6 +12,8 @@ import FunctionProvider from "./context/Function/FunctionProvider";
 import Login from "./Auth/Login";
 import Register from "./Auth/Register";
 import Blog from "./utils/Blog";
+import Comment from "./pages/Comment";
+import CreateBlog from "./pages/CreateBlog";
 
 function App() {
   return (
@@ -29,6 +31,8 @@ function App() {
 
                 <Route path="/allblog" element={<MainBlog />} />
                 <Route path="/blog/:id" element={<Blog />} />
+                <Route path="/comment/:id" element={<Comment />} />
+                <Route path="/createblog" element={<CreateBlog />} />
                 {/* <Route path="/myblog" element={<MyBlog />} /> */}
               </Routes>
             </FunctionProvider>
