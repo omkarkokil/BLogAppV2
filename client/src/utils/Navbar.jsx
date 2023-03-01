@@ -12,6 +12,7 @@ import FunctionContext from "../context/Function/FunctionContext";
 
 const Navbar = () => {
   const { isLogin, currentUser } = useContext(StateContext);
+  // console.log(currentUser);
   const { logOut } = useContext(FunctionContext);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [isScroll, setIsScroll] = useState(false);
@@ -123,12 +124,10 @@ const Navbar = () => {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
-                <Link className="class-a" to={"/myProfile"}>
+                <Link className="class-a" to={"/myprofile"}>
                   <MenuItem onClick={handleCloseUserMenu}>Profile</MenuItem>
                 </Link>
-                <Link className="class-a" to={"/myblog"}>
-                  <MenuItem onClick={handleCloseUserMenu}>My Blog</MenuItem>
-                </Link>
+
                 <Link className="class-a" to="/createBlog">
                   <MenuItem onClick={handleCloseUserMenu}>Create Blog</MenuItem>
                 </Link>

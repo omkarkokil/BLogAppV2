@@ -23,6 +23,7 @@ const StateProvider = ({ children }) => {
   const [makeComment, setMakeComment] = useState(undefined);
   const [comments, setComments] = useState([]);
   const [allComments, setAllComments] = useState([]);
+  const [getLoginBlog, setGetLoginBlog] = useState([]);
   const [select, setSelect] = useState("Entertainment");
   const [blog, setBlog] = useState({
     title: "",
@@ -54,6 +55,8 @@ const StateProvider = ({ children }) => {
         setSelect,
         blog,
         setBlog,
+        getLoginBlog,
+        setGetLoginBlog,
       }}
     >
       {children}

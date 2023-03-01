@@ -30,6 +30,8 @@ const FunctionProvider = ({ children }) => {
     setSelect,
     blog,
     setBlog,
+    getLoginBlog,
+    setGetLoginBlog,
   } = useContext(StateContext);
 
   useEffect(() => {
@@ -224,6 +226,7 @@ const FunctionProvider = ({ children }) => {
 
       if (data.status) {
         toast.success(data.msg, toastOption);
+        setMakeComment("");
         navigate("/");
       }
     } catch (error) {
@@ -290,6 +293,24 @@ const FunctionProvider = ({ children }) => {
     }
   };
 
+  const currentUserBlog = async () => {
+    try {
+      setIsLoading(true);
+      const { data } = await axios.get(
+        "http://localhost:5000/api/blog/getCurrentUserBlog",
+        {
+          headers: {
+            Authorization: localStorage.getItem("user"),
+          },
+        }
+      );
+      setGetLoginBlog(data);
+      setIsLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <FunctionContext.Provider
       value={{
@@ -298,6 +319,7 @@ const FunctionProvider = ({ children }) => {
         handlePic,
         RegisterUser,
         LoginUser,
+        currentUserBlog,
         getBlog,
         getComments,
         createComment,

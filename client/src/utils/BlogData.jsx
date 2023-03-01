@@ -1,4 +1,4 @@
-import { Avatar, CardHeader, Grid } from "@mui/material";
+import { Avatar, CardHeader, Grid, Stack } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useContext } from "react";
 import Card from "@mui/material/Card";
@@ -8,8 +8,11 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
+import StateContext from "../context/Hooks/StateContext";
 
 const BlogData = (props) => {
+  const loc = window.location.pathname;
+  const { currentUser } = useContext(StateContext);
   return (
     <Grid
       container
@@ -34,19 +37,23 @@ const BlogData = (props) => {
           {props.items.map((ele, id) => {
             return (
               <Card sx={{ maxWidth: 400 }} key={id}>
-                <CardHeader
-                  avatar={
-                    <Avatar aria-label="recipe">
-                      <img
-                        src={`http://localhost:5000/public/${ele.userPic}`}
-                        height="100%"
-                        alt=""
-                      />{" "}
-                    </Avatar>
-                  }
-                  title={ele.name}
-                  subheader={ele.date}
-                />
+                {loc === "/myprofile" || ele._id === currentUser._id ? (
+                  ""
+                ) : (
+                  <CardHeader
+                    avatar={
+                      <Avatar aria-label="recipe">
+                        <img
+                          src={`http://localhost:5000/public/${ele.userPic}`}
+                          height="100%"
+                          alt=""
+                        />{" "}
+                      </Avatar>
+                    }
+                    title={ele.name}
+                    subheader={ele.date}
+                  />
+                )}
 
                 <CardMedia
                   sx={{ height: 200 }}
@@ -61,9 +68,20 @@ const BlogData = (props) => {
                   </Typography>
                 </CardContent>
                 <CardActions>
-                  <Link to={`/blog/${ele._id}`}>
-                    <Button size="small">Read More</Button>
-                  </Link>
+                  <Stack
+                    direction={"row"}
+                    width="100%"
+                    justifyContent="space-between"
+                  >
+                    <Link to={`/blog/${ele._id}`}>
+                      <Button size="small">Read More</Button>
+                    </Link>
+                    {loc === "/myprofile" || ele._id === currentUser._id ? (
+                      <Typography>hii</Typography>
+                    ) : (
+                      ""
+                    )}
+                  </Stack>
                 </CardActions>
               </Card>
             );

@@ -14,6 +14,7 @@ import Register from "./Auth/Register";
 import Blog from "./utils/Blog";
 import Comment from "./pages/Comment";
 import CreateBlog from "./pages/CreateBlog";
+import MyProfile from "./pages/MyProfile";
 
 function App() {
   return (
@@ -28,12 +29,11 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
-
                 <Route path="/allblog" element={<MainBlog />} />
                 <Route path="/blog/:id" element={<Blog />} />
                 <Route path="/comment/:id" element={<Comment />} />
                 <Route path="/createblog" element={<CreateBlog />} />
-                {/* <Route path="/myblog" element={<MyBlog />} /> */}
+                <Route path="/myprofile" element={<MyProfile />} />
               </Routes>
             </FunctionProvider>
           </StateProvider>

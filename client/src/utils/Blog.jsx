@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Divider, Typography } from "@mui/material";
+import { Avatar, Box, Button, Chip, Divider, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
 import React, { useContext, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
@@ -55,7 +55,14 @@ const Blog = () => {
                 alt="none"
               />
             </Stack>
-            <Stack marginY="10px">
+            <Stack my={"10px"}>
+              <Chip
+                color="warning"
+                sx={{ width: "150px" }}
+                label={item.category}
+              />
+            </Stack>
+            <Stack>
               <Typography paragraph>{item.desc}</Typography>
             </Stack>
             <Stack width={"100%"} direction={"row"} alignItems={"flex-start"}>
@@ -158,8 +165,8 @@ const Blog = () => {
                   justifyContent="center"
                   borderRadius={"5px"}
                   width={"max-content"}
-                  color={"#fff"}
-                  backgroundColor="orangered"
+                  color={"orangered"}
+                  backgroundColor={"#fff"}
                 >
                   <Typography>{ele.comment}</Typography>
                 </Stack>
