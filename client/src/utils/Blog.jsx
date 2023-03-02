@@ -123,56 +123,66 @@ const Blog = () => {
               />
             </FormControl>
           </Stack>
-          <Box marginY={"10px"} width={"80%"}>
-            <Divider />
-            <Typography
-              color="orangered"
-              fontSize={"1.3em"}
-              fontStyle={"italic"}
-            >
-              Posted comments
-            </Typography>
-            <Stack
-              direction={"row"}
-              justifyContent={"space-between"}
-              marginTop={"20px"}
-            >
-              <Typography variant="h4">{`${allComments.length} comments`}</Typography>
-              <Link to={`/comment/${id}`}>
-                <Button variant="contained">Show all</Button>
-              </Link>
-            </Stack>
-          </Box>
-          {comments.map((ele, id) => {
-            return (
-              <Stack width="80%" marginY="10px" key={id}>
-                <Stack direction={"row"} alignItems="center" marginY="10px">
-                  <Avatar sx={{ marginRight: "10px" }}>
-                    <img
-                      src={`http://localhost:5000/public/${ele.author.pic}`}
-                      alt="none"
-                      height={"100%"}
-                    />
-                  </Avatar>
-                  <Typography>
-                    {ele.author.name} on <Timestamp date={ele.createdAt} />
-                  </Typography>
-                </Stack>
-                <Stack
-                  boxShadow={"0 0 3px #333"}
-                  padding={"7px 20px"}
-                  alignItems="center"
-                  justifyContent="center"
-                  borderRadius={"5px"}
-                  width={"max-content"}
-                  color={"orangered"}
-                  backgroundColor={"#fff"}
+          {comments.length <= 0 ? (
+            <Box mb={"20px"}>
+              <Typography variant="h4">No Comment on this blog</Typography>
+            </Box>
+          ) : (
+            <Box width={"80%"}>
+              <Box marginY={"10px"}>
+                <Divider />
+                <Typography
+                  color="orangered"
+                  fontSize={"1.3em"}
+                  fontStyle={"italic"}
                 >
-                  <Typography>{ele.comment}</Typography>
+                  Posted comments
+                </Typography>
+
+                <Stack
+                  direction={"row"}
+                  justifyContent={"space-between"}
+                  marginTop={"20px"}
+                >
+                  <Typography variant="h4">{`${allComments.length} comments`}</Typography>
+                  <Link to={`/comment/${id}`}>
+                    <Button variant="contained">Show all</Button>
+                  </Link>
                 </Stack>
-              </Stack>
-            );
-          })}
+              </Box>
+
+              {comments.map((ele, id) => {
+                return (
+                  <Stack width="80%" marginY="10px" key={id}>
+                    <Stack direction={"row"} alignItems="center" marginY="10px">
+                      <Avatar sx={{ marginRight: "10px" }}>
+                        <img
+                          src={`http://localhost:5000/public/${ele.author.pic}`}
+                          alt="none"
+                          height={"100%"}
+                        />
+                      </Avatar>
+                      <Typography>
+                        {ele.author.name} on <Timestamp date={ele.createdAt} />
+                      </Typography>
+                    </Stack>
+                    <Stack
+                      boxShadow={"0 0 3px #333"}
+                      padding={"7px 20px"}
+                      alignItems="center"
+                      justifyContent="center"
+                      borderRadius={"5px"}
+                      width={"max-content"}
+                      color={"orangered"}
+                      backgroundColor={"#fff"}
+                    >
+                      <Typography>{ele.comment}</Typography>
+                    </Stack>
+                  </Stack>
+                );
+              })}
+            </Box>
+          )}
         </Stack>
       )}
     </>

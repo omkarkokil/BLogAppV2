@@ -20,11 +20,12 @@ const StateProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [items, setItems] = useState([]);
   const [item, setItem] = useState([]);
-  const [makeComment, setMakeComment] = useState(undefined);
+  const [makeComment, setMakeComment] = useState("");
   const [comments, setComments] = useState([]);
   const [allComments, setAllComments] = useState([]);
   const [getLoginBlog, setGetLoginBlog] = useState([]);
-  const [select, setSelect] = useState("Entertainment");
+  const [select, setSelect] = useState(undefined);
+  const [search, setSearch] = useState();
   const [blog, setBlog] = useState({
     title: "",
     desc: "",
@@ -57,6 +58,8 @@ const StateProvider = ({ children }) => {
         setBlog,
         getLoginBlog,
         setGetLoginBlog,
+        search,
+        setSearch,
       }}
     >
       {children}

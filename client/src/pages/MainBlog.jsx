@@ -11,14 +11,13 @@ import SearchIcon from "@mui/icons-material/Search";
 import MainLoader from "../utils/MainLoader";
 import BlogData from "../utils/BlogData";
 import StateContext from "../context/Hooks/StateContext";
+import FunctionContext from "../context/Function/FunctionContext";
 
 // import Footer from "../utils/Footer";
 
 const MainBlog = () => {
-  // const { category, handleChange, search, handleSearch, isLoading } =
-  //   useContext(StateContext);
-
-  const { isLoading, items } = useContext(StateContext);
+  const { isLoading, items, search, select } = useContext(StateContext);
+  const { handleSearch, handleSelect } = useContext(FunctionContext);
 
   return (
     <>
@@ -26,16 +25,16 @@ const MainBlog = () => {
         <MainLoader />
       ) : (
         <Box marginTop={"10%"}>
-          {/* <Stack direction={"row"} justifyContent={"center"}>
+          <Stack direction={"row"} justifyContent={"center"}>
             <Stack direction={"row"} width="250px">
               <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-label">Category</InputLabel>
                 <Select
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
-                  value={category}
+                  value={select}
                   label="category"
-                  onChange={handleChange}
+                  onChange={handleSelect}
                 >
                   <MenuItem value={"Entertainment"}>Entertainment</MenuItem>
                   <MenuItem value={"Education"}>Education</MenuItem>
@@ -62,7 +61,7 @@ const MainBlog = () => {
                 onChange={handleSearch}
               />
             </FormControl>
-          </Stack> */}
+          </Stack>
 
           <Box marginY={"20px"}>
             <BlogData items={items} />

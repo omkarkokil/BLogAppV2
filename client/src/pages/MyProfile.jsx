@@ -12,7 +12,7 @@ const MyProfile = () => {
 
   useEffect(() => {
     currentUserBlog();
-  }, []);
+  }, [window.location.pathname]);
   return (
     <>
       {isLoading ? (

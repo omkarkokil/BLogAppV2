@@ -63,12 +63,10 @@ const getLastBlog = async (req, res) => {
 
 const getCurrentUserBlog = async (req, res) => {
   try {
-    const getBlog = await Blog.find({ userId: req.user.id })
-      .sort({
-        _id: -1,
-      })
-      .skip(1);
-    // Bloglength = getBlog.length;
+    const getBlog = await Blog.find({ userId: req.user.id }).sort({
+      _id: -1,
+    });
+
     return res.json(getBlog);
   } catch (error) {
     console.log(error);
@@ -96,14 +94,16 @@ const deleteblog = async (req, res) => {
 async function editBlog(req, res) {
   try {
     const { id } = req.params;
+    const blogPic = req.file ? req.file.filename : null;
     const { title, desc, category } = req.body;
     const updateBlog = await Blog.findByIdAndUpdate(id, {
       title,
       desc,
       category,
+      blogPic,
     });
 
-    if ((!title, !desc)) {
+    if ((!title, !desc, !category, !blogPic)) {
       return res.json({
         msg: "All fileds are madatory",
         status: false,

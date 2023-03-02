@@ -30,6 +30,6 @@ router.get("/getBlog/:id", getBlog);
 router.get("/getLastBlog", auth, getLastBlog);
 router.get("/getCurrentUserBlog", auth, getCurrentUserBlog);
 router.delete("/deleteBlog/:id", auth, deleteblog);
-router.put("/editBlog/:id", editBlog);
+router.put("/editBlog/:id", upload.single("blogFile"), editBlog);
 
 module.exports = router;

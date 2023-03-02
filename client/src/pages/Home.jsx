@@ -3,7 +3,7 @@ import { Stack } from "@mui/system";
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import StateContext from "../context/Hooks/StateContext";
-// import Footer from "../utils/Footer";
+import Footer from "../utils/Footer";
 // import CategoryGrid from "../components/CategoryGrid";
 import img1 from "../img/imgae.png";
 import cardblog from "../img/card.png";
@@ -13,6 +13,8 @@ import cup from "../img/cup.png";
 import blogYellow from "../img/blogYellow.png";
 import blogblue from "../img/blogblue.png";
 import pens from "../img/pens.png";
+import graph from "../img/graph.png";
+import map from "../img/map.png";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -135,20 +137,38 @@ const Home = () => {
       </Stack>
 
       <Stack
+        direction={"row"}
         sx={{
           justifyContent: "center",
           alignItems: "center",
           width: "100%",
-          height: "100vh",
-          background: "#333",
+          height: "80vh",
+          background: "#444",
           zIndex: 1000,
           position: "relative",
         }}
       >
-        {/* <CategoryGrid /> */}
+        <Stack width={"50%"} color="white">
+          <Container>
+            <Typography variant="h3">Make a blog over the world</Typography>
+            <Typography>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum
+              fugit assumenda provident corporis veritatis perspiciatis, itaque,
+              porro similique, nam at atque ipsam. Recusandae ea nihil nostrum
+              odit illo sequi repellat. Ipsum consectetur eligendi accusamus eos
+              officia a nesciunt earum amet atque nostrum, voluptas quae
+              exercitationem inventore repellat ullam, nihil repudiandae
+              mollitia, veniam ducimus harum! Assumenda nisi eius fugit a nulla?
+            </Typography>
+          </Container>
+        </Stack>
+        <Stack width={"50%"} alignItems="center">
+          <img src={map} alt="" width="80%" />
+          <img src={graph} alt="" width="80%" />
+        </Stack>
       </Stack>
 
-      {/* <Footer /> */}
+      <Footer />
     </>
   );
 };

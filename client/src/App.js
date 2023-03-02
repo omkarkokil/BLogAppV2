@@ -15,6 +15,7 @@ import Blog from "./utils/Blog";
 import Comment from "./pages/Comment";
 import CreateBlog from "./pages/CreateBlog";
 import MyProfile from "./pages/MyProfile";
+import EditBlog from "./pages/EditBlog";
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
                 <Route path="/comment/:id" element={<Comment />} />
                 <Route path="/createblog" element={<CreateBlog />} />
                 <Route path="/myprofile" element={<MyProfile />} />
+                <Route path="/editBlog/:id" element={<EditBlog />} />
               </Routes>
             </FunctionProvider>
           </StateProvider>

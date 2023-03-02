@@ -14,24 +14,20 @@ const FunctionProvider = ({ children }) => {
     currentUser,
     setCurrentUser,
     setIsLogin,
-    items,
     setItems,
-    isLoading,
     setIsLoading,
-    item,
     setItem,
-    comments,
     setComments,
     makeComment,
     setMakeComment,
-    allComments,
     setAllComments,
     select,
     setSelect,
     blog,
     setBlog,
-    getLoginBlog,
     setGetLoginBlog,
+    search,
+    setSearch,
   } = useContext(StateContext);
 
   useEffect(() => {
@@ -80,6 +76,10 @@ const FunctionProvider = ({ children }) => {
 
   const handlePic = (e) => {
     setUser({ ...user, pic: e.target.files[0] });
+  };
+
+  const handleSearch = (e) => {
+    setSearch(e.target.value);
   };
 
   const handleSelect = (e) => {
@@ -166,7 +166,13 @@ const FunctionProvider = ({ children }) => {
         `http://localhost:5000/api/blog/getBlog/${id}`
       );
       setItem(data);
-      // console.log(item);
+
+      setBlog({
+        title: data.title,
+        desc: data.desc,
+        pic: data.blogPic,
+      });
+      setSelect(data.category);
       setIsLoading(false);
     } catch (error) {
       console.log(error);
@@ -311,6 +317,59 @@ const FunctionProvider = ({ children }) => {
     }
   };
 
+  const deleteBlog = async (id) => {
+    const { data } = await axios.delete(
+      `http://localhost:5000/api/blog/deleteBlog/${id}`,
+      {
+        headers: {
+          Authorization: localStorage.getItem("user"),
+        },
+      }
+    );
+
+    if (!data.status) {
+      toast.error(data.msg, toastOption);
+    }
+
+    if (data.status) {
+      toast.success(data.msg, toastOption);
+      navigate("/myprofile");
+    }
+  };
+
+  const editBlog = async (id) => {
+    try {
+      const { title, desc } = blog;
+      const formdata = new FormData();
+      formdata.append("title", title);
+      formdata.append("desc", desc);
+      formdata.append("category", select);
+      formdata.append("blogFile", user.pic);
+      const { data } = await axios.put(
+        `http://localhost:5000/api/blog/editBlog/${id}`,
+        formdata,
+        {
+          headers: {
+            Authorization: localStorage.getItem("user"),
+          },
+        }
+      );
+
+      if (!data.status) {
+        toast.error(data.msg, toastOption);
+        return false;
+      }
+
+      if (data.status) {
+        toast.success(data.msg, toastOption);
+        setSelect("");
+        navigate("/myprofile");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <FunctionContext.Provider
       value={{
@@ -327,8 +386,10 @@ const FunctionProvider = ({ children }) => {
         getAllComments,
         handleSelect,
         handleBlog,
-
+        deleteBlog,
         createBlog,
+        handleSearch,
+        editBlog,
       }}
     >
       {children}
