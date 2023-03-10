@@ -139,14 +139,14 @@ const Navbar = () => {
           ) : (
             <Link to="/login">
               <Button
-                variant="contained"
+                variant="outlined"
+                color="warning"
                 sx={{
-                  background: "orangered",
                   marginX: "15px",
-                  ":hover": { background: "#ff4500ad" },
+                  ":hover": { background: "orangered", color: "#fff" },
                 }}
               >
-                Log in
+                Login
               </Button>
             </Link>
           )}

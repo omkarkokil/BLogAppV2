@@ -24,7 +24,7 @@ const StateProvider = ({ children }) => {
   const [comments, setComments] = useState([]);
   const [allComments, setAllComments] = useState([]);
   const [getLoginBlog, setGetLoginBlog] = useState([]);
-  const [select, setSelect] = useState(undefined);
+  const [select, setSelect] = useState("");
   const [search, setSearch] = useState();
   const [blog, setBlog] = useState({
     title: "",

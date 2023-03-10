@@ -27,6 +27,7 @@ const FunctionProvider = ({ children }) => {
     setBlog,
     setGetLoginBlog,
     search,
+    item,
     setSearch,
   } = useContext(StateContext);
 
@@ -172,7 +173,7 @@ const FunctionProvider = ({ children }) => {
         desc: data.desc,
         pic: data.blogPic,
       });
-      setSelect(data.category);
+      // setSelect(data.category);
       setIsLoading(false);
     } catch (error) {
       console.log(error);
@@ -343,8 +344,8 @@ const FunctionProvider = ({ children }) => {
       const formdata = new FormData();
       formdata.append("title", title);
       formdata.append("desc", desc);
-      formdata.append("category", select);
-      formdata.append("blogFile", user.pic);
+      formdata.append("category", select === "" ? item.category : select);
+
       const { data } = await axios.put(
         `http://localhost:5000/api/blog/editBlog/${id}`,
         formdata,
@@ -354,6 +355,11 @@ const FunctionProvider = ({ children }) => {
           },
         }
       );
+
+      if (formdata.select === "") {
+        toast.error(data.msg, toastOption);
+        return false;
+      }
 
       if (!data.status) {
         toast.error(data.msg, toastOption);
@@ -366,6 +372,7 @@ const FunctionProvider = ({ children }) => {
         navigate("/myprofile");
       }
     } catch (error) {
+      toast.error(data.msg, toastOption);
       console.log(error);
     }
   };

@@ -82,13 +82,14 @@ const EditBlog = () => {
           />
         </FormControl>
 
-        <Box sx={{ width: "500px" }}>
+        <Box sx={{ width: "500px" }} my="10px">
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">Category</InputLabel>
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
-              value={select}
+              placeholder={"item.category"}
+              //   value={select}
               label="Category"
               onChange={handleSelect}
             >
@@ -102,7 +103,7 @@ const EditBlog = () => {
           </FormControl>
         </Box>
 
-        <FormControl margin="dense">
+        {/* <FormControl margin="dense">
           <TextField
             type={"file"}
             onChange={handlePic}
@@ -112,7 +113,7 @@ const EditBlog = () => {
             name="blogFile"
             sx={{ width: "500px" }}
           />
-        </FormControl>
+        </FormControl> */}
 
         <Box>
           {loc === "/createBlog" ? (

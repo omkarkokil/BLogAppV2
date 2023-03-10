@@ -94,16 +94,23 @@ const deleteblog = async (req, res) => {
 async function editBlog(req, res) {
   try {
     const { id } = req.params;
-    const blogPic = req.file ? req.file.filename : null;
+    const pic = await Blog.find({ _id: id });
+    // const blogPIC = req.file.filename;
     const { title, desc, category } = req.body;
     const updateBlog = await Blog.findByIdAndUpdate(id, {
       title,
       desc,
       category,
-      blogPic,
     });
 
-    if ((!title, !desc, !category, !blogPic)) {
+    // if (req.file.filename === undefined) {
+    //   return res.json({
+    //     msg: "All fileds are madatory",
+    //     status: false,
+    //   });
+    // }
+
+    if (category === "") {
       return res.json({
         msg: "All fileds are madatory",
         status: false,
@@ -117,6 +124,10 @@ async function editBlog(req, res) {
     });
   } catch (error) {
     console.log(error);
+    return res.json({
+      msg: "Some error occured please try again",
+      status: false,
+    });
   }
 }
 
