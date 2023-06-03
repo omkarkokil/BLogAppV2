@@ -112,6 +112,7 @@ const FunctionProvider = ({ children }) => {
         "https://magicalwinds.onrender.com/api/auth/registeruser",
         formdata
       );
+      console.log(formdata);
 
       if (!data.status) {
         toast.error(data.msg, toastOption);
