@@ -79,7 +79,7 @@ export default function PreviewModal() {
                   <Stack>
                     <Avatar sx={{ height: "50px", width: "50px" }}>
                       <img
-                        src={`http://localhost:5000/public/${currentUser.pic}`}
+                        src={`https://magicalwinds.onrender.com/${currentUser.pic}`}
                         alt=""
                         height={"100%"}
                       />

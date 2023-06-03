@@ -46,7 +46,7 @@ const Comment = () => {
                 <Stack direction={"row"} alignItems="center" marginY="10px">
                   <Avatar sx={{ marginRight: "10px" }}>
                     <img
-                      src={`http://localhost:5000/public/${ele.author.pic}`}
+                      src={`https://magicalwinds.onrender.com/public/${ele.author.pic}`}
                       alt="none"
                       height={"100%"}
                     />

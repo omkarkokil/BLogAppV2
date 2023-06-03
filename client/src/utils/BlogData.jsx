@@ -118,7 +118,7 @@ const BlogData = (props) => {
                         avatar={
                           <Avatar aria-label="recipe">
                             <img
-                              src={`http://localhost:5000/public/${ele.userPic}`}
+                              src={`https://magicalwinds.onrender.com/${ele.userPic}`}
                               height="100%"
                               alt=""
                             />{" "}
@@ -136,7 +136,7 @@ const BlogData = (props) => {
                         alignItems: "flex-end",
                         justifyContent: "flex-end",
                       }}
-                      image={`http://localhost:5000/public/${ele.blogPic}`}
+                      image={`https://magicalwinds.onrender.com/${ele.blogPic}`}
                     >
                       <Box m={"5px"}>
                         <Chip

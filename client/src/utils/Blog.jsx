@@ -97,7 +97,7 @@ const Blog = () => {
             </Stack>
             <Stack width={"100%"}>
               <img
-                src={`http://localhost:5000/public/${item.blogPic}`}
+                src={`https://magicalwinds.onrender.com/${item.blogPic}`}
                 alt="none"
               />
             </Stack>
@@ -124,7 +124,7 @@ const Blog = () => {
               <Stack>
                 <Avatar sx={{ height: "50px", width: "50px" }}>
                   <img
-                    src={`http://localhost:5000/public/${item.userPic}`}
+                    src={`https://magicalwinds.onrender.com/${item.userPic}`}
                     alt=""
                     height={"100%"}
                   />
@@ -224,7 +224,7 @@ const Blog = () => {
                     <Stack direction={"row"} alignItems="center" marginY="10px">
                       <Avatar sx={{ marginRight: "10px" }}>
                         <img
-                          src={`http://localhost:5000/public/${ele.author.pic}`}
+                          src={`https://magicalwinds.onrender.com/${ele.author.pic}`}
                           alt="none"
                           height={"100%"}
                         />

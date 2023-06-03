@@ -108,7 +108,7 @@ const FunctionProvider = ({ children }) => {
       formdata.append("password", user.password);
       formdata.append("myFile", user.pic);
       const { data } = await axios.post(
-        "http://localhost:5000/api/auth/registeruser",
+        "https://magicalwinds.onrender.com/api/auth/registeruser",
         formdata
       );
 
@@ -130,7 +130,7 @@ const FunctionProvider = ({ children }) => {
     try {
       const { email, password } = user;
       const { data } = await axios.post(
-        "http://localhost:5000/api/auth/loginUser",
+        "https://magicalwinds.onrender.com/api/auth/loginUser",
         { email, password }
       );
 
@@ -159,7 +159,7 @@ const FunctionProvider = ({ children }) => {
     try {
       setIsLoading(true);
       const { data } = await axios.get(
-        "http://localhost:5000/api/blog/getAllBlogs",
+        "https://magicalwinds.onrender.com/api/blog/getAllBlogs",
         {
           params: {
             page: 1,
@@ -184,7 +184,7 @@ const FunctionProvider = ({ children }) => {
     try {
       setIsLoading(true);
       const { data } = await axios.get(
-        `http://localhost:5000/api/blog/getBlog/${id}`
+        `https://magicalwinds.onrender.com/api/blog/getBlog/${id}`
       );
       setItem(data);
 
@@ -207,7 +207,7 @@ const FunctionProvider = ({ children }) => {
     try {
       setIsLoading(true);
       const { data } = await axios.get(
-        `http://localhost:5000/api/blog/getcomment/${id}`
+        `https://magicalwinds.onrender.com/api/blog/getcomment/${id}`
       );
       setComments(data);
       setIsLoading(false);
@@ -220,7 +220,7 @@ const FunctionProvider = ({ children }) => {
     try {
       setIsLoading(true);
       const { data } = await axios.get(
-        `http://localhost:5000/api/blog/getAllComment/${id}`
+        `https://magicalwinds.onrender.com/api/blog/getAllComment/${id}`
       );
       setAllComments(data);
       console.log(allComments);
@@ -242,7 +242,7 @@ const FunctionProvider = ({ children }) => {
         return false;
       }
       const { data } = await axios.post(
-        `http://localhost:5000/api/blog/comment/${id}`,
+        `https://magicalwinds.onrender.com/api/blog/comment/${id}`,
 
         { comment: makeComment, author: currentUser._id, to: id },
         {
@@ -336,7 +336,7 @@ const FunctionProvider = ({ children }) => {
       formdata.append("date", date);
       formdata.append("blogFile", user.pic);
       const { data } = await axios.post(
-        "http://localhost:5000/api/blog/createBlog",
+        "https://magicalwinds.onrender.com/api/blog/createBlog",
         formdata,
         {
           headers: {
@@ -363,7 +363,7 @@ const FunctionProvider = ({ children }) => {
     try {
       setIsLoading(true);
       const { data } = await axios.get(
-        "http://localhost:5000/api/blog/getCurrentUserBlog",
+        "https://magicalwinds.onrender.com/api/blog/getCurrentUserBlog",
         {
           headers: {
             Authorization: localStorage.getItem("user"),
@@ -382,7 +382,7 @@ const FunctionProvider = ({ children }) => {
   const deleteBlog = async (id) => {
     setIsLoading(true);
     const { data } = await axios.delete(
-      `http://localhost:5000/api/blog/deleteBlog/${id}`,
+      `https://magicalwinds.onrender.com/api/blog/deleteBlog/${id}`,
       {
         headers: {
           Authorization: localStorage.getItem("user"),
@@ -415,7 +415,7 @@ const FunctionProvider = ({ children }) => {
       // formdata.append("category", select === "" ? item.category : select);
 
       const { data } = await axios.put(
-        `http://localhost:5000/api/blog/editBlog/${id}`,
+        `https://magicalwinds.onrender.com/api/blog/editBlog/${id}`,
         formdata,
         {
           headers: {
