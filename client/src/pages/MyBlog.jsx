@@ -86,7 +86,7 @@ const MyBlog = () => {
                 marginY={"30px"}
               >
                 <img
-                  src={`https://magicalwinds.onrender.com/${lastItem.blogPic}`}
+                  src={`https://magicalwinds.onrender.com/public/${lastItem.blogPic}`}
                   height="300px"
                 />
               </Stack>
@@ -149,7 +149,7 @@ const MyBlog = () => {
                   <Stack justifyContent={"flex-end"} direction={"row"}>
                     <Avatar>
                       <img
-                        src={`https://magicalwinds.onrender.com/${lastItem.userPic}`}
+                        src={`https://magicalwinds.onrender.com/public/${lastItem.userPic}`}
                         alt="none"
                         height={"100%"}
                       />

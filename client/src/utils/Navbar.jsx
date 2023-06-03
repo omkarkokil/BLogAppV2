@@ -164,7 +164,7 @@ const Navbar = () => {
                 <Tooltip title="Open settings">
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                     <Avatar
-                      src={`http://localhost:5000/public/${currentUser.pic}`}
+                      src={`https://magicalwinds.onrender.com/public/${currentUser.pic}`}
                       height={"100%"}
                     />
                   </IconButton>

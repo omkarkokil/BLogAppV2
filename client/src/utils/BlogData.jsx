@@ -39,7 +39,7 @@ const BlogData = (props) => {
     try {
       if (page > 0) {
         const { data } = await axios.get(
-          "http://localhost:5000/api/blog/getAllBlogs",
+          "https://magicalwinds.onrender.com/api/blog/getAllBlogs",
           {
             params: {
               page: page,
@@ -118,7 +118,7 @@ const BlogData = (props) => {
                         avatar={
                           <Avatar aria-label="recipe">
                             <img
-                              src={`https://magicalwinds.onrender.com/${ele.userPic}`}
+                              src={`https://magicalwinds.onrender.com/public/${ele.userPic}`}
                               height="100%"
                               alt=""
                             />{" "}
@@ -136,7 +136,7 @@ const BlogData = (props) => {
                         alignItems: "flex-end",
                         justifyContent: "flex-end",
                       }}
-                      image={`https://magicalwinds.onrender.com/${ele.blogPic}`}
+                      image={`https://magicalwinds.onrender.com/public/${ele.blogPic}`}
                     >
                       <Box m={"5px"}>
                         <Chip

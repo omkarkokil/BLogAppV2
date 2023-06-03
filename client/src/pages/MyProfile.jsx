@@ -66,7 +66,7 @@ const MyProfile = () => {
                   }}
                 >
                   <img
-                    src={`http://localhost:5000/public/${currentUser.pic}`}
+                    src={`https://magicalwinds.onrender.com/public/${currentUser.pic}`}
                     alt="none"
                     height={"100%"}
                   />
