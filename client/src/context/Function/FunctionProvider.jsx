@@ -102,23 +102,27 @@ const FunctionProvider = ({ children }) => {
 
   const RegisterUser = async () => {
     try {
+      setIsLoading(true);
       const formdata = new FormData();
       formdata.append("name", user.name);
       formdata.append("email", user.email);
       formdata.append("password", user.password);
       formdata.append("myFile", user.pic);
       const { data } = await axios.post(
-        "https://magicalwinds.onrender.com/api/auth/registerUser",
+        "https://magicalwinds.onrender.com/api/auth/registeruser",
         formdata
       );
 
       if (!data.status) {
         toast.error(data.msg, toastOption);
+        setIsLoading(false);
         return false;
       }
+
       if (data.status) {
         toast.success(data.msg, toastOption);
         localStorage.setItem("user", data.token);
+        setIsLoading(false);
         navigate("/");
       }
     } catch (error) {
@@ -127,6 +131,7 @@ const FunctionProvider = ({ children }) => {
   };
 
   const LoginUser = async () => {
+    setIsLoading(true);
     try {
       const { email, password } = user;
       const { data } = await axios.post(
@@ -146,6 +151,7 @@ const FunctionProvider = ({ children }) => {
     } catch (error) {
       console.log(error);
     }
+    setIsLoading(false);
   };
 
   const logOut = () => {
@@ -236,6 +242,7 @@ const FunctionProvider = ({ children }) => {
   };
 
   const createComment = async (id) => {
+    // setIsLoading(true);
     try {
       if (!localStorage.getItem("user")) {
         navigate("/login");
@@ -295,11 +302,13 @@ const FunctionProvider = ({ children }) => {
     } catch (error) {
       console.log(error);
     }
+    setIsLoading(false);
   };
 
   // console.log(makeComment);
 
   const createBlog = async () => {
+    setIsLoading(true);
     try {
       const month = [
         "January",
@@ -357,6 +366,7 @@ const FunctionProvider = ({ children }) => {
     } catch (error) {
       console.log(error);
     }
+    setIsLoading(false);
   };
 
   const currentUserBlog = async () => {
@@ -406,6 +416,7 @@ const FunctionProvider = ({ children }) => {
   };
 
   const editBlog = async (id) => {
+    setIsLoading(true);
     try {
       const { title, desc } = blog;
       const formdata = new FormData();
@@ -443,6 +454,7 @@ const FunctionProvider = ({ children }) => {
       // toast.error(data.msg, toastOption);
       console.log(error);
     }
+    setIsLoading(false);
   };
 
   return (

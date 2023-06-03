@@ -13,8 +13,9 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import ReactQuill from "react-quill";
+import BasicLoader from "../utils/BasicLoader";
 const EditBlog = () => {
-  const { user, select, blog, item, setBlogdesc, blogdesc } =
+  const { user, select, blog, item, setBlogdesc, blogdesc, isLoading } =
     useContext(StateContext);
   const { handleSelect, createBlog, handleBlog, handlePic, editBlog, getBlog } =
     useContext(FunctionContext);
@@ -49,140 +50,143 @@ const EditBlog = () => {
   const theme = useTheme();
   return (
     <>
-      <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          mt: "100px",
-          flexDirection: "column",
-        }}
-        className="appeareffect"
-      >
+      {isLoading ? (
+        <BasicLoader />
+      ) : (
         <Box
           sx={{
-            [theme.breakpoints.up("xs")]: {
-              width: "350px",
-            },
-            [theme.breakpoints.up("sm")]: {
-              width: "610px",
-            },
-            [theme.breakpoints.up("md")]: {
-              width: "810px",
-            },
-            [theme.breakpoints.up("lg")]: {
-              width: "1010px",
-            },
+            display: "flex",
+            alignItems: "center",
+            mt: "100px",
+            flexDirection: "column",
           }}
+          className="appeareffect"
         >
-          <Typography variant="h4" color="initial" marginBottom={"15px"}>
-            Edit Blog
-          </Typography>
-        </Box>
+          <Box
+            sx={{
+              [theme.breakpoints.up("xs")]: {
+                width: "350px",
+              },
+              [theme.breakpoints.up("sm")]: {
+                width: "610px",
+              },
+              [theme.breakpoints.up("md")]: {
+                width: "810px",
+              },
+              [theme.breakpoints.up("lg")]: {
+                width: "1010px",
+              },
+            }}
+          >
+            <Typography variant="h4" color="initial" marginBottom={"15px"}>
+              Edit Blog
+            </Typography>
+          </Box>
 
-        <Stack
-          direction={"row"}
-          sx={{
-            [theme.breakpoints.up("xs")]: {
-              flexDirection: "column",
-            },
-            [theme.breakpoints.up("lg")]: {
-              flexDirection: "row",
-            },
-          }}
-        >
-          <FormControl margin="dense">
-            <TextField
-              id="filled-basic"
-              label="Enter title"
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <PersonIcon />
-                  </InputAdornment>
-                ),
-              }}
-              margin="dense"
-              variant="outlined"
-              name="title"
-              value={blog.title}
-              onChange={handleBlog}
-              sx={{
-                mr: "10px",
-                [theme.breakpoints.up("xs")]: {
-                  width: "350px",
-                },
-                [theme.breakpoints.up("sm")]: {
-                  width: "600px",
-                },
-                [theme.breakpoints.up("md")]: {
-                  width: "800px",
-                },
-                [theme.breakpoints.up("lg")]: {
-                  width: "500px",
-                },
-              }}
+          <Stack
+            direction={"row"}
+            sx={{
+              [theme.breakpoints.up("xs")]: {
+                flexDirection: "column",
+              },
+              [theme.breakpoints.up("lg")]: {
+                flexDirection: "row",
+              },
+            }}
+          >
+            <FormControl margin="dense">
+              <TextField
+                id="filled-basic"
+                label="Enter title"
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <PersonIcon />
+                    </InputAdornment>
+                  ),
+                }}
+                margin="dense"
+                variant="outlined"
+                name="title"
+                value={blog.title}
+                onChange={handleBlog}
+                sx={{
+                  mr: "10px",
+                  [theme.breakpoints.up("xs")]: {
+                    width: "350px",
+                  },
+                  [theme.breakpoints.up("sm")]: {
+                    width: "600px",
+                  },
+                  [theme.breakpoints.up("md")]: {
+                    width: "800px",
+                  },
+                  [theme.breakpoints.up("lg")]: {
+                    width: "500px",
+                  },
+                }}
+              />
+            </FormControl>
+            <FormControl margin="dense">
+              <TextField
+                id="filled-basic"
+                label="Enter description"
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <AssignmentIcon />
+                    </InputAdornment>
+                  ),
+                }}
+                margin="dense"
+                variant="outlined"
+                sx={{
+                  [theme.breakpoints.up("xs")]: {
+                    width: "350px",
+                  },
+                  [theme.breakpoints.up("sm")]: {
+                    width: "600px",
+                  },
+                  [theme.breakpoints.up("md")]: {
+                    width: "800px",
+                  },
+                  [theme.breakpoints.up("lg")]: {
+                    width: "500px",
+                  },
+                }}
+                name="desc"
+                value={blog.desc}
+                onChange={handleBlog}
+              />
+            </FormControl>
+          </Stack>
+          <Stack
+            sx={{
+              height: "250px",
+              [theme.breakpoints.up("xs")]: {
+                width: "350px",
+              },
+              [theme.breakpoints.up("sm")]: {
+                width: "610px",
+              },
+              [theme.breakpoints.up("md")]: {
+                width: "810px",
+              },
+              [theme.breakpoints.up("lg")]: {
+                width: "1010px",
+              },
+            }}
+          >
+            <ReactQuill
+              theme="snow"
+              style={{ width: "100%", height: "100%" }}
+              modules={modules}
+              value={blogdesc}
+              onChange={setBlogdesc}
             />
-          </FormControl>
-          <FormControl margin="dense">
-            <TextField
-              id="filled-basic"
-              label="Enter description"
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <AssignmentIcon />
-                  </InputAdornment>
-                ),
-              }}
-              margin="dense"
-              variant="outlined"
-              sx={{
-                [theme.breakpoints.up("xs")]: {
-                  width: "350px",
-                },
-                [theme.breakpoints.up("sm")]: {
-                  width: "600px",
-                },
-                [theme.breakpoints.up("md")]: {
-                  width: "800px",
-                },
-                [theme.breakpoints.up("lg")]: {
-                  width: "500px",
-                },
-              }}
-              name="desc"
-              value={blog.desc}
-              onChange={handleBlog}
-            />
-          </FormControl>
-        </Stack>
-        <Stack
-          sx={{
-            height: "250px",
-            [theme.breakpoints.up("xs")]: {
-              width: "350px",
-            },
-            [theme.breakpoints.up("sm")]: {
-              width: "610px",
-            },
-            [theme.breakpoints.up("md")]: {
-              width: "810px",
-            },
-            [theme.breakpoints.up("lg")]: {
-              width: "1010px",
-            },
-          }}
-        >
-          <ReactQuill
-            theme="snow"
-            style={{ width: "100%", height: "100%" }}
-            modules={modules}
-            value={blogdesc}
-            onChange={setBlogdesc}
-          />
-        </Stack>
+          </Stack>
 
-        {/* <Box sx={{ width: "500px" }} my="10px">
+          {/* <Box sx={{ width: "500px" }} my="10px">
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">Category</InputLabel>
             <Select
@@ -203,7 +207,7 @@ const EditBlog = () => {
           </FormControl>
         </Box> */}
 
-        {/* <FormControl margin="dense">
+          {/* <FormControl margin="dense">
           <TextField
             type={"file"}
             onChange={handlePic}
@@ -215,36 +219,37 @@ const EditBlog = () => {
           />
         </FormControl> */}
 
-        <Box
-          sx={{
-            [theme.breakpoints.up("xs")]: {
-              width: "350px",
-              mt: "130px",
-            },
-            [theme.breakpoints.up("sm")]: {
-              width: "610px",
-              mt: "100px",
-            },
-            [theme.breakpoints.up("md")]: {
-              width: "810px",
-              mt: "80px",
-            },
-            [theme.breakpoints.up("lg")]: {
-              width: "1010px",
-              mt: "60px",
-            },
-          }}
-        >
-          <Button
-            variant="contained"
-            onClick={() => editBlog(id)}
-            sx={{ px: "30px", mr: "10px" }}
-            color="warning"
+          <Box
+            sx={{
+              [theme.breakpoints.up("xs")]: {
+                width: "350px",
+                mt: "130px",
+              },
+              [theme.breakpoints.up("sm")]: {
+                width: "610px",
+                mt: "100px",
+              },
+              [theme.breakpoints.up("md")]: {
+                width: "810px",
+                mt: "80px",
+              },
+              [theme.breakpoints.up("lg")]: {
+                width: "1010px",
+                mt: "60px",
+              },
+            }}
           >
-            Update blog
-          </Button>
+            <Button
+              variant="contained"
+              onClick={() => editBlog(id)}
+              sx={{ px: "30px", mr: "10px" }}
+              color="warning"
+            >
+              Update blog
+            </Button>
+          </Box>
         </Box>
-      </Box>
+      )}
     </>
   );
 };
