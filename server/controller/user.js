@@ -16,6 +16,13 @@ const RegisterUser = async (req, res) => {
     console.log(req.file);
     const emailfind = await User.findOne({ email });
 
+    if (!name || !email || !password) {
+      return res.json({
+        status: false,
+        msg: "All fields are mandatory",
+      })
+    }
+
     if (emailfind) {
       return res.json({ status: false, msg: "Email already exists" });
     }
@@ -25,12 +32,7 @@ const RegisterUser = async (req, res) => {
     const user = await User.create({ name, email, password: hash, pic });
     delete User.password;
 
-    if (!name || !email || !password) {
-      return res.json({
-        status: false,
-        msg: "All fields are mandatory",
-      })
-    }
+
 
     const createdUser = await User.findOne({ email }).select("-password");
 
