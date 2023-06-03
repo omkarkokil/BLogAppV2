@@ -98,6 +98,7 @@ const Register = () => {
             margin="dense"
             variant="outlined"
             name="myFile"
+            accept="image/*"
             sx={{ width: "400px" }}
           />
         </FormControl>

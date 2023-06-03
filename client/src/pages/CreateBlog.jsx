@@ -205,6 +205,7 @@ const CreateBlog = () => {
             <TextField
               type={"file"}
               onChange={handlePic}
+              accept="image/*"
               id="filled-basic"
               variant="outlined"
               name="blogFile"

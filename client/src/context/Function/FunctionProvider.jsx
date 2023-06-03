@@ -108,7 +108,7 @@ const FunctionProvider = ({ children }) => {
       formdata.append("password", user.password);
       formdata.append("myFile", user.pic);
       const { data } = await axios.post(
-        "https://magicalwinds.onrender.com/api/auth/registeruser",
+        "https://magicalwinds.onrender.com/api/auth/registerUser",
         formdata
       );
 
