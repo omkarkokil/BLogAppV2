@@ -3,7 +3,7 @@ const Blog = require("../model/BlogModel");
 
 const createBlog = async (req, res) => {
   try {
-    const { title, desc, category, date, userId, name, userPic } = req.body;
+    const { title, desc, blog, category, date, userId, name, userPic } = req.body;
     const blogPic = req.file ? req.file.filename : null;
     const note = await Blog.create({
       title,
@@ -14,9 +14,10 @@ const createBlog = async (req, res) => {
       userId,
       name,
       userPic,
+      blog
     });
 
-    if ((!title, !desc, !category)) {
+    if ((!title, !desc, !category, !blog)) {
       return res.json({ msg: "All fields are madatory", status: false });
     }
 
@@ -32,7 +33,10 @@ const createBlog = async (req, res) => {
 
 const getAllBlogs = async (req, res) => {
   try {
-    const blog = await Blog.find().sort({ _id: -1 });
+    const page = req.query.page ? parseInt(req.query.page) : 1;
+    const size = 9;
+    const skip = (page - 1) * size
+    const blog = await Blog.find().sort({ _id: -1 }).skip(skip).limit(size);
     return res.json(blog);
   } catch (error) {
     return res.json({ msg: error, status: false });
@@ -42,7 +46,7 @@ const getAllBlogs = async (req, res) => {
 const getBlog = async (req, res) => {
   try {
     const { id } = req.params;
-    const getBlog = await Blog.findById({ _id: id });
+    const getBlog = await Blog.findById({ _id: id }).sort({ createdAt: -1 });
     return res.json(getBlog);
   } catch (error) {
     console.log(error);
@@ -96,11 +100,12 @@ async function editBlog(req, res) {
     const { id } = req.params;
     const pic = await Blog.find({ _id: id });
     // const blogPIC = req.file.filename;
-    const { title, desc, category } = req.body;
+    const { title, desc, category, blog } = req.body;
     const updateBlog = await Blog.findByIdAndUpdate(id, {
       title,
       desc,
       category,
+      blog
     });
 
     // if (req.file.filename === undefined) {

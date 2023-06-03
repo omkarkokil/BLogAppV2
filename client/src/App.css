@@ -8,6 +8,96 @@
   text-decoration: none;
 }
 
+.pen {
+  height: 150px;
+  right: 20%;
+  top: 10%;
+  position: absolute;
+}
+
+.blogyellow {
+  height: 80vh;
+  right: -10%;
+  bottom: -15%;
+  position: absolute;
+}
+.blogblue {
+  height: 70vh;
+  right: -15%;
+  bottom: -20%;
+  position: absolute;
+}
+
+@media (max-width: 400px) {
+  .blogyellow {
+    height: 35vh;
+  }
+
+  .blogblue {
+    height: 35vh;
+  }
+
+  .pen {
+    height: 70px;
+    top: 50%;
+  }
+}
+
+@media (max-width: 900px) {
+  .class-a {
+    color: #000 !important;
+  }
+}
+
+@media (min-width: 400px) and (max-width: 900px) {
+  .imaginary {
+    display: none;
+  }
+
+  .blogyellow {
+    height: 45vh;
+  }
+
+  .blogblue {
+    height: 45vh;
+  }
+
+  .pen {
+    height: 70px;
+    top: 50%;
+  }
+}
+
+@media (min-width: 900px) and (max-width: 1200px) {
+  .blogyellow {
+    height: 60vh;
+  }
+
+  .blogblue {
+    height: 60vh;
+  }
+
+  .pen {
+    height: 125px;
+    top: 30%;
+  }
+}
+
+.navBasic {
+  display: flex !important;
+  flex-direction: column !important;
+  position: absolute;
+  top: 50px;
+  right: 50px;
+  background: #fff;
+  width: 125px;
+  height: 100px;
+  box-shadow: 0 0 3px #333;
+  border-radius: 5px;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
 .homeBack {
   background: linear-gradient(132deg, rgb(1, 96, 105) 0%, rgb(0, 72, 95) 100%);
   position: relative;
@@ -16,38 +106,42 @@
 .imaginary {
   position: absolute;
   bottom: -5%;
-  height: 50vh;
+  /* height: 52vh;
+  width: 50%; */
   z-index: 3;
+  background: url("./img/imgae.png") no-repeat center/cover;
 }
+
+/* .img1 {
+  background: url("./img/card.png") no-repeat center/cover;
+} */
 
 .img2 {
   right: 0% !important;
   bottom: -10% !important;
   animation-delay: 0.5s !important;
-  height: 40vh !important;
+  /* height: 40vh !important; */
+  /* width: 18%; */
+  background: url("./img/calc.png") no-repeat center/cover;
 }
 
-.img3 {
-  left: -5% !important;
-  top: 10% !important;
+/* .img3 {
   animation-delay: 0.6s !important;
-  height: 60vh !important;
   z-index: 0 !important;
+  background: url("./img/flowergreen.png") no-repeat center/cover;
 }
 .img4 {
-  left: 15% !important;
-  top: 50% !important;
   animation-delay: 0.5s !important;
-  height: 20vh !important;
+  background: url("./img/cup.png") no-repeat center/cover;
 }
+
 .imaginaryLeft {
   position: absolute;
   bottom: 0;
   animation-delay: 0.5s !important;
   right: 10%;
-  height: 30vh;
   z-index: 1 !important;
-}
+} */
 a {
   color: #000;
   text-decoration: none;
@@ -74,7 +168,6 @@ a {
 
   font-weight: bold;
   font-size: 2em;
-  text-shadow: 0 0 5px #333;
 }
 
 .basic {

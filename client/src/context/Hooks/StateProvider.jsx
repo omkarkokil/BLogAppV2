@@ -31,6 +31,12 @@ const StateProvider = ({ children }) => {
     desc: "",
   });
 
+  const [blogdesc, setBlogdesc] = useState("");
+
+  const [open, setOpen] = useState(false);
+
+  const [page, setPage] = useState(2);
+
   return (
     <StateContext.Provider
       value={{
@@ -60,6 +66,12 @@ const StateProvider = ({ children }) => {
         setGetLoginBlog,
         search,
         setSearch,
+        blogdesc,
+        setBlogdesc,
+        open,
+        setOpen,
+        page,
+        setPage,
       }}
     >
       {children}

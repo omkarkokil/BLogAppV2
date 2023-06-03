@@ -1,4 +1,12 @@
-import { Button, Container, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Card,
+  CardMedia,
+  Container,
+  Paper,
+  Typography,
+} from "@mui/material";
 import { Stack } from "@mui/system";
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
@@ -15,22 +23,40 @@ import blogblue from "../img/blogblue.png";
 import pens from "../img/pens.png";
 import graph from "../img/graph.png";
 import map from "../img/map.png";
+import { useTheme } from "@mui/material/styles";
 
 const Home = () => {
   const navigate = useNavigate();
-
+  const theme = useTheme();
   const { isLogin } = useContext(StateContext);
   return (
     <>
       <Stack
         direction={{ md: "row", sm: "column" }}
-        height={"100vh"}
-        className=" homeBack"
+        sx={{
+          [theme.breakpoints.up("xs")]: {
+            justifyContent: "center",
+            height: "95vh",
+          },
+          [theme.breakpoints.up("sm")]: {
+            height: "100vh",
+          },
+          [theme.breakpoints.up("md")]: {
+            justifyContent: "intial",
+          },
+        }}
+        className="homeBack"
       >
         <Stack
-          marginX={"40px"}
-          marginY={"100px"}
           alignItems={"center"}
+          sx={{
+            [theme.breakpoints.up("sm")]: {
+              marginY: "0",
+            },
+            [theme.breakpoints.up("md")]: {
+              marginY: "100px",
+            },
+          }}
           width={"100%"}
         >
           <Typography className="basic appeareffect">
@@ -38,23 +64,152 @@ const Home = () => {
           </Typography>
           <Typography
             variant="h1"
-            fontSize="4em"
+            sx={{
+              [theme.breakpoints.up("xs")]: {
+                fontSize: "2.5em",
+              },
+              [theme.breakpoints.up("sm")]: {
+                fontSize: "3em",
+              },
+              [theme.breakpoints.up("md")]: {
+                fontSize: "3em",
+              },
+              [theme.breakpoints.up("lg")]: {
+                fontSize: "4em",
+              },
+            }}
             lineHeight={"1.5"}
-            className="typeone  appeareffect"
+            className="typeone appeareffect"
           >
             Join us & show your caliber
           </Typography>
 
-          <img src={img1} className="imaginary newEffect" alt="none" />
-          <img src={cardblog} className="imaginaryLeft newEffect" alt="none" />
-
-          <img src={calc} className="imaginaryLeft img2 newEffect" alt="none" />
-          <img
-            src={flowergreen}
-            className="imaginaryLeft img3 newEffect"
-            alt="none"
+          <Box
+            className="imaginary newEffect"
+            sx={{
+              [theme.breakpoints.up("md")]: {
+                display: "none",
+              },
+              [theme.breakpoints.up("md")]: {
+                height: "40vh",
+              },
+              [theme.breakpoints.up("lg")]: {
+                height: "52vh",
+                width: "50%",
+              },
+            }}
           />
-          <img src={cup} className="imaginaryLeft img4 newEffect" alt="none" />
+
+          <Paper
+            component={"img"}
+            className="newEffect"
+            sx={{
+              backgroundColor: "transparent",
+              position: "absolute",
+              bottom: "0",
+              right: "10%",
+              zIndex: "1 !important",
+              [theme.breakpoints.up("xs")]: {
+                height: "150px",
+              },
+              [theme.breakpoints.up("sm")]: {
+                height: "200px",
+              },
+              [theme.breakpoints.up("md")]: {
+                height: "225px",
+              },
+              [theme.breakpoints.up("lg")]: {
+                height: "250px",
+              },
+            }}
+            elevation={0}
+            src={cardblog}
+          />
+
+          <Paper
+            component={"img"}
+            className="newEffect"
+            src={calc}
+            elevation={0}
+            sx={{
+              right: "0% !important",
+              backgroundColor: "transparent",
+              position: "absolute",
+              zIndex: "2",
+              [theme.breakpoints.up("xs")]: {
+                height: "150px",
+                bottom: "-5% !important",
+              },
+              [theme.breakpoints.up("sm")]: {
+                height: "225px",
+                bottom: "-10% !important",
+              },
+              [theme.breakpoints.up("md")]: {
+                height: "250px",
+                bottom: "-10% !important",
+              },
+              [theme.breakpoints.up("lg")]: {
+                height: "275px",
+                bottom: "-10% !important",
+              },
+            }}
+          />
+
+          <Paper
+            component={"img"}
+            className="newEffect"
+            src={flowergreen}
+            elevation={0}
+            sx={{
+              backgroundColor: "transparent",
+              position: "absolute",
+              [theme.breakpoints.up("xs")]: {
+                bottom: "10% !important",
+                height: "20vh ",
+                left: "-5%",
+              },
+              [theme.breakpoints.up("sm")]: {
+                bottom: "10% !important",
+                height: "250px",
+              },
+              [theme.breakpoints.up("md")]: {
+                height: "300px ",
+              },
+              [theme.breakpoints.up("lg")]: {
+                left: -"5% !important",
+                top: "10% !important",
+                height: "60vh ",
+              },
+            }}
+          />
+
+          <Paper
+            component={"img"}
+            className="newEffect"
+            src={cup}
+            elevation={0}
+            sx={{
+              backgroundColor: "transparent",
+              position: "absolute",
+              [theme.breakpoints.up("xs")]: {
+                height: "80px ",
+                left: "10% !important",
+                bottom: "5% !important",
+              },
+              [theme.breakpoints.up("sm")]: {
+                height: "100px",
+              },
+              [theme.breakpoints.up("md")]: {
+                height: "150px",
+              },
+              [theme.breakpoints.up("lg")]: {
+                left: "15% !important",
+                top: "50% !important",
+                height: "200px ",
+              },
+            }}
+          />
+
           <Button
             variant="contained"
             className="appeareffect"
@@ -73,26 +228,61 @@ const Home = () => {
         </Stack>
       </Stack>
       <Stack
-        direction={{ md: "row", sm: "column" }}
-        height={"80vh"}
+        direction={{ md: "row", xs: "column" }}
         sx={{
-          zIndex: 1000,
+          zIndex: 100,
           position: "relative",
           background: "#ff8000",
           overflow: "hidden",
+          [theme.breakpoints.up("xs")]: {
+            flexDirection: "column",
+            height: "60vh",
+          },
+          [theme.breakpoints.up("md")]: {
+            height: "80vh",
+            flexDirection: "row",
+          },
         }}
       >
-        <Stack width={"50%"} justifyContent="center">
+        <Stack
+          sx={{
+            [theme.breakpoints.up("sm")]: {
+              width: "80%",
+            },
+            [theme.breakpoints.up("lg")]: {
+              width: "50%",
+            },
+          }}
+          justifyContent="center"
+        >
           <Container>
             <Typography
               variant="h1"
-              fontSize={"3em"}
               lineHeight={"1.5"}
               color="#fff"
+              sx={{
+                [theme.breakpoints.up("xs")]: {
+                  fontSize: "2em",
+                },
+                [theme.breakpoints.up("md")]: {
+                  fontSize: "3em",
+                },
+              }}
             >
               Create a new content
             </Typography>
-            <Typography paragraph fontSize={"1em"} color="#fff">
+            <Typography
+              paragraph
+              sx={{
+                [theme.breakpoints.up("xs")]: {
+                  fontSize: ".8em",
+                },
+                [theme.breakpoints.up("md")]: {
+                  fontSize: "1.1em",
+                },
+              }}
+              color="#fff"
+            >
               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente
               atque dolore tempora optio molestias. Vel vero harum esse, aliquam
               corrupti accusantium iste, numquam accusamus exercitationem, atque
@@ -101,57 +291,146 @@ const Home = () => {
             </Typography>
           </Container>
         </Stack>
-        <img
+        <Paper
+          component={"img"}
+          className="newEffect"
           src={blogYellow}
-          className="imaginaryLeft"
-          style={{
-            height: "80vh",
+          elevation={0}
+          sx={{
+            backgroundColor: "transparent",
             right: "-10%",
             bottom: "-15%",
             position: "absolute",
+            [theme.breakpoints.up("xs")]: {
+              height: "300px",
+            },
+            [theme.breakpoints.up("sm")]: {
+              height: "400px",
+            },
+            [theme.breakpoints.up("md")]: {
+              height: "400px",
+            },
+            [theme.breakpoints.up("lg")]: {
+              height: "600px",
+            },
           }}
-          alt="none"
         />
-        <img
+
+        <Paper
+          component={"img"}
+          className="newEffect"
           src={blogblue}
-          className="imaginaryLeft"
-          style={{
-            height: "70vh",
+          elevation={0}
+          sx={{
+            backgroundColor: "transparent",
+
             right: "-15%",
             bottom: "-20%",
             position: "absolute",
+            [theme.breakpoints.up("xs")]: {
+              height: "250px",
+            },
+            [theme.breakpoints.up("sm")]: {
+              height: "350px",
+            },
+            [theme.breakpoints.up("md")]: {
+              height: "350px",
+            },
+            [theme.breakpoints.up("lg")]: {
+              height: "500px",
+            },
           }}
-          alt="none"
         />
-        <img
+
+        <Paper
+          component={"img"}
+          className="newEffect"
           src={pens}
-          className="imaginaryLeft"
-          style={{
-            height: "150px",
-            right: "20%",
-            top: "10%",
+          elevation={0}
+          sx={{
+            backgroundColor: "transparent",
+
             position: "absolute",
+            right: "20%",
+
+            [theme.breakpoints.up("xs")]: {
+              height: "70px",
+              top: "40%",
+              right: "5%",
+            },
+            [theme.breakpoints.up("sm")]: {
+              height: "85px",
+              top: "20%",
+              right: "5%",
+            },
+            [theme.breakpoints.up("md")]: {
+              height: "100px",
+              top: "40%",
+              right: "5%",
+            },
+            [theme.breakpoints.up("lg")]: {
+              height: "150px",
+              top: "10%",
+            },
           }}
-          alt="none"
         />
+        {/* <img src={blogblue} className=" blogblue" alt="none" /> */}
+        {/* <img src={pens} className=" pen" alt="none" /> */}
       </Stack>
 
       <Stack
-        direction={"row"}
+        direction={{ md: "row", xs: "column" }}
         sx={{
           justifyContent: "center",
           alignItems: "center",
           width: "100%",
           height: "80vh",
           background: "#444",
-          zIndex: 1000,
+          zIndex: 100,
           position: "relative",
+          [theme.breakpoints.up("xs")]: {
+            flexDirection: "column",
+          },
+          [theme.breakpoints.up("md")]: {
+            flexDirection: "row",
+          },
         }}
       >
-        <Stack width={"50%"} color="white">
+        <Stack
+          sx={{
+            [theme.breakpoints.up("xs")]: {
+              width: "80%",
+            },
+            [theme.breakpoints.up("md")]: {
+              width: "50%",
+            },
+          }}
+          color="white"
+        >
           <Container>
-            <Typography variant="h3">Make a blog over the world</Typography>
-            <Typography>
+            <Typography
+              variant="h3"
+              sx={{
+                [theme.breakpoints.up("xs")]: {
+                  fontSize: "2em",
+                },
+                [theme.breakpoints.up("md")]: {
+                  fontSize: "3em",
+                },
+              }}
+            >
+              Make a blog over the world
+            </Typography>
+            <Typography
+              sx={{
+                [theme.breakpoints.up("xs")]: {
+                  fontSize: ".8em",
+                },
+                [theme.breakpoints.up("md")]: {
+                  fontSize: "1.1em",
+                },
+              }}
+            >
               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum
               fugit assumenda provident corporis veritatis perspiciatis, itaque,
               porro similique, nam at atque ipsam. Recusandae ea nihil nostrum

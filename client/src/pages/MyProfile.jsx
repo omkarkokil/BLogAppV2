@@ -1,4 +1,4 @@
-import { Avatar, Button, Divider, Typography } from "@mui/material";
+import { Avatar, Button, Divider, Typography, useTheme } from "@mui/material";
 import { Box, Stack } from "@mui/system";
 import React, { useContext, useEffect } from "react";
 import FunctionContext from "../context/Function/FunctionContext";
@@ -10,6 +10,8 @@ const MyProfile = () => {
   const { isLoading, currentUser, getLoginBlog } = useContext(StateContext);
   const { logOut, currentUserBlog } = useContext(FunctionContext);
 
+  const theme = useTheme();
+
   useEffect(() => {
     currentUserBlog();
   }, [window.location.pathname]);
@@ -18,16 +20,51 @@ const MyProfile = () => {
       {isLoading ? (
         <MainLoader />
       ) : (
-        <Stack marginTop={"5%"}>
+        <Stack
+          sx={{
+            [theme.breakpoints.up("xs")]: {
+              marginTop: "20%",
+            },
+            [theme.breakpoints.up("sm")]: {
+              marginTop: "15%",
+            },
+            [theme.breakpoints.up("md")]: {
+              marginTop: "10%",
+            },
+          }}
+        >
           <Stack alignItems={"center"}>
             <Stack
               alignItems={"center"}
               justifyContent={"center"}
               width={"50%"}
               direction={"row"}
+              sx={{
+                [theme.breakpoints.up("xs")]: {
+                  flexDirection: "column",
+                },
+                [theme.breakpoints.up("md")]: {
+                  flexDirection: "row",
+                },
+              }}
             >
               <Stack mx={"50px"}>
-                <Avatar sx={{ width: "150px", height: "150px" }}>
+                <Avatar
+                  sx={{
+                    [theme.breakpoints.up("xs")]: {
+                      width: "110px",
+                      height: "110px",
+                    },
+                    [theme.breakpoints.up("sm")]: {
+                      width: "130px",
+                      height: "130px",
+                    },
+                    [theme.breakpoints.up("md")]: {
+                      width: "150px",
+                      height: "150px",
+                    },
+                  }}
+                >
                   <img
                     src={`http://localhost:5000/public/${currentUser.pic}`}
                     alt="none"
@@ -36,8 +73,28 @@ const MyProfile = () => {
                 </Avatar>
               </Stack>
               <Stack>
-                <Stack direction={"row"}>
-                  <Typography variant="h4" mr={"10px"}>
+                <Stack
+                  direction={"row"}
+                  sx={{
+                    [theme.breakpoints.up("xs")]: {
+                      flexDirection: "column",
+                    },
+                    [theme.breakpoints.up("md")]: {
+                      flexDirection: "row",
+                    },
+                  }}
+                >
+                  <Typography
+                    variant="h4"
+                    sx={{
+                      [theme.breakpoints.up("xs")]: {
+                        mr: "0px",
+                      },
+                      [theme.breakpoints.up("md")]: {
+                        mr: "10px",
+                      },
+                    }}
+                  >
                     {currentUser.name}
                   </Typography>
                   <Button variant="contained" color="warning" onClick={logOut}>

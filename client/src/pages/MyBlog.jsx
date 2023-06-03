@@ -12,7 +12,7 @@ import { Stack } from "@mui/system";
 import CardData from "../utils/CardData";
 import Footer from "../utils/Footer";
 import StateContext from "../context/Hooks/StateContext";
-import FunctionContext from "../Context/Function/FunctionContext";
+import FunctionContext from "../context/Function/FunctionContext";
 import { Link, useNavigate } from "react-router-dom";
 import WarningAmberIcon from "@mui/icons-material/WarningAmber";
 import MainLoader from "../utils/MainLoader";

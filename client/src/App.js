@@ -16,6 +16,7 @@ import Comment from "./pages/Comment";
 import CreateBlog from "./pages/CreateBlog";
 import MyProfile from "./pages/MyProfile";
 import EditBlog from "./pages/EditBlog";
+import PreviewModal from "./utils/PreviewModal";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <BrowserRouter>
           <StateProvider>
             <FunctionProvider>
+              <PreviewModal />
               <Navbar />
               <ToastContainer />
               <Routes>

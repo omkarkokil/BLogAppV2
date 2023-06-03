@@ -20,16 +20,29 @@ const FunctionProvider = ({ children }) => {
     setComments,
     makeComment,
     setMakeComment,
+    allComments,
+    comments,
     setAllComments,
     select,
     setSelect,
     blog,
     setBlog,
+    getLoginBlog,
     setGetLoginBlog,
     search,
     item,
     setSearch,
+    blogdesc,
+    open,
+    setBlogdesc,
+    setOpen,
   } = useContext(StateContext);
+
+  //TODO basic
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => setOpen(false);
 
   useEffect(() => {
     if (localStorage.getItem("user")) {
@@ -146,7 +159,12 @@ const FunctionProvider = ({ children }) => {
     try {
       setIsLoading(true);
       const { data } = await axios.get(
-        "http://localhost:5000/api/blog/getAllBlogs"
+        "http://localhost:5000/api/blog/getAllBlogs",
+        {
+          params: {
+            page: 1,
+          },
+        }
       );
 
       setItems(data);
@@ -156,9 +174,11 @@ const FunctionProvider = ({ children }) => {
     }
   };
 
+  const loc = window.location.pathname;
+
   useEffect(() => {
     getBlogs();
-  }, [window.location.pathname]);
+  }, [loc]);
 
   const getBlog = async (id) => {
     try {
@@ -168,11 +188,14 @@ const FunctionProvider = ({ children }) => {
       );
       setItem(data);
 
-      setBlog({
-        title: data.title,
-        desc: data.desc,
-        pic: data.blogPic,
-      });
+      if (loc.includes("editBlog")) {
+        setBlog({
+          title: data.title,
+          desc: data.desc,
+          pic: data.blogPic,
+        });
+        setBlogdesc(data.blog);
+      }
       // setSelect(data.category);
       setIsLoading(false);
     } catch (error) {
@@ -200,6 +223,8 @@ const FunctionProvider = ({ children }) => {
         `http://localhost:5000/api/blog/getAllComment/${id}`
       );
       setAllComments(data);
+      console.log(allComments);
+
       setIsLoading(false);
     } catch (error) {
       console.log(error);
@@ -233,13 +258,46 @@ const FunctionProvider = ({ children }) => {
 
       if (data.status) {
         toast.success(data.msg, toastOption);
+
+        setAllComments((all) => [
+          {
+            author: {
+              name: currentUser.name,
+              pic: currentUser.pic,
+              _id: currentUser._id,
+            },
+            comment: data.comments.comment,
+            to: id,
+            createdAt: "22 may 2002",
+          },
+          ...all,
+        ]);
+
+        const newElement =
+          comments.length >= 5 ? comments.slice(0, -1) : comments;
+
+        setComments(() => [
+          {
+            author: {
+              name: currentUser.name,
+              pic: currentUser.pic,
+              _id: currentUser._id,
+            },
+            comment: data.comments.comment,
+            to: id,
+            createdAt: data.comments.createdAt,
+          },
+          ...newElement,
+        ]);
+
         setMakeComment("");
-        navigate("/");
       }
     } catch (error) {
       console.log(error);
     }
   };
+
+  // console.log(makeComment);
 
   const createBlog = async () => {
     try {
@@ -270,6 +328,7 @@ const FunctionProvider = ({ children }) => {
       const formdata = new FormData();
       formdata.append("title", title);
       formdata.append("desc", desc);
+      formdata.append("blog", blogdesc);
       formdata.append("category", select);
       formdata.append("userId", currentUser.id);
       formdata.append("name", currentUser.name);
@@ -318,7 +377,10 @@ const FunctionProvider = ({ children }) => {
     }
   };
 
+  // console.log(getLoginBlog);
+
   const deleteBlog = async (id) => {
+    setIsLoading(true);
     const { data } = await axios.delete(
       `http://localhost:5000/api/blog/deleteBlog/${id}`,
       {
@@ -334,8 +396,13 @@ const FunctionProvider = ({ children }) => {
 
     if (data.status) {
       toast.success(data.msg, toastOption);
-      navigate("/myprofile");
+      const newBlog = getLoginBlog.filter((item) => {
+        return item._id !== id;
+      });
+
+      setGetLoginBlog(newBlog);
     }
+    setIsLoading(false);
   };
 
   const editBlog = async (id) => {
@@ -344,7 +411,8 @@ const FunctionProvider = ({ children }) => {
       const formdata = new FormData();
       formdata.append("title", title);
       formdata.append("desc", desc);
-      formdata.append("category", select === "" ? item.category : select);
+      formdata.append("blog", blogdesc);
+      // formdata.append("category", select === "" ? item.category : select);
 
       const { data } = await axios.put(
         `http://localhost:5000/api/blog/editBlog/${id}`,
@@ -372,7 +440,7 @@ const FunctionProvider = ({ children }) => {
         navigate("/myprofile");
       }
     } catch (error) {
-      toast.error(data.msg, toastOption);
+      // toast.error(data.msg, toastOption);
       console.log(error);
     }
   };
@@ -397,6 +465,8 @@ const FunctionProvider = ({ children }) => {
         createBlog,
         handleSearch,
         editBlog,
+        handleOpen,
+        handleClose,
       }}
     >
       {children}

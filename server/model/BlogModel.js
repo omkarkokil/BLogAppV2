@@ -9,6 +9,10 @@ const blogSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  blog: {
+    type: String,
+    // required: true
+  },
   category: {
     type: String,
     required: true,

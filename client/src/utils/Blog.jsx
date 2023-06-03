@@ -1,4 +1,12 @@
-import { Avatar, Box, Button, Chip, Divider, Typography } from "@mui/material";
+import {
+  Avatar,
+  Box,
+  Button,
+  Chip,
+  Divider,
+  Typography,
+  useTheme,
+} from "@mui/material";
 import { Stack } from "@mui/system";
 import React, { useContext, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
@@ -37,15 +45,53 @@ const Blog = () => {
     getAllComments(id);
   }, [window.location.pathname]);
 
+  const theme = useTheme();
+
   return (
     <>
       {isLoading ? (
         <MainLoader />
       ) : (
-        <Stack alignItems={"center"} marginTop={"5%"}>
-          <Stack width={"50%"}>
+        <Stack
+          alignItems={"center"}
+          sx={{
+            [theme.breakpoints.up("xs")]: {
+              marginTop: "20%",
+            },
+            [theme.breakpoints.up("sm")]: {
+              marginTop: "15%",
+            },
+            [theme.breakpoints.up("md")]: {
+              marginTop: "10%",
+            },
+          }}
+        >
+          <Stack
+            sx={{
+              [theme.breakpoints.up("xs")]: {
+                width: "90%",
+              },
+              [theme.breakpoints.up("sm")]: {
+                width: "80%",
+              },
+              [theme.breakpoints.up("md")]: {
+                width: "50%",
+              },
+            }}
+          >
             <Stack marginY="20px">
-              <Typography variant="h1" fontSize={"3.2em"} fontWeight={"bold"}>
+              <Typography
+                variant="h1"
+                sx={{
+                  [theme.breakpoints.up("xs")]: {
+                    fontSize: "2.7em",
+                  },
+                  [theme.breakpoints.up("sm")]: {
+                    fontSize: "3.2em",
+                  },
+                }}
+                fontWeight={"bold"}
+              >
                 {item.title}
               </Typography>
             </Stack>
@@ -62,9 +108,18 @@ const Blog = () => {
                 label={item.category}
               />
             </Stack>
-            <Stack>
-              <Typography paragraph>{item.desc}</Typography>
-            </Stack>
+
+            <Box
+              sx={{
+                [theme.breakpoints.up("xs")]: {
+                  fontSize: ".9em",
+                },
+                [theme.breakpoints.up("sm")]: {
+                  fontSize: "1.05em",
+                },
+              }}
+              dangerouslySetInnerHTML={{ __html: item.blog }}
+            ></Box>
             <Stack width={"100%"} direction={"row"} alignItems={"flex-start"}>
               <Stack>
                 <Avatar sx={{ height: "50px", width: "50px" }}>
@@ -117,15 +172,27 @@ const Blog = () => {
                     </IconButton>
                   </InputAdornment>
                 }
-                name="makeComment"
                 onChange={handleComment}
+                value={makeComment}
                 label="comment"
               />
             </FormControl>
           </Stack>
           {comments.length <= 0 ? (
             <Box mb={"20px"}>
-              <Typography variant="h4">No Comment on this blog</Typography>
+              <Typography
+                variant="h4"
+                sx={{
+                  [theme.breakpoints.up("xs")]: {
+                    fontSize: ".9em",
+                  },
+                  [theme.breakpoints.up("sm")]: {
+                    fontSize: "1.5em",
+                  },
+                }}
+              >
+                No Comment on this blog
+              </Typography>
             </Box>
           ) : (
             <Box width={"80%"}>

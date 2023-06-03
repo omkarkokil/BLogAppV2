@@ -5,7 +5,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import { Divider, TextField, Typography } from "@mui/material";
+import { Divider, TextField, Typography, useTheme } from "@mui/material";
 import InputAdornment from "@mui/material/InputAdornment";
 import SearchIcon from "@mui/icons-material/Search";
 import MainLoader from "../utils/MainLoader";
@@ -18,14 +18,38 @@ import FunctionContext from "../context/Function/FunctionContext";
 const MainBlog = () => {
   const { isLoading, items, search, select } = useContext(StateContext);
   const { handleSearch, handleSelect } = useContext(FunctionContext);
-
+  const theme = useTheme();
   return (
     <>
       {isLoading ? (
         <MainLoader />
       ) : (
-        <Box marginTop={"10%"}>
-          <Stack direction={"row"} justifyContent={"center"}>
+        <Box
+          sx={{
+            [theme.breakpoints.up("xs")]: {
+              marginTop: "20%",
+            },
+            [theme.breakpoints.up("sm")]: {
+              marginTop: "15%",
+            },
+            [theme.breakpoints.up("md")]: {
+              marginTop: "10%",
+            },
+          }}
+        >
+          <Stack
+            direction={"row"}
+            sx={{
+              [theme.breakpoints.up("xs")]: {
+                flexDirection: "column-reverse",
+                alignItems: "center",
+              },
+              [theme.breakpoints.up("sm")]: {
+                flexDirection: "row",
+              },
+            }}
+            justifyContent={"center"}
+          >
             <Stack direction={"row"} width="250px">
               <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-label">Category</InputLabel>
@@ -46,7 +70,19 @@ const MainBlog = () => {
                 </Select>
               </FormControl>
             </Stack>
-            <FormControl sx={{ width: "50%", marginLeft: "30px" }}>
+            <FormControl
+              sx={{
+                [theme.breakpoints.up("xs")]: {
+                  width: "250px",
+                  mb: "20px",
+                },
+                [theme.breakpoints.up("sm")]: {
+                  width: "50%",
+                  marginLeft: "30px",
+                  mb: "0px",
+                },
+              }}
+            >
               <TextField
                 id="search"
                 label="search"
