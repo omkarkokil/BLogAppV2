@@ -23,9 +23,9 @@ const RegisterUser = async (req, res) => {
       return res.json({ status: false, msg: "Email already exists" });
     }
 
-    // const salt = await bcrypt.genSalt(10);
-    // const hash = await bcrypt.hash(password, 10);
-    const user = await User.create({ name, email, password, pic });
+    const salt = await bcrypt.genSalt(10);
+    const hash = await bcrypt.hash(password, 10);
+    const user = await User.create({ name, email, password: hash, pic });
     delete User.password;
 
     const createdUser = await User.findOne({ email }).select("-password");

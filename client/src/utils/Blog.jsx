@@ -20,6 +20,7 @@ import IconButton from "@mui/material/IconButton";
 import SendIcon from "@mui/icons-material/Send";
 import FormControl from "@mui/material/FormControl";
 import Timestamp from "react-timestamp";
+import BasicLoader from "./BasicLoader";
 
 const Blog = () => {
   const {
@@ -49,7 +50,8 @@ const Blog = () => {
 
   return (
     <>
-      {isLoading ? (
+      {isLoading ? <BasicLoader /> : ""}
+      {!item.blogPic ? (
         <MainLoader />
       ) : (
         <Stack
@@ -96,10 +98,7 @@ const Blog = () => {
               </Typography>
             </Stack>
             <Stack width={"100%"}>
-              <img
-                src={`https://magicalwinds.onrender.com/public/${item.blogPic}`}
-                alt="none"
-              />
+              <img src={item.blogPic} alt="none" />
             </Stack>
             <Stack my={"10px"}>
               <Chip
@@ -123,11 +122,7 @@ const Blog = () => {
             <Stack width={"100%"} direction={"row"} alignItems={"flex-start"}>
               <Stack>
                 <Avatar sx={{ height: "50px", width: "50px" }}>
-                  <img
-                    src={`https://magicalwinds.onrender.com/public/${item.userPic}`}
-                    alt=""
-                    height={"100%"}
-                  />
+                  <img src={item.userPic} alt="" height={"100%"} />
                 </Avatar>
               </Stack>
               <Stack marginX={"10px"}>
@@ -223,11 +218,7 @@ const Blog = () => {
                   <Stack width="80%" marginY="10px" key={id}>
                     <Stack direction={"row"} alignItems="center" marginY="10px">
                       <Avatar sx={{ marginRight: "10px" }}>
-                        <img
-                          src={`https://magicalwinds.onrender.com/public/${ele.author.pic}`}
-                          alt="none"
-                          height={"100%"}
-                        />
+                        <img src={ele.author.pic} alt="none" height={"100%"} />
                       </Avatar>
                       <Typography>
                         {ele.author.name} on <Timestamp date={ele.createdAt} />

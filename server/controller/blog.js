@@ -3,8 +3,17 @@ const Blog = require("../model/BlogModel");
 
 const createBlog = async (req, res) => {
   try {
-    const { title, desc, blog, category, date, userId, name, userPic } = req.body;
-    const blogPic = req.file ? req.file.filename : null;
+    const { title, desc, blog, category, date, userId, name, userPic, blogPic } = req.body;
+
+    if (!title || !desc || !category || !blog) {
+      return res.json({ msg: "All fields are madatory", status: false });
+    }
+
+    if (!blogPic) {
+      return res.json({ msg: "image not fetched", status: false });
+    }
+
+
     const note = await Blog.create({
       title,
       desc,
@@ -17,13 +26,7 @@ const createBlog = async (req, res) => {
       blog
     });
 
-    if ((!title, !desc, !category, !blog)) {
-      return res.json({ msg: "All fields are madatory", status: false });
-    }
 
-    if (!blogPic) {
-      return res.json({ msg: "image not fetched", status: false });
-    }
     return res.json({ note, msg: "Blog created successfully", status: true });
   } catch (error) {
     console.log(error);

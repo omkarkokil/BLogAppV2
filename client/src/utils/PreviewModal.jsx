@@ -21,15 +21,14 @@ const style = {
 };
 
 export default function PreviewModal() {
-  const { open, blog, blogdesc, select, user, currentUser } =
+  const { open, blog, blogdesc, select, user, currentUser, pic } =
     React.useContext(StateContext);
   const { handleOpen, handleClose } = React.useContext(FunctionContext);
 
-  const url = user.pic ? URL.createObjectURL(user.pic) : "";
+  // const url = user.pic ? URL.createObjectURL(user.pic) : "";
   return (
     <div>
       <Modal
-        sx={{ zIndex: 1000000 }}
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
@@ -60,7 +59,7 @@ export default function PreviewModal() {
                   </Typography>
                 </Stack>
                 <Stack width={"100%"}>
-                  <img src={url} alt="none" />
+                  <img src={pic} loading="lazy" alt="none" />
                 </Stack>
                 <Stack my={"10px"}>
                   <Chip

@@ -219,7 +219,6 @@ const FunctionProvider = ({ children }) => {
   const loc = window.location.pathname;
   const getBlog = async (id) => {
     try {
-      setIsLoading(true);
       const { data } = await axios.get(
         `https://magicalwinds.onrender.com/api/blog/getBlog/${id}`
       );
@@ -234,7 +233,6 @@ const FunctionProvider = ({ children }) => {
         setBlogdesc(data.blog);
       }
       // setSelect(data.category);
-      setIsLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -242,12 +240,12 @@ const FunctionProvider = ({ children }) => {
 
   const getComments = async (id) => {
     try {
-      setIsLoading(true);
+      // setIsLoading(true);
       const { data } = await axios.get(
         `https://magicalwinds.onrender.com/api/blog/getcomment/${id}`
       );
       setComments(data);
-      setIsLoading(false);
+      // setIsLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -255,13 +253,13 @@ const FunctionProvider = ({ children }) => {
 
   const getAllComments = async (id) => {
     try {
-      setIsLoading(true);
+      // setIsLoading(true);
       const { data } = await axios.get(
         `https://magicalwinds.onrender.com/api/blog/getAllComment/${id}`
       );
       setAllComments(data);
 
-      setIsLoading(false);
+      // setIsLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -272,10 +270,11 @@ const FunctionProvider = ({ children }) => {
   };
 
   const createComment = async (id) => {
-    // setIsLoading(true);
+    setIsLoading(true);
     try {
       if (!localStorage.getItem("user")) {
         navigate("/login");
+        setIsLoading(false);
         return false;
       }
       const { data } = await axios.post(
@@ -290,11 +289,13 @@ const FunctionProvider = ({ children }) => {
       );
       if (!data.status) {
         toast.error(data.msg, toastOption);
+        setIsLoading(false);
         return false;
       }
 
       if (data.status) {
         toast.success(data.msg, toastOption);
+        setIsLoading(false);
 
         setAllComments((all) => [
           {
@@ -331,11 +332,13 @@ const FunctionProvider = ({ children }) => {
       }
     } catch (error) {
       console.log(error);
+      setIsLoading(false);
     }
-    setIsLoading(false);
   };
 
   // console.log(makeComment);
+
+  console.log(pic);
 
   const createBlog = async () => {
     setIsLoading(true);
@@ -363,20 +366,32 @@ const FunctionProvider = ({ children }) => {
         ", " +
         nowdate.getFullYear();
 
-      const { title, desc, pic } = blog;
-      const formdata = new FormData();
-      formdata.append("title", title);
-      formdata.append("desc", desc);
-      formdata.append("blog", blogdesc);
-      formdata.append("category", select);
-      formdata.append("userId", currentUser.id);
-      formdata.append("name", currentUser.name);
-      formdata.append("userPic", currentUser.pic);
-      formdata.append("date", date);
-      formdata.append("blogFile", user.pic);
+      const { title, desc } = blog;
+      // const formdata = new FormData();
+      // formdata.append("title", title);
+      // formdata.append("desc", desc);
+      // formdata.append("blog", blogdesc);
+      // formdata.append("category", select);
+      // formdata.append("userId", currentUser.id);
+      // formdata.append("name", currentUser.name);
+      // formdata.append("userPic", currentUser.pic);
+      // formdata.append("date", date);
+      // formdata.append("blogFile", user.pic);
+
+      //  "https://magicalwinds.onrender.com/api/blog/createBlog",
       const { data } = await axios.post(
-        "https://magicalwinds.onrender.com/api/blog/createBlog",
-        formdata,
+        "/api/blog/createBlog",
+        {
+          title,
+          desc,
+          blog: blogdesc,
+          category: select,
+          userId: currentUser.id,
+          name: currentUser.name,
+          userPic: currentUser.pic,
+          date,
+          blogPic: pic,
+        },
         {
           headers: {
             Authorization: localStorage.getItem("user"),
@@ -386,17 +401,19 @@ const FunctionProvider = ({ children }) => {
 
       if (!data.status) {
         toast.error(data.msg, toastOption);
+        setIsLoading(false);
         return false;
       }
 
       if (data.status) {
         toast.success(data.msg, toastOption);
+        setIsLoading(false);
         navigate("/");
       }
     } catch (error) {
       console.log(error);
+      setIsLoading(false);
     }
-    setIsLoading(false);
   };
 
   const currentUserBlog = async () => {
