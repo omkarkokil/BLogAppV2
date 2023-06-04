@@ -11,28 +11,22 @@ const generateToken = (id) => {
 
 const RegisterUser = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
-    const pic = req.file ? req.file.filename : null;
-    console.log(req.file);
+    const { name, email, password, pic } = req.body;
+
     const emailfind = await User.findOne({ email });
 
-    if (!name || !email || !password) {
-      return res.json({
-        status: false,
-        msg: "All fields are mandatory",
-      })
+    if (!name || !password || !email) {
+      return res.json({ msg: "Name , email & password are mandatory", status: false });
     }
 
     if (emailfind) {
       return res.json({ status: false, msg: "Email already exists" });
     }
 
-    const salt = await bcrypt.genSalt(10);
-    const hash = await bcrypt.hash(password, salt);
-    const user = await User.create({ name, email, password: hash, pic });
+    // const salt = await bcrypt.genSalt(10);
+    // const hash = await bcrypt.hash(password, 10);
+    const user = await User.create({ name, email, password, pic });
     delete User.password;
-
-
 
     const createdUser = await User.findOne({ email }).select("-password");
 
@@ -44,6 +38,10 @@ const RegisterUser = async (req, res) => {
     });
   } catch (error) {
     console.log("Error" + error);
+    return res.json({
+      msg: "server error",
+      status: false
+    })
   }
 };
 

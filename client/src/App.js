@@ -25,7 +25,7 @@ function App() {
         <BrowserRouter>
           <StateProvider>
             <FunctionProvider>
-              <PreviewModal />
+              {/* <PreviewModal /> */}
               <Navbar />
               <ToastContainer />
               <Routes>

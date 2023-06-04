@@ -4,11 +4,12 @@ import StateContext from "./StateContext";
 const StateProvider = ({ children }) => {
   const [isLogin, setIsLogin] = useState(false);
   const [user, setUser] = useState({
-    title: "",
-    desc: "",
+    name: "",
+    email: "",
     password: "",
-    pic: "",
   });
+
+  const [pic, setPic] = useState("");
 
   const [currentUser, setCurrentUser] = useState({
     name: "",
@@ -72,6 +73,8 @@ const StateProvider = ({ children }) => {
         setOpen,
         page,
         setPage,
+        pic,
+        setPic,
       }}
     >
       {children}

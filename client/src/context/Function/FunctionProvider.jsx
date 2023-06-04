@@ -36,6 +36,8 @@ const FunctionProvider = ({ children }) => {
     open,
     setBlogdesc,
     setOpen,
+    pic,
+    setPic,
   } = useContext(StateContext);
 
   //TODO basic
@@ -76,6 +78,7 @@ const FunctionProvider = ({ children }) => {
         [name]: value,
       };
     });
+    console.log(user);
   };
 
   const handleBlog = (e) => {
@@ -88,9 +91,9 @@ const FunctionProvider = ({ children }) => {
     });
   };
 
-  const handlePic = (e) => {
-    setUser({ ...user, pic: e.target.files[0] });
-  };
+  // const handlePic = (e) => {
+  //   setUser({ ...user, pic: e.target.files[0] });
+  // };
 
   const handleSearch = (e) => {
     setSearch(e.target.value);
@@ -100,23 +103,51 @@ const FunctionProvider = ({ children }) => {
     setSelect(e.target.value);
   };
 
+  const postDetailes = (pic) => {
+    setIsLoading(true);
+    const data = new FormData();
+    data.append("file", pic);
+    data.append("upload_preset", "BlogApp");
+    data.append("cloud_name", "dfxyr6c40");
+
+    fetch("https://api.cloudinary.com/v1_1/dfxyr6c40/image/upload", {
+      method: "post",
+      body: data,
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setPic(data.url.toString());
+        if (pic != "") {
+          setIsLoading(false);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        setIsLoading(false);
+      });
+  };
+
   const RegisterUser = async () => {
     try {
       setIsLoading(true);
       const formdata = new FormData();
-      formdata.append("name", user.name);
-      formdata.append("email", user.email);
-      formdata.append("password", user.password);
-      formdata.append("myFile", user.pic);
+      const { name, email, password } = user;
+
       const { data } = await axios.post(
         "https://magicalwinds.onrender.com/api/auth/registeruser",
-        formdata
+        {
+          name,
+          email,
+          password,
+          pic,
+        }
       );
-      console.log(formdata);
 
       if (!data.status) {
         toast.error(data.msg, toastOption);
         setIsLoading(false);
+        console.log("false");
+
         return false;
       }
 
@@ -181,12 +212,11 @@ const FunctionProvider = ({ children }) => {
     }
   };
 
-  const loc = window.location.pathname;
-
   useEffect(() => {
     getBlogs();
-  }, [loc]);
+  }, []);
 
+  const loc = window.location.pathname;
   const getBlog = async (id) => {
     try {
       setIsLoading(true);
@@ -230,7 +260,6 @@ const FunctionProvider = ({ children }) => {
         `https://magicalwinds.onrender.com/api/blog/getAllComment/${id}`
       );
       setAllComments(data);
-      console.log(allComments);
 
       setIsLoading(false);
     } catch (error) {
@@ -417,8 +446,8 @@ const FunctionProvider = ({ children }) => {
   };
 
   const editBlog = async (id) => {
-    setIsLoading(true);
     try {
+      setIsLoading(true);
       const { title, desc } = blog;
       const formdata = new FormData();
       formdata.append("title", title);
@@ -463,7 +492,7 @@ const FunctionProvider = ({ children }) => {
       value={{
         logOut,
         handleUser,
-        handlePic,
+        postDetailes,
         RegisterUser,
         LoginUser,
         currentUserBlog,
