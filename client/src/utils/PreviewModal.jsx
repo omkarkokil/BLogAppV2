@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import StateContext from "../context/Hooks/StateContext";
 import FunctionContext from "../context/Function/FunctionContext";
-import { Avatar, Chip, Stack } from "@mui/material";
+import { Avatar, Chip, Paper, Stack } from "@mui/material";
 
 const style = {
   position: "absolute",
@@ -58,8 +58,15 @@ export default function PreviewModal() {
                     {blog.title}
                   </Typography>
                 </Stack>
-                <Stack width={"100%"}>
-                  <img src={pic} loading="lazy" alt="none" />
+                <Stack alignItems={"center"} justifyContent={"center"}>
+                  <Paper
+                    component="img"
+                    elevation={0}
+                    loading="lazy"
+                    height={"400px"}
+                    width={"max-content"}
+                    src={pic}
+                  />
                 </Stack>
                 <Stack my={"10px"}>
                   <Chip
@@ -77,11 +84,7 @@ export default function PreviewModal() {
                 >
                   <Stack>
                     <Avatar sx={{ height: "50px", width: "50px" }}>
-                      <img
-                        src={`https://magicalwinds.onrender.com/public/${currentUser.pic}`}
-                        alt=""
-                        height={"100%"}
-                      />
+                      <img src={currentUser.pic} alt="" height={"100%"} />
                     </Avatar>
                   </Stack>
                   <Stack marginX={"10px"}>

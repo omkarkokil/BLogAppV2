@@ -27,7 +27,7 @@ const BlogData = (props) => {
   const loc = window.location.pathname;
   const { currentUser, select, search, page, setPage, setItems } =
     useContext(StateContext);
-  const { deleteBlog } = useContext(FunctionContext);
+  const { deleteBlog, currentUserBlog } = useContext(FunctionContext);
   const [hasMore, setHasMore] = useState(true);
 
   useEffect(() => {
@@ -117,11 +117,7 @@ const BlogData = (props) => {
                       <CardHeader
                         avatar={
                           <Avatar aria-label="recipe">
-                            <img
-                              src={`https://magicalwinds.onrender.com/public/${ele.userPic}`}
-                              height="100%"
-                              alt=""
-                            />{" "}
+                            <img src={ele.userPic} height="100%" alt="" />{" "}
                           </Avatar>
                         }
                         title={ele.name}
@@ -136,7 +132,7 @@ const BlogData = (props) => {
                         alignItems: "flex-end",
                         justifyContent: "flex-end",
                       }}
-                      image={`https://magicalwinds.onrender.com/public/${ele.blogPic}`}
+                      image={ele.blogPic}
                     >
                       <Box m={"5px"}>
                         <Chip

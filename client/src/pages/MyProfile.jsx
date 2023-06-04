@@ -5,19 +5,19 @@ import FunctionContext from "../context/Function/FunctionContext";
 import StateContext from "../context/Hooks/StateContext";
 import BlogData from "../utils/BlogData";
 import MainLoader from "../utils/MainLoader";
+import BasicLoader from "../utils/BasicLoader";
 
 const MyProfile = () => {
-  const { isLoading, currentUser, getLoginBlog } = useContext(StateContext);
+  const { isLoading, currentUser, getLoginBlog, otherLoading } =
+    useContext(StateContext);
   const { logOut, currentUserBlog } = useContext(FunctionContext);
 
   const theme = useTheme();
 
-  useEffect(() => {
-    currentUserBlog();
-  }, [window.location.pathname]);
   return (
     <>
-      {isLoading ? (
+      {otherLoading ? <BasicLoader /> : ""}
+      {isLoading || getLoginBlog.length <= 0 ? (
         <MainLoader />
       ) : (
         <Stack
@@ -65,11 +65,7 @@ const MyProfile = () => {
                     },
                   }}
                 >
-                  <img
-                    src={`https://magicalwinds.onrender.com/public/${currentUser.pic}`}
-                    alt="none"
-                    height={"100%"}
-                  />
+                  <img src={currentUser.pic} alt="none" height={"100%"} />
                 </Avatar>
               </Stack>
               <Stack>
@@ -118,9 +114,20 @@ const MyProfile = () => {
               </Typography>
             </Box>
           </Stack>
-          <Box marginY={"20px"}>
-            <BlogData items={getLoginBlog} />
-          </Box>
+          {getLoginBlog.length <= 0 ? (
+            <Typography
+              variant="h4"
+              textAlign={"center"}
+              mt={"20px"}
+              color="initial"
+            >
+              No blogs on the account
+            </Typography>
+          ) : (
+            <Box marginY={"20px"}>
+              <BlogData items={getLoginBlog} />
+            </Box>
+          )}
         </Stack>
       )}
     </>

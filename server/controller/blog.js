@@ -56,22 +56,22 @@ const getBlog = async (req, res) => {
   }
 };
 
-const getLastBlog = async (req, res) => {
-  try {
-    const getBlog = await Blog.findOne({ userId: req.user.id }).sort({
-      _id: -1,
-    });
+// const getLastBlog = async (req, res) => {
+//   try {
+//     const getBlog = await Blog.findOne({ userId: req.user.id }).sort({
+//       _id: -1,
+//     });
 
-    return res.json(getBlog);
-  } catch (error) {
-    return console.log(error);
-  }
-};
+//     return res.json(getBlog);
+//   } catch (error) {
+//     return console.log(error);
+//   }
+// };
 
 const getCurrentUserBlog = async (req, res) => {
   try {
     const getBlog = await Blog.find({ userId: req.user.id }).sort({
-      _id: -1,
+      createdAt: -1,
     });
 
     return res.json(getBlog);

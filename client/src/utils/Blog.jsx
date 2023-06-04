@@ -4,6 +4,7 @@ import {
   Button,
   Chip,
   Divider,
+  Paper,
   Typography,
   useTheme,
 } from "@mui/material";
@@ -29,6 +30,8 @@ const Blog = () => {
     comments,
     allComments,
     makeComment,
+    otherLoading,
+    setOtherLoading,
     setMakeComment,
   } = useContext(StateContext);
   const { getBlog, getComments, createComment, handleComment, getAllComments } =
@@ -50,8 +53,8 @@ const Blog = () => {
 
   return (
     <>
-      {isLoading ? <BasicLoader /> : ""}
-      {!item.blogPic ? (
+      {otherLoading ? <BasicLoader /> : ""}
+      {isLoading ? (
         <MainLoader />
       ) : (
         <Stack
@@ -97,8 +100,14 @@ const Blog = () => {
                 {item.title}
               </Typography>
             </Stack>
-            <Stack width={"100%"}>
-              <img src={item.blogPic} alt="none" />
+            <Stack alignItems={"center"} justifyContent={"center"}>
+              <Paper
+                component="img"
+                height={"400px"}
+                elevation={0}
+                width={"max-content"}
+                src={item.blogPic}
+              />
             </Stack>
             <Stack my={"10px"}>
               <Chip

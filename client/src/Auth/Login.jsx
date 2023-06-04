@@ -15,89 +15,86 @@ const Login = () => {
   const { handleUser, LoginUser } = useContext(FunctionContext);
   return (
     <>
-      {isLoading ? (
-        <BasicLoader />
-      ) : (
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            flexDirection: "column",
-            height: "100vh",
-          }}
-          className="appeareffect"
-        >
-          <Typography variant="h4" color="initial" marginBottom={"15px"}>
-            login your account
+      {isLoading ? <BasicLoader /> : ""}
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          flexDirection: "column",
+          height: "100vh",
+        }}
+        className="appeareffect"
+      >
+        <Typography variant="h4" color="initial" marginBottom={"15px"}>
+          login your account
+        </Typography>
+
+        <FormControl margin="dense">
+          <TextField
+            id="filled-basic"
+            label="Enter email"
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <PersonIcon />
+                </InputAdornment>
+              ),
+            }}
+            margin="dense"
+            variant="outlined"
+            name="email"
+            value={user.email}
+            onChange={handleUser}
+            sx={{ width: "400px" }}
+          />
+        </FormControl>
+
+        <FormControl margin="dense">
+          <TextField
+            type={"password"}
+            id="filled-basic"
+            label="Enter password"
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <KeyIcon />
+                </InputAdornment>
+              ),
+            }}
+            margin="dense"
+            variant="outlined"
+            name="password"
+            value={user.password}
+            onChange={handleUser}
+            sx={{ width: "400px" }}
+          />
+        </FormControl>
+
+        <Box>
+          <Typography
+            sx={{
+              marginY: "20px",
+              width: "400px",
+              color: "#666",
+            }}
+            paragraph
+          >
+            Don't have an account <Link to="/register">register</Link>
           </Typography>
-
-          <FormControl margin="dense">
-            <TextField
-              id="filled-basic"
-              label="Enter email"
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <PersonIcon />
-                  </InputAdornment>
-                ),
-              }}
-              margin="dense"
-              variant="outlined"
-              name="email"
-              value={user.email}
-              onChange={handleUser}
-              sx={{ width: "400px" }}
-            />
-          </FormControl>
-
-          <FormControl margin="dense">
-            <TextField
-              type={"password"}
-              id="filled-basic"
-              label="Enter password"
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <KeyIcon />
-                  </InputAdornment>
-                ),
-              }}
-              margin="dense"
-              variant="outlined"
-              name="password"
-              value={user.password}
-              onChange={handleUser}
-              sx={{ width: "400px" }}
-            />
-          </FormControl>
-
-          <Box>
-            <Typography
-              sx={{
-                marginY: "20px",
-                width: "400px",
-                color: "#666",
-              }}
-              paragraph
-            >
-              Don't have an account <Link to="/register">register</Link>
-            </Typography>
-          </Box>
-
-          <Box>
-            <Button
-              variant="contained"
-              onClick={LoginUser}
-              color="warning"
-              sx={{ width: "400px" }}
-            >
-              Log in
-            </Button>
-          </Box>
         </Box>
-      )}
+
+        <Box>
+          <Button
+            variant="contained"
+            onClick={LoginUser}
+            color="warning"
+            sx={{ width: "400px" }}
+          >
+            Log in
+          </Button>
+        </Box>
+      </Box>
     </>
   );
 };

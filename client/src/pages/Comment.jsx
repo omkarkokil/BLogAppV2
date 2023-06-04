@@ -45,11 +45,7 @@ const Comment = () => {
               <Stack width="80%" marginY="10px" key={id}>
                 <Stack direction={"row"} alignItems="center" marginY="10px">
                   <Avatar sx={{ marginRight: "10px" }}>
-                    <img
-                      src={`https://magicalwinds.onrender.com/public/${ele.author.pic}`}
-                      alt="none"
-                      height={"100%"}
-                    />
+                    <img src={ele.author.pic} alt="none" height={"100%"} />
                   </Avatar>
                   <Typography>
                     {ele.author.name} on <Timestamp date={ele.createdAt} />
@@ -62,8 +58,8 @@ const Comment = () => {
                   justifyContent="center"
                   borderRadius={"5px"}
                   width={"max-content"}
-                  color={"#fff"}
-                  backgroundColor="orangered"
+                  color={"orangered"}
+                  backgroundColor="#fff"
                 >
                   <Typography>{ele.comment}</Typography>
                 </Stack>

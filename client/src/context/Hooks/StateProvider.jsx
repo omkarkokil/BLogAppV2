@@ -19,6 +19,7 @@ const StateProvider = ({ children }) => {
   });
 
   const [isLoading, setIsLoading] = useState(false);
+  const [otherLoading, setOtherLoading] = useState(false);
   const [items, setItems] = useState([]);
   const [item, setItem] = useState([]);
   const [makeComment, setMakeComment] = useState("");
@@ -75,6 +76,8 @@ const StateProvider = ({ children }) => {
         setPage,
         pic,
         setPic,
+        otherLoading,
+        setOtherLoading,
       }}
     >
       {children}

@@ -38,6 +38,7 @@ const FunctionProvider = ({ children }) => {
     setOpen,
     pic,
     setPic,
+    setOtherLoading,
   } = useContext(StateContext);
 
   //TODO basic
@@ -163,27 +164,34 @@ const FunctionProvider = ({ children }) => {
   };
 
   const LoginUser = async () => {
-    setIsLoading(true);
     try {
+      setIsLoading(true);
       const { email, password } = user;
       const { data } = await axios.post(
         "https://magicalwinds.onrender.com/api/auth/loginUser",
         { email, password }
       );
 
+      // if (!email || !password) {
+      //   toast.error("Please fill the credentials", toastOption);
+      //   setIsLoading(false);
+      // }
+
       if (!data.status) {
         toast.error(data.msg, toastOption);
+        setIsLoading(false);
         return false;
       }
       if (data.status) {
         toast.success(data.msg, toastOption);
         localStorage.setItem("user", data.token);
+        setIsLoading(false);
         navigate("/");
       }
     } catch (error) {
       console.log(error);
+      setIsLoading(false);
     }
-    setIsLoading(false);
   };
 
   const logOut = () => {
@@ -211,14 +219,15 @@ const FunctionProvider = ({ children }) => {
       console.log(error);
     }
   };
+  const loc = window.location.pathname;
 
   useEffect(() => {
     getBlogs();
-  }, []);
+  }, [loc.includes("/allBlog")]);
 
-  const loc = window.location.pathname;
   const getBlog = async (id) => {
     try {
+      setIsLoading(true);
       const { data } = await axios.get(
         `https://magicalwinds.onrender.com/api/blog/getBlog/${id}`
       );
@@ -232,8 +241,10 @@ const FunctionProvider = ({ children }) => {
         });
         setBlogdesc(data.blog);
       }
+      setIsLoading(false);
       // setSelect(data.category);
     } catch (error) {
+      setIsLoading(false);
       console.log(error);
     }
   };
@@ -253,14 +264,15 @@ const FunctionProvider = ({ children }) => {
 
   const getAllComments = async (id) => {
     try {
-      // setIsLoading(true);
+      setIsLoading(true);
       const { data } = await axios.get(
         `https://magicalwinds.onrender.com/api/blog/getAllComment/${id}`
       );
       setAllComments(data);
 
-      // setIsLoading(false);
+      setIsLoading(false);
     } catch (error) {
+      setIsLoading(false);
       console.log(error);
     }
   };
@@ -270,11 +282,11 @@ const FunctionProvider = ({ children }) => {
   };
 
   const createComment = async (id) => {
-    setIsLoading(true);
+    setOtherLoading(true);
     try {
       if (!localStorage.getItem("user")) {
         navigate("/login");
-        setIsLoading(false);
+        setOtherLoading(false);
         return false;
       }
       const { data } = await axios.post(
@@ -289,13 +301,13 @@ const FunctionProvider = ({ children }) => {
       );
       if (!data.status) {
         toast.error(data.msg, toastOption);
-        setIsLoading(false);
+        setOtherLoading(false);
         return false;
       }
 
       if (data.status) {
         toast.success(data.msg, toastOption);
-        setIsLoading(false);
+        setOtherLoading(false);
 
         setAllComments((all) => [
           {
@@ -332,7 +344,7 @@ const FunctionProvider = ({ children }) => {
       }
     } catch (error) {
       console.log(error);
-      setIsLoading(false);
+      setOtherLoading(false);
     }
   };
 
@@ -367,16 +379,6 @@ const FunctionProvider = ({ children }) => {
         nowdate.getFullYear();
 
       const { title, desc } = blog;
-      // const formdata = new FormData();
-      // formdata.append("title", title);
-      // formdata.append("desc", desc);
-      // formdata.append("blog", blogdesc);
-      // formdata.append("category", select);
-      // formdata.append("userId", currentUser.id);
-      // formdata.append("name", currentUser.name);
-      // formdata.append("userPic", currentUser.pic);
-      // formdata.append("date", date);
-      // formdata.append("blogFile", user.pic);
 
       const { data } = await axios.post(
         "https://magicalwinds.onrender.com/api/blog/createBlog",
@@ -429,14 +431,19 @@ const FunctionProvider = ({ children }) => {
       setGetLoginBlog(data);
       setIsLoading(false);
     } catch (error) {
+      setIsLoading(false);
       console.log(error);
     }
   };
 
-  // console.log(getLoginBlog);
+  useEffect(() => {
+    currentUserBlog();
+  }, [window.location.pathname.includes("/myprofile")]);
+
+  console.log(getLoginBlog);
 
   const deleteBlog = async (id) => {
-    setIsLoading(true);
+    setOtherLoading(true);
     const { data } = await axios.delete(
       `https://magicalwinds.onrender.com/api/blog/deleteBlog/${id}`,
       {
@@ -448,6 +455,7 @@ const FunctionProvider = ({ children }) => {
 
     if (!data.status) {
       toast.error(data.msg, toastOption);
+      setOtherLoading(false);
     }
 
     if (data.status) {
@@ -456,14 +464,14 @@ const FunctionProvider = ({ children }) => {
         return item._id !== id;
       });
 
+      setOtherLoading(false);
       setGetLoginBlog(newBlog);
     }
-    setIsLoading(false);
   };
 
   const editBlog = async (id) => {
     try {
-      setIsLoading(true);
+      setOtherLoading(true);
       const { title, desc } = blog;
       const formdata = new FormData();
       formdata.append("title", title);
@@ -483,24 +491,27 @@ const FunctionProvider = ({ children }) => {
 
       if (formdata.select === "") {
         toast.error(data.msg, toastOption);
+        setOtherLoading(false);
         return false;
       }
 
       if (!data.status) {
+        setOtherLoading(false);
         toast.error(data.msg, toastOption);
         return false;
       }
 
       if (data.status) {
         toast.success(data.msg, toastOption);
+        setOtherLoading(false);
         setSelect("");
         navigate("/myprofile");
       }
     } catch (error) {
       // toast.error(data.msg, toastOption);
+      setIsLoading(false);
       console.log(error);
     }
-    setIsLoading(false);
   };
 
   return (
