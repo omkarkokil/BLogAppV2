@@ -378,9 +378,8 @@ const FunctionProvider = ({ children }) => {
       // formdata.append("date", date);
       // formdata.append("blogFile", user.pic);
 
-      //  "https://magicalwinds.onrender.com/api/blog/createBlog",
       const { data } = await axios.post(
-        "/api/blog/createBlog",
+        "https://magicalwinds.onrender.com/api/blog/createBlog",
         {
           title,
           desc,
