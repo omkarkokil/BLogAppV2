@@ -24,7 +24,7 @@ const RegisterUser = async (req, res) => {
     }
 
     const salt = await bcrypt.genSalt(10);
-    const hash = await bcrypt.hash(password, 10);
+    const hash = await bcrypt.hash(password, salt);
     const user = await User.create({ name, email, password: hash, pic });
     delete User.password;
 

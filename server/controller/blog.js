@@ -70,9 +70,7 @@ const getLastBlog = async (req, res) => {
 
 const getCurrentUserBlog = async (req, res) => {
   try {
-    const getBlog = await Blog.find({ userId: req.user.id }).sort({
-      createdAt: -1,
-    });
+    const getBlog = await Blog.find({ userId: req.user.id })
 
     return res.json(getBlog);
   } catch (error) {
