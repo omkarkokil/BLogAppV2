@@ -12,12 +12,16 @@ const MyProfile = () => {
     useContext(StateContext);
   const { logOut, currentUserBlog } = useContext(FunctionContext);
 
+  useEffect(() => {
+    currentUserBlog();
+  }, []);
+
   const theme = useTheme();
 
   return (
     <>
       {otherLoading ? <BasicLoader /> : ""}
-      {isLoading || getLoginBlog.length <= 0 ? (
+      {isLoading ? (
         <MainLoader />
       ) : (
         <Stack

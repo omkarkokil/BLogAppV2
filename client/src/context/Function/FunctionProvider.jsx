@@ -402,12 +402,14 @@ const FunctionProvider = ({ children }) => {
 
       if (!data.status) {
         toast.error(data.msg, toastOption);
+        setSelect("");
         setIsLoading(false);
         return false;
       }
 
       if (data.status) {
         toast.success(data.msg, toastOption);
+        setSelect("");
         setIsLoading(false);
         navigate("/");
       }
@@ -418,8 +420,8 @@ const FunctionProvider = ({ children }) => {
   };
 
   const currentUserBlog = async () => {
+    setIsLoading(true);
     try {
-      setIsLoading(true);
       const { data } = await axios.get(
         "https://magicalwinds.onrender.com/api/blog/getCurrentUserBlog",
         {
@@ -435,12 +437,6 @@ const FunctionProvider = ({ children }) => {
       console.log(error);
     }
   };
-
-  useEffect(() => {
-    currentUserBlog();
-  }, [window.location.pathname.includes("/myprofile")]);
-
-  console.log(getLoginBlog);
 
   const deleteBlog = async (id) => {
     setOtherLoading(true);

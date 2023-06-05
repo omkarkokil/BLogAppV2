@@ -58,13 +58,15 @@ export default function PreviewModal() {
                     {blog.title}
                   </Typography>
                 </Stack>
-                <Stack alignItems={"center"} justifyContent={"center"}>
+                <Stack
+                  alignItems={"center"}
+                  width={"100%"}
+                  justifyContent={"center"}
+                >
                   <Paper
                     component="img"
                     elevation={0}
-                    loading="lazy"
-                    height={"400px"}
-                    width={"max-content"}
+                    width={"70%"}
                     src={pic}
                   />
                 </Stack>

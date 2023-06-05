@@ -100,12 +100,15 @@ const Blog = () => {
                 {item.title}
               </Typography>
             </Stack>
-            <Stack alignItems={"center"} justifyContent={"center"}>
+            <Stack
+              alignItems={"center"}
+              width={"100%"}
+              justifyContent={"center"}
+            >
               <Paper
                 component="img"
-                height={"400px"}
                 elevation={0}
-                width={"max-content"}
+                width={"70%"}
                 src={item.blogPic}
               />
             </Stack>
