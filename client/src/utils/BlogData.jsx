@@ -148,7 +148,7 @@ const BlogData = (props) => {
                         {ele.title}
                       </Typography>
                       <Typography variant="body2" color="text.secondary">
-                        {ele.desc}
+                        {ele.desc.slice(0, 100)}
                       </Typography>
                     </CardContent>
                     <CardActions>
