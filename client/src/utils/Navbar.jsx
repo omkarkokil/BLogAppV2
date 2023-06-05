@@ -143,6 +143,7 @@ const Navbar = () => {
                   color: loc === "/" ? "#fff" : "#000",
                 }}
                 to="/"
+                onClick={() => setNavOn(false)}
               >
                 Home
               </Link>
@@ -153,6 +154,7 @@ const Navbar = () => {
                 style={{
                   color: loc === "/" ? "#fff" : "#000",
                 }}
+                onClick={() => setNavOn(false)}
               >
                 All Blog
               </Link>

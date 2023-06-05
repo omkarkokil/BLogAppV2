@@ -14,9 +14,18 @@ import Select from "@mui/material/Select";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import ReactQuill from "react-quill";
 import BasicLoader from "../utils/BasicLoader";
+import MainLoader from "../utils/MainLoader";
 const EditBlog = () => {
-  const { user, select, blog, item, setBlogdesc, blogdesc, isLoading } =
-    useContext(StateContext);
+  const {
+    user,
+    select,
+    blog,
+    item,
+    setBlogdesc,
+    blogdesc,
+    isLoading,
+    otherLoading,
+  } = useContext(StateContext);
   const { handleSelect, createBlog, handleBlog, handlePic, editBlog, getBlog } =
     useContext(FunctionContext);
   const location = useLocation();
@@ -50,8 +59,9 @@ const EditBlog = () => {
   const theme = useTheme();
   return (
     <>
+      {otherLoading ? <BasicLoader /> : ""}
       {isLoading ? (
-        <BasicLoader />
+        <MainLoader />
       ) : (
         <Box
           sx={{
@@ -187,25 +197,25 @@ const EditBlog = () => {
           </Stack>
 
           {/* <Box sx={{ width: "500px" }} my="10px">
-          <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Category</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              placeholder={"item.category"}
-              //   value={select}
-              label="Category"
-              onChange={handleSelect}
-            >
-              <MenuItem value={"Entertainment"}>Entertainment</MenuItem>
-              <MenuItem value={"Education"}>Education</MenuItem>
-              <MenuItem value={"Sports"}>Sports</MenuItem>
-              <MenuItem value={"Technology"}>Technology</MenuItem>
-              <MenuItem value={"polytics"}>polytics</MenuItem>
-              <MenuItem value={"Vlogs"}>Vlogs</MenuItem>
-            </Select>
-          </FormControl>
-        </Box> */}
+            <FormControl fullWidth>
+              <InputLabel id="demo-simple-select-label">Category</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                placeholder={"item.category"}
+                value={select}
+                label="Category"
+                onChange={handleSelect}
+              >
+                <MenuItem value={"Entertainment"}>Entertainment</MenuItem>
+                <MenuItem value={"Education"}>Education</MenuItem>
+                <MenuItem value={"Sports"}>Sports</MenuItem>
+                <MenuItem value={"Technology"}>Technology</MenuItem>
+                <MenuItem value={"polytics"}>polytics</MenuItem>
+                <MenuItem value={"Vlogs"}>Vlogs</MenuItem>
+              </Select>
+            </FormControl>
+          </Box> */}
 
           {/* <FormControl margin="dense">
           <TextField

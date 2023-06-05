@@ -38,6 +38,7 @@ const FunctionProvider = ({ children }) => {
     setOpen,
     pic,
     setPic,
+    isLogin,
     setOtherLoading,
   } = useContext(StateContext);
 
@@ -466,18 +467,14 @@ const FunctionProvider = ({ children }) => {
   };
 
   const editBlog = async (id) => {
+    setOtherLoading(true);
     try {
-      setOtherLoading(true);
       const { title, desc } = blog;
-      const formdata = new FormData();
-      formdata.append("title", title);
-      formdata.append("desc", desc);
-      formdata.append("blog", blogdesc);
-      // formdata.append("category", select === "" ? item.category : select);
 
       const { data } = await axios.put(
-        `https://magicalwinds.onrender.com/api/blog/editBlog/${id}`,
-        formdata,
+        // `https://magicalwinds.onrender.com/api/blog/editBlog/${id}`,
+        `http://localhost:5000/api/blog/editBlog/${id}`,
+        { title, desc, blog: blogdesc },
         {
           headers: {
             Authorization: localStorage.getItem("user"),
@@ -485,11 +482,11 @@ const FunctionProvider = ({ children }) => {
         }
       );
 
-      if (formdata.select === "") {
-        toast.error(data.msg, toastOption);
-        setOtherLoading(false);
-        return false;
-      }
+      // if (formdata.select === "") {
+      //   toast.error(data.msg, toastOption);
+      //   setOtherLoading(false);
+      //   return false;
+      // }
 
       if (!data.status) {
         setOtherLoading(false);
@@ -505,7 +502,7 @@ const FunctionProvider = ({ children }) => {
       }
     } catch (error) {
       // toast.error(data.msg, toastOption);
-      setIsLoading(false);
+      setOtherLoading(false);
       console.log(error);
     }
   };

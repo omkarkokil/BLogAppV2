@@ -112,6 +112,7 @@ const Blog = () => {
                 src={item.blogPic}
               />
             </Stack>
+            <Typography variant="body2">{item.desc}</Typography>
             <Stack my={"10px"}>
               <Chip
                 color="warning"

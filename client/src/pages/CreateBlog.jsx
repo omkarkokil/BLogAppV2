@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
@@ -17,7 +17,7 @@ import Select from "@mui/material/Select";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import BasicLoader from "../utils/BasicLoader";
 const CreateBlog = () => {
-  const { user, select, blog, blogdesc, setBlogdesc, isLoading } =
+  const { user, select, blog, blogdesc, setBlogdesc, isLoading, isLogin } =
     useContext(StateContext);
   const {
     handleSelect,

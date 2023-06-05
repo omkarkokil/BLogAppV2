@@ -21,9 +21,8 @@ const Footer = () => {
                 MagicalWinds
               </h6>
               <p>
-                Here you can use rows and columns to organize your footer
-                content. Lorem ipsum dolor sit amet, consectetur adipisicing
-                elit.
+                Here you can create your blogs and publish on the website easily
+                and also watch content.
               </p>
             </div>
             <div className="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
@@ -34,7 +33,7 @@ const Footer = () => {
                 </Link>
               </p>
               <p>
-                <Link to="/allblogs" className="text-reset">
+                <Link to="/allBlog" className="text-reset">
                   Blogs
                 </Link>
               </p>
@@ -57,13 +56,13 @@ const Footer = () => {
               </p>
               <p>
                 <i className="fas fa-envelope me-3" />
-                info@example.com
-              </p>
-              <p>
-                <i className="fas fa-phone me-3" /> + 01 234 567 88
+                nsravan2709@gmail.com
               </p>
               <p>
                 <i className="fas fa-print me-3" /> + 01 234 567 89
+              </p>
+              <p>
+                <i className="fas fa-phone me-3" /> Created by OMKAR KOKIL
               </p>
             </div>
           </div>

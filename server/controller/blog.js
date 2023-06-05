@@ -101,29 +101,12 @@ const deleteblog = async (req, res) => {
 async function editBlog(req, res) {
   try {
     const { id } = req.params;
-    const pic = await Blog.find({ _id: id });
-    // const blogPIC = req.file.filename;
-    const { title, desc, category, blog } = req.body;
+    const { title, desc, blog } = req.body;
     const updateBlog = await Blog.findByIdAndUpdate(id, {
       title,
       desc,
-      category,
       blog
     });
-
-    // if (req.file.filename === undefined) {
-    //   return res.json({
-    //     msg: "All fileds are madatory",
-    //     status: false,
-    //   });
-    // }
-
-    if (category === "") {
-      return res.json({
-        msg: "All fileds are madatory",
-        status: false,
-      });
-    }
 
     return res.json({
       msg: "Blog updated successfully",

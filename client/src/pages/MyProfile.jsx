@@ -6,9 +6,10 @@ import StateContext from "../context/Hooks/StateContext";
 import BlogData from "../utils/BlogData";
 import MainLoader from "../utils/MainLoader";
 import BasicLoader from "../utils/BasicLoader";
+import { useNavigate } from "react-router-dom";
 
 const MyProfile = () => {
-  const { isLoading, currentUser, getLoginBlog, otherLoading } =
+  const { isLoading, currentUser, getLoginBlog, otherLoading, isLogin } =
     useContext(StateContext);
   const { logOut, currentUserBlog } = useContext(FunctionContext);
 

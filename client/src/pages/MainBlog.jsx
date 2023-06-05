@@ -50,7 +50,17 @@ const MainBlog = () => {
             }}
             justifyContent={"center"}
           >
-            <Stack direction={"row"} width="250px">
+            <Stack
+              direction={"row"}
+              sx={{
+                [theme.breakpoints.up("xs")]: {
+                  width: "350px",
+                },
+                [theme.breakpoints.up("sm")]: {
+                  width: "250px",
+                },
+              }}
+            >
               <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-label">Category</InputLabel>
                 <Select
@@ -73,7 +83,7 @@ const MainBlog = () => {
             <FormControl
               sx={{
                 [theme.breakpoints.up("xs")]: {
-                  width: "250px",
+                  width: "350px",
                   mb: "20px",
                 },
                 [theme.breakpoints.up("sm")]: {
