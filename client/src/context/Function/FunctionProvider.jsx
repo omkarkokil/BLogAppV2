@@ -472,8 +472,7 @@ const FunctionProvider = ({ children }) => {
       const { title, desc } = blog;
 
       const { data } = await axios.put(
-        // `https://magicalwinds.onrender.com/api/blog/editBlog/${id}`,
-        `http://localhost:5000/api/blog/editBlog/${id}`,
+        `https://magicalwinds.onrender.com/api/blog/editBlog/${id}`,
         { title, desc, blog: blogdesc },
         {
           headers: {

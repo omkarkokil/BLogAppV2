@@ -105,7 +105,7 @@ async function editBlog(req, res) {
     const updateBlog = await Blog.findByIdAndUpdate(id, {
       title,
       desc,
-      blog
+      blog,
     });
 
     return res.json({
