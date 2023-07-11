@@ -51,6 +51,8 @@ const Blog = () => {
 
   const theme = useTheme();
 
+  console.log("hii");
+
   return (
     <>
       {otherLoading ? <BasicLoader /> : ""}
