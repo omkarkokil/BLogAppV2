@@ -24,7 +24,6 @@ import Timestamp from "react-timestamp";
 import BasicLoader from "./BasicLoader";
 
 const Blog = () => {
-  console.log("New SSH implemented");
   const {
     item,
     isLoading,
