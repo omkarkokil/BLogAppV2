@@ -108,11 +108,10 @@ const Blog = () => {
               <Paper
                 component="img"
                 elevation={0}
-                width={"70%"}
+                height={"500px"}
                 src={item.blogPic}
               />
             </Stack>
-            <Typography variant="body2">{item.desc}</Typography>
             <Stack my={"10px"}>
               <Chip
                 color="warning"
