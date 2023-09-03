@@ -351,8 +351,6 @@ const FunctionProvider = ({ children }) => {
 
   // console.log(makeComment);
 
-  console.log(pic);
-
   const createBlog = async () => {
     setIsLoading(true);
     try {
@@ -528,6 +526,7 @@ const FunctionProvider = ({ children }) => {
         editBlog,
         handleOpen,
         handleClose,
+        getBlogs,
       }}
     >
       {children}

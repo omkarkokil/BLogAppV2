@@ -24,7 +24,8 @@ const MainBlog = () => {
       {isLoading ? (
         <MainLoader />
       ) : (
-        <Box
+        <>
+          {/* <Box
           sx={{
             [theme.breakpoints.up("xs")]: {
               marginTop: "20%",
@@ -36,8 +37,8 @@ const MainBlog = () => {
               marginTop: "10%",
             },
           }}
-        >
-          <Stack
+        > */}
+          {/* <Stack
             direction={"row"}
             sx={{
               [theme.breakpoints.up("xs")]: {
@@ -107,13 +108,14 @@ const MainBlog = () => {
                 onChange={handleSearch}
               />
             </FormControl>
-          </Stack>
+          </Stack> */}
 
-          <Box marginY={"20px"}>
+          <Box paddingTop={"100px"}>
             <BlogData items={items} />
           </Box>
           {/* <Footer /> */}
-        </Box>
+          {/* </Box> */}
+        </>
       )}
     </>
   );

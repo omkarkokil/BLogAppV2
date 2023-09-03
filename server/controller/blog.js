@@ -38,9 +38,17 @@ const getAllBlogs = async (req, res) => {
   try {
     const page = req.query.page ? parseInt(req.query.page) : 1;
     const size = 9;
+    const items = req.query.items
     const skip = (page - 1) * size
     const blog = await Blog.find().sort({ _id: -1 }).skip(skip).limit(size);
-    return res.json(blog);
+    const fillterBlog = blog.filter((ele) => {
+      return items === "all" ? ele : ele.category.includes(items)
+
+    })
+
+
+
+    return res.json(fillterBlog);
   } catch (error) {
     return res.json({ msg: error, status: false });
   }

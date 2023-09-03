@@ -112,36 +112,17 @@
   background: url("./img/imgae.png") no-repeat center/cover;
 }
 
-/* .img1 {
-  background: url("./img/card.png") no-repeat center/cover;
-} */
+
 
 .img2 {
   right: 0% !important;
   bottom: -10% !important;
   animation-delay: 0.5s !important;
-  /* height: 40vh !important; */
-  /* width: 18%; */
+  
   background: url("./img/calc.png") no-repeat center/cover;
 }
 
-/* .img3 {
-  animation-delay: 0.6s !important;
-  z-index: 0 !important;
-  background: url("./img/flowergreen.png") no-repeat center/cover;
-}
-.img4 {
-  animation-delay: 0.5s !important;
-  background: url("./img/cup.png") no-repeat center/cover;
-}
 
-.imaginaryLeft {
-  position: absolute;
-  bottom: 0;
-  animation-delay: 0.5s !important;
-  right: 10%;
-  z-index: 1 !important;
-} */
 a {
   color: #000;
   text-decoration: none;
@@ -252,4 +233,40 @@ a {
   100% {
     transform: rotate(360deg);
   }
+}
+
+.ribbon {
+  border-radius: 1rem;
+  background: white;
+  box-shadow: 4px 4px 15px rgba(#000, 0.15);
+  position: relative;
+  color: #434343;
+}
+
+.ribbon::before {
+  position: absolute;
+  top: 2rem;
+  right: -0.5rem;
+  content: "";
+  height: 28px;
+  width: 28px;
+  transform: rotate(45deg);
+  z-index: -1;
+}
+
+.ribbon::after {
+  z-index: 10;
+  position: absolute;
+  content: attr(data-label);
+  top: 11px;
+  right: -14px;
+  padding: 0.5rem;
+  width: 10rem;
+  color: white;
+  border-radius: 5px;
+
+  text-align: center;
+  font-family: "Roboto", sans-serif;
+
+  box-shadow: 4px 4px 15px rgba(26, 35, 126, 0.2);
 }
