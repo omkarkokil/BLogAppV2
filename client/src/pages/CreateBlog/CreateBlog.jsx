@@ -9,24 +9,21 @@ import { Button, FormControl, Stack, TextField, useTheme } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import InputAdornment from "@mui/material/InputAdornment";
 import PersonIcon from "@mui/icons-material/Person";
-import FunctionContext from "../context/Function/FunctionContext";
-import StateContext from "../context/Hooks/StateContext";
+import FunctionContext from "../../context/Function/FunctionContext";
+import StateContext from "../../context/State/StateContext";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import AssignmentIcon from "@mui/icons-material/Assignment";
-import BasicLoader from "../utils/BasicLoader";
+import BasicLoader from "../../utils/Loader/BasicLoader";
+import { BlogContext } from "../../context/Blogs/BlogContext";
 const CreateBlog = () => {
   const { user, select, blog, blogdesc, setBlogdesc, isLoading, isLogin } =
     useContext(StateContext);
-  const {
-    handleSelect,
-    createBlog,
-    handleBlog,
-    handlePic,
-    handleOpen,
-    postDetailes,
-  } = useContext(FunctionContext);
+  const { handleSelect, handleBlog, handleOpen, postDetailes } =
+    useContext(FunctionContext);
+
+  const { createBlog } = useContext(BlogContext);
 
   const modules = {
     toolbar: [

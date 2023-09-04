@@ -37,19 +37,19 @@ const createBlog = async (req, res) => {
 const getAllBlogs = async (req, res) => {
   try {
     const page = req.query.page ? parseInt(req.query.page) : 1;
-    const size = 9;
+    const limit = req.query.limit ? parseInt(req.query.limit) : 5;
+    const skip = (page - 1) * limit;
     const items = req.query.items
-    const skip = (page - 1) * size
-    const blog = await Blog.find().sort({ _id: -1 }).skip(skip).limit(size);
-    const fillterBlog = blog.filter((ele) => {
-      return items === "all" ? ele : ele.category.includes(items)
+    let blog;
 
-    })
-
-
-
-    return res.json(fillterBlog);
+    if (items === "all" || items === "" || items === null) {
+      blog = await Blog.find().sort({ _id: -1 }).skip(skip).limit(limit).exec();
+    } else {
+      blog = await Blog.find({ category: items }).sort({ _id: -1 }).skip(skip).limit(limit).exec();
+    }
+    return res.json(blog);
   } catch (error) {
+    console.log(error);
     return res.json({ msg: error, status: false });
   }
 };

@@ -2,14 +2,15 @@ import { Avatar, Divider, Typography } from "@mui/material";
 import { Box, Stack } from "@mui/system";
 import React, { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import FunctionContext from "../context/Function/FunctionContext";
-import StateContext from "../context/Hooks/StateContext";
-import MainLoader from "../utils/MainLoader";
+import FunctionContext from "../../context/Function/FunctionContext";
+import StateContext from "../../context/State/StateContext";
+import MainLoader from "../../utils/Loader/MainLoader";
 import Timestamp from "react-timestamp";
+import { CommentContext } from "../../context/Comment/CommentContext";
 
 const Comment = () => {
   const { isLoading, allComments } = useContext(StateContext);
-  const { getAllComments } = useContext(FunctionContext);
+  const { getAllComments } = useContext(CommentContext);
 
   const { id } = useParams("");
   useEffect(() => {

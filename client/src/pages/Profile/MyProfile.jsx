@@ -1,22 +1,52 @@
 import { Avatar, Button, Divider, Typography, useTheme } from "@mui/material";
 import { Box, Stack } from "@mui/system";
-import React, { useContext, useEffect } from "react";
-import FunctionContext from "../context/Function/FunctionContext";
-import StateContext from "../context/Hooks/StateContext";
-import BlogData from "../utils/BlogData";
-import MainLoader from "../utils/MainLoader";
-import BasicLoader from "../utils/BasicLoader";
-import { useNavigate } from "react-router-dom";
+import React, { useCallback, useContext, useEffect } from "react";
+import FunctionContext from "../../context/Function/FunctionContext";
+import StateContext from "../../context/State/StateContext";
+import BlogData from "../AllBlogs/Blogs/BlogData";
+import MainLoader from "../../utils/Loader/MainLoader";
+import BasicLoader from "../../utils/Loader/BasicLoader";
+import { useLocation, useNavigate } from "react-router-dom";
+import { BlogContext } from "../../context/Blogs/BlogContext";
+import axios from "axios";
 
 const MyProfile = () => {
-  const { isLoading, currentUser, getLoginBlog, otherLoading, isLogin } =
-    useContext(StateContext);
-  const { logOut, currentUserBlog } = useContext(FunctionContext);
+  const {
+    isLoading,
+    currentUser,
+    otherLoading,
+    isLogin,
+    items,
+    getLoginBlog,
+    setIsLoading,
+    setGetLoginBlog,
+  } = useContext(StateContext);
+  const { logOut } = useContext(FunctionContext);
+
+  const loc = useLocation();
+
+  const currentUserBlog = useCallback(async () => {
+    setIsLoading(true);
+    try {
+      const { data } = await axios.get(
+        process.env.REACT_APP_GET_CURRENT_USER_BLOG,
+        {
+          headers: {
+            Authorization: localStorage.getItem("user"),
+          },
+        }
+      );
+      setGetLoginBlog(data);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
 
   useEffect(() => {
     currentUserBlog();
-  }, []);
-
+  }, [loc.pathname === "/myprofile"]);
   const theme = useTheme();
 
   return (

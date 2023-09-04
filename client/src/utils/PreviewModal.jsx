@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import StateContext from "../context/Hooks/StateContext";
+import StateContext from "../context/State/StateContext";
 import FunctionContext from "../context/Function/FunctionContext";
 import { Avatar, Chip, Paper, Stack } from "@mui/material";
 

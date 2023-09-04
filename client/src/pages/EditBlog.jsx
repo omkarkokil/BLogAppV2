@@ -7,14 +7,15 @@ import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import InputAdornment from "@mui/material/InputAdornment";
 import PersonIcon from "@mui/icons-material/Person";
 import FunctionContext from "../context/Function/FunctionContext";
-import StateContext from "../context/Hooks/StateContext";
+import StateContext from "../context/State/StateContext";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import ReactQuill from "react-quill";
-import BasicLoader from "../utils/BasicLoader";
-import MainLoader from "../utils/MainLoader";
+import BasicLoader from "../utils/Loader/BasicLoader";
+import MainLoader from "../utils/Loader/MainLoader";
+import { BlogContext } from "../context/Blogs/BlogContext";
 const EditBlog = () => {
   const {
     user,
@@ -26,19 +27,17 @@ const EditBlog = () => {
     isLoading,
     otherLoading,
   } = useContext(StateContext);
-  const { handleSelect, createBlog, handleBlog, handlePic, editBlog, getBlog } =
-    useContext(FunctionContext);
-  const location = useLocation();
+  const { handleBlog, getBlog } = useContext(FunctionContext);
+  const { editBlog } = useContext(BlogContext);
+  const loc = useLocation();
   const { id } = useParams("");
-  const loc = location.pathname;
 
   useEffect(() => {
     getBlog(id);
-  }, [loc]);
+  }, [loc.pathname]);
 
   const modules = {
     toolbar: [
-      // [{ font: [] }],
       [{ header: [1, 2, 3, 4, 5, 6, false] }],
       [{ size: ["small", false, "large", "huge"] }], // custom dropdown
 

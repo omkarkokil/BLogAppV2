@@ -7,15 +7,16 @@ import Menu from "@mui/material/Menu";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import StateContext from "../context/Hooks/StateContext";
-import FunctionContext from "../context/Function/FunctionContext";
+import StateContext from "../../context/State/StateContext";
+import FunctionContext from "../../context/Function/FunctionContext";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useTheme } from "@mui/material/styles";
+import { AuthContext } from "../../context/Authentication/AuthContext";
 
 const Navbar = () => {
   const { isLogin, currentUser } = useContext(StateContext);
   // console.log(currentUser);
-  const { logOut } = useContext(FunctionContext);
+  const { logOut } = useContext(AuthContext);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [isScroll, setIsScroll] = useState(false);
 

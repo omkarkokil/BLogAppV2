@@ -1,8 +1,6 @@
 import {
   Box,
   Button,
-  Card,
-  CardMedia,
   Container,
   Paper,
   Typography,
@@ -10,19 +8,17 @@ import {
 import { Stack } from "@mui/system";
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import StateContext from "../context/Hooks/StateContext";
-import Footer from "../utils/Footer";
-// import CategoryGrid from "../components/CategoryGrid";
-import img1 from "../img/imgae.png";
-import cardblog from "../img/card.png";
-import calc from "../img/calc.png";
-import flowergreen from "../img/flowergreen.png";
-import cup from "../img/cup.png";
-import blogYellow from "../img/blogYellow.png";
-import blogblue from "../img/blogblue.png";
-import pens from "../img/pens.png";
-import graph from "../img/graph.png";
-import map from "../img/map.png";
+import StateContext from "../../context/State/StateContext";
+import Footer from "../../utils/Footer/Footer";
+import cardblog from "../../img/card.png";
+import calc from "../../img/calc.png";
+import flowergreen from "../../img/flowergreen.png";
+import cup from "../../img/cup.png";
+import blogYellow from "../../img/blogYellow.png";
+import blogblue from "../../img/blogblue.png";
+import pens from "../../img/pens.png";
+import graph from "../../img/graph.png";
+import map from "../../img/map.png";
 import { useTheme } from "@mui/material/styles";
 
 const Home = () => {
@@ -296,23 +292,12 @@ const Home = () => {
           className="newEffect"
           src={blogYellow}
           elevation={0}
+          height={{ xs: "300px", md: "400px", lg: "600px" }}
           sx={{
             backgroundColor: "transparent",
             right: "-10%",
             bottom: "-15%",
             position: "absolute",
-            [theme.breakpoints.up("xs")]: {
-              height: "300px",
-            },
-            [theme.breakpoints.up("sm")]: {
-              height: "400px",
-            },
-            [theme.breakpoints.up("md")]: {
-              height: "400px",
-            },
-            [theme.breakpoints.up("lg")]: {
-              height: "600px",
-            },
           }}
         />
 
@@ -321,24 +306,12 @@ const Home = () => {
           className="newEffect"
           src={blogblue}
           elevation={0}
+          height={{ xs: "250px", sm: "350px", md: "350px", lg: "500px" }}
           sx={{
             backgroundColor: "transparent",
-
             right: "-15%",
             bottom: "-20%",
             position: "absolute",
-            [theme.breakpoints.up("xs")]: {
-              height: "250px",
-            },
-            [theme.breakpoints.up("sm")]: {
-              height: "350px",
-            },
-            [theme.breakpoints.up("md")]: {
-              height: "350px",
-            },
-            [theme.breakpoints.up("lg")]: {
-              height: "500px",
-            },
           }}
         />
 
@@ -349,10 +322,8 @@ const Home = () => {
           elevation={0}
           sx={{
             backgroundColor: "transparent",
-
             position: "absolute",
             right: "20%",
-
             [theme.breakpoints.up("xs")]: {
               height: "70px",
               top: "40%",
@@ -374,8 +345,6 @@ const Home = () => {
             },
           }}
         />
-        {/* <img src={blogblue} className=" blogblue" alt="none" /> */}
-        {/* <img src={pens} className=" pen" alt="none" /> */}
       </Stack>
 
       <Stack
@@ -388,12 +357,6 @@ const Home = () => {
           background: "#444",
           zIndex: 100,
           position: "relative",
-          [theme.breakpoints.up("xs")]: {
-            flexDirection: "column",
-          },
-          [theme.breakpoints.up("md")]: {
-            flexDirection: "row",
-          },
         }}
       >
         <Stack
