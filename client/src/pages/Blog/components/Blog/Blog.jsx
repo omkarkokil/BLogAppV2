@@ -2,12 +2,13 @@ import { Box, Paper, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
 import { useContext } from "react";
 import StateContext from "../../../../context/State/StateContext";
+import { format } from "date-fns";
 
 const Blog = () => {
   const { item } = useContext(StateContext);
   return (
     <>
-      <Stack px={"20px"}>
+      <Stack>
         <Paper
           component="img"
           height={350}
@@ -33,11 +34,11 @@ const Blog = () => {
           mb={"20px"}
           justifyContent={"space-between"}
         >
-          <Typography variant="body1" color="orange">
+          <Typography variant="body1" color="orangered">
             Author : {item.name}
           </Typography>
-          <Typography variant="body1" color="orange">
-            {item.date}
+          <Typography variant="body1" color="orangered">
+            {item.createdAt && format(new Date(item.createdAt), "PP")}
           </Typography>
         </Stack>
         <Box

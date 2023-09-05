@@ -1,10 +1,4 @@
-import {
-  Box,
-  Button,
-  Container,
-  Paper,
-  Typography,
-} from "@mui/material";
+import { Box, Button, Container, Paper, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
@@ -292,8 +286,16 @@ const Home = () => {
           className="newEffect"
           src={blogYellow}
           elevation={0}
-          height={{ xs: "300px", md: "400px", lg: "600px" }}
           sx={{
+            [theme.breakpoints.up("xs")]: {
+              height: "300px",
+            },
+            [theme.breakpoints.up("md")]: {
+              height: "500px",
+            },
+            [theme.breakpoints.up("lg")]: {
+              height: "600px",
+            },
             backgroundColor: "transparent",
             right: "-10%",
             bottom: "-15%",
@@ -306,12 +308,20 @@ const Home = () => {
           className="newEffect"
           src={blogblue}
           elevation={0}
-          height={{ xs: "250px", sm: "350px", md: "350px", lg: "500px" }}
           sx={{
             backgroundColor: "transparent",
             right: "-15%",
             bottom: "-20%",
             position: "absolute",
+            [theme.breakpoints.up("xs")]: {
+              height: "250px",
+            },
+            [theme.breakpoints.up("sm")]: {
+              height: "350px",
+            },
+            [theme.breakpoints.up("lg")]: {
+              height: "500px",
+            },
           }}
         />
 

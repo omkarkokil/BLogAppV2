@@ -54,20 +54,36 @@ const SingleBlog = () => {
       {isLoading ? (
         <MainLoader />
       ) : (
-        <Stack pt="80px" direction={"row"}>
+        <Stack pt="80px" px={"20px"} direction={"row"}>
           <Stack
             alignItems={"center"}
             justifyContent={"center"}
             sx={{
-              width: "70%",
+              [theme.breakpoints.up("xs")]: {
+                width: "100%",
+              },
+              [theme.breakpoints.up("xl")]: {
+                width: "70%",
+              },
             }}
           >
             <Blog />
-
             <MakeComment id={id} />
           </Stack>
 
-          <Stack my={"10px"} px={"40px"} width={"30%"}>
+          <Stack
+            my={"10px"}
+            sx={{
+              [theme.breakpoints.up("xs")]: {
+                display: "none",
+              },
+              [theme.breakpoints.up("xl")]: {
+                display: "block",
+              },
+            }}
+            px={"40px"}
+            width={"30%"}
+          >
             <AuthorData id={id} />
           </Stack>
         </Stack>

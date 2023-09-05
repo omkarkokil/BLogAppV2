@@ -9,15 +9,8 @@ export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
-  const {
-    setIsLoading,
-    user,
-    pic,
-    toastOption,
-    setIsLogin,
-    setCurrentUser,
-    setGetLoginBlog,
-  } = useContext(StateContext);
+  const { setIsLoading, user, pic, toastOption, setIsLogin, setCurrentUser } =
+    useContext(StateContext);
 
   useEffect(() => {
     if (localStorage.getItem("user")) {
@@ -40,10 +33,10 @@ const AuthProvider = ({ children }) => {
     try {
       setIsLoading(true);
       const { email, password } = user;
-      const { data } = await axios.post(
-        "https://magicalwinds.onrender.com/api/auth/loginUser",
-        { email, password }
-      );
+      const { data } = await axios.post(process.env.REACT_APP_LOGIN_USER, {
+        email,
+        password,
+      });
 
       if (!email || !password) {
         toast.error("Please fill the credentials", toastOption);
@@ -71,15 +64,12 @@ const AuthProvider = ({ children }) => {
       const { name, email, password } = user;
 
       // Api call for register user
-      const { data } = await axios.post(
-        "https://magicalwinds.onrender.com/api/auth/registeruser",
-        {
-          name,
-          email,
-          password,
-          pic,
-        }
-      );
+      const { data } = await axios.post(process.env.REACT_APP_REGISTER_USER, {
+        name,
+        email,
+        password,
+        pic,
+      });
 
       // Checking data status from backend
       if (!data.status) {
@@ -107,12 +97,8 @@ const AuthProvider = ({ children }) => {
     navigate("/");
   };
 
- 
-
   return (
-    <AuthContext.Provider
-      value={{ RegisterUser, LoginUser, logOut }}
-    >
+    <AuthContext.Provider value={{ RegisterUser, LoginUser, logOut }}>
       {children}
     </AuthContext.Provider>
   );

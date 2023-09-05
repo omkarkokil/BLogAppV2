@@ -53,7 +53,8 @@ const AuthorData = ({ id }) => {
             No Blogs have been written by user
           </Typography>
         ) : (
-          getAuthorBlogs?.slice(0, 3).map((ele, id) => (
+          getAuthorBlogs &&
+          getAuthorBlogs.slice(0, 3).map((ele, id) => (
             <Link to={`/blog/${ele._id}`} key={id}>
               <Stack gap={"10px"} direction={"row"}>
                 <Paper
@@ -64,12 +65,13 @@ const AuthorData = ({ id }) => {
                   src={ele.blogPic}
                 />
                 <Box>
-                  <Typography variant="h6" color="initial">
-                    {ele.title}
-                  </Typography>
-                  <Typography variant="body2" color="#888">
-                    {ele.desc.slice(0, 50)}
-                  </Typography>
+                  <Typography fontSize={"1.2em"}>{ele.title}</Typography>
+                  <Box
+                    fontSize={{ xs: ".9em" }}
+                    dangerouslySetInnerHTML={{
+                      __html: `${ele?.blog?.slice(0, 100)}...`,
+                    }}
+                  ></Box>
                 </Box>
               </Stack>
             </Link>

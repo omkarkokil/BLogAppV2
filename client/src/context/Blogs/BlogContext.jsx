@@ -1,8 +1,9 @@
-import { createContext, useContext } from "react";
+import { createContext, useCallback, useContext } from "react";
 import StateContext from "../State/StateContext";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import FunctionContext from "../Function/FunctionContext";
 
 export const BlogContext = createContext();
 
@@ -14,7 +15,7 @@ const BlogProvider = ({ children }) => {
     blog,
     blogdesc,
     pic,
-    toastOption,
+
     currentUser,
     setGetLoginBlog,
     getLoginBlog,
@@ -22,7 +23,15 @@ const BlogProvider = ({ children }) => {
     setBlogdesc,
     setBlog,
     setItem,
+    setItems,
+    FillterData,
+    setHasMore,
+    setFillterData,
+    page,
+    setPage,
   } = useContext(StateContext);
+
+  const { toastOption } = useContext(FunctionContext);
 
   const navigate = useNavigate();
 
@@ -35,7 +44,6 @@ const BlogProvider = ({ children }) => {
         process.env.REACT_APP_CREATE_BLOG,
         {
           title,
-          desc,
           blog: blogdesc,
           category: select,
           userId: currentUser.id,
@@ -152,8 +160,82 @@ const BlogProvider = ({ children }) => {
     }
   };
 
+  const getBlogs = useCallback(async () => {
+    try {
+      setIsLoading(true);
+      const { data } = await axios.get(process.env.REACT_APP_GET_ALL_BLOGS, {
+        params: {
+          page: 1,
+          limit: 5,
+          items: FillterData,
+        },
+      });
+      setItems(data);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      if (page >= 1) {
+        const { data } = await axios.get(
+          "http://localhost:5000/api/blog/getAllBlogs",
+          {
+            params: {
+              page: page,
+              items: FillterData,
+            },
+          }
+        );
+        if (data.length === 0) {
+          setHasMore(false);
+        } else {
+          setItems((prevItems) => [...prevItems, ...data]);
+          setPage((prevPage) => prevPage + 1);
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const GetFiltter = async (items) => {
+    try {
+      setPage(1);
+      setHasMore(true);
+      const { data } = await axios.get(
+        "http://localhost:5000/api/blog/getAllBlogs",
+        {
+          params: {
+            items: items,
+            page: 1,
+          },
+        }
+      );
+
+      setItems(data);
+      setPage((prevPage) => prevPage + 1);
+      setFillterData(items);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
-    <BlogContext.Provider value={{ createBlog, editBlog, deleteBlog, getBlog }}>
+    <BlogContext.Provider
+      value={{
+        createBlog,
+        editBlog,
+        deleteBlog,
+        getBlog,
+        fetchData,
+        GetFiltter,
+        getBlogs,
+      }}
+    >
       {children}
     </BlogContext.Provider>
   );

@@ -1,9 +1,6 @@
 import React, { useContext } from "react";
-import { useNavigate } from "react-router-dom";
 import StateContext from "../State/StateContext";
 import FunctionContext from "./FunctionContext";
-import axios from "axios";
-import { toast } from "react-toastify";
 
 const FunctionProvider = ({ children }) => {
   const {

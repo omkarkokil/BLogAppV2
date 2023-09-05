@@ -1,32 +1,31 @@
 import { Avatar, Button, Divider, Typography, useTheme } from "@mui/material";
 import { Box, Stack } from "@mui/system";
 import React, { useCallback, useContext, useEffect } from "react";
-import FunctionContext from "../../context/Function/FunctionContext";
 import StateContext from "../../context/State/StateContext";
 import BlogData from "../AllBlogs/Blogs/BlogData";
 import MainLoader from "../../utils/Loader/MainLoader";
 import BasicLoader from "../../utils/Loader/BasicLoader";
-import { useLocation, useNavigate } from "react-router-dom";
-import { BlogContext } from "../../context/Blogs/BlogContext";
+import { useLocation } from "react-router-dom";
 import axios from "axios";
+import { AuthContext } from "../../context/Authentication/AuthContext";
 
 const MyProfile = () => {
   const {
     isLoading,
     currentUser,
     otherLoading,
-    isLogin,
+    setOtherLoading,
     items,
     getLoginBlog,
     setIsLoading,
     setGetLoginBlog,
   } = useContext(StateContext);
-  const { logOut } = useContext(FunctionContext);
+  const { logOut } = useContext(AuthContext);
 
   const loc = useLocation();
 
   const currentUserBlog = useCallback(async () => {
-    setIsLoading(true);
+    setOtherLoading(true);
     try {
       const { data } = await axios.get(
         process.env.REACT_APP_GET_CURRENT_USER_BLOG,
@@ -40,19 +39,22 @@ const MyProfile = () => {
     } catch (error) {
       console.log(error);
     } finally {
-      setIsLoading(false);
+      setOtherLoading(false);
     }
   }, []);
 
   useEffect(() => {
     currentUserBlog();
-  }, [loc.pathname === "/myprofile"]);
+  }, []);
+
   const theme = useTheme();
+
+  console.log("renders");
 
   return (
     <>
-      {otherLoading ? <BasicLoader /> : ""}
-      {isLoading ? (
+      {/* {otherLoading ? <BasicLoader /> : ""} */}
+      {otherLoading ? (
         <MainLoader />
       ) : (
         <Stack

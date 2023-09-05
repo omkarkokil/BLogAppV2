@@ -9,7 +9,10 @@ const Footer = () => {
     >
       <section className="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
         <div className="me-5 d-none d-lg-block">
-          <span>Get connected with us </span>
+          <span>
+            This website is only for practice used thier is no income comming
+            from ths website it is clone or similar to Blogger Website
+          </span>
         </div>
       </section>
       <section>

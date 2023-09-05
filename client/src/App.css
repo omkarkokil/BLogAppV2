@@ -8,6 +8,19 @@
   text-decoration: none;
 }
 
+.outlineNone .MuiOutlinedInput-notchedOutline {
+  border: none !important;
+  color: #000;
+}
+#input {
+  font-size: 40px;
+}
+
+@media (max-width: 600px) {
+  #input {
+    font-size: 30px !important;
+  }
+}
 .pen {
   height: 150px;
   right: 20%;
@@ -112,16 +125,13 @@
   background: url("./img/imgae.png") no-repeat center/cover;
 }
 
-
-
 .img2 {
   right: 0% !important;
   bottom: -10% !important;
   animation-delay: 0.5s !important;
-  
+
   background: url("./img/calc.png") no-repeat center/cover;
 }
-
 
 a {
   color: #000;

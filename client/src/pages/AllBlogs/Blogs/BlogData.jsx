@@ -1,46 +1,20 @@
-import {
-  Avatar,
-  CardHeader,
-  Stack,
-  SvgIcon,
-  Chip,
-  useTheme,
-} from "@mui/material";
+import { Stack, Chip, useTheme } from "@mui/material";
 import { Box } from "@mui/system";
-import React, { useCallback, useContext, useEffect, useState } from "react";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import { Link, useLocation } from "react-router-dom";
-import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
+import React, { useContext, useEffect } from "react";
+
+import { useLocation } from "react-router-dom";
 import StateContext from "../../../context/State/StateContext";
 import { BlogContext } from "../../../context/Blogs/BlogContext";
 import InfiniteScroll from "react-infinite-scroll-component";
-import axios from "axios";
-import EastIcon from "@mui/icons-material/East";
-import { format } from "date-fns";
 import MainLoader from "../../../utils/Loader/MainLoader";
-import { AuthContext } from "../../../context/Authentication/AuthContext";
 import BlogCard from "./Components/BlogCard";
 
 const BlogData = (props) => {
   const loc = useLocation("");
-  const {
-    currentUser,
-    isLoading,
-    page,
-    setPage,
-    setItems,
-    setIsLoading,
-    setGetLoginBlog,
-  } = useContext(StateContext);
+  const { isLoading, setPage, hasMore, FillterData } = useContext(StateContext);
 
-  const [FillterData, setFillterData] = useState("all");
-  const [hasMore, setHasMore] = useState(true);
+  const { fetchData, GetFiltter } = useContext(BlogContext);
+
   const theme = useTheme();
 
   const chips = [
@@ -51,102 +25,40 @@ const BlogData = (props) => {
     { label: "polytics", color: "info" },
     { label: "Entertainment", color: "error" },
   ];
-
-  const getBlogs = useCallback(async () => {
-    try {
-      setIsLoading(true);
-      const { data } = await axios.get(process.env.REACT_APP_GET_ALL_BLOGS, {
-        params: {
-          page: 1,
-          limit: 5,
-          items: FillterData,
-        },
-      });
-      setItems(data);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setIsLoading(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    getBlogs();
-  }, []);
-
   useEffect(() => {
     setPage(2);
   }, [loc]);
-
-  const fetchData = async () => {
-    try {
-      if (page >= 1) {
-        const { data } = await axios.get(
-          "http://localhost:5000/api/blog/getAllBlogs",
-          {
-            params: {
-              page: page,
-              items: FillterData,
-            },
-          }
-        );
-        if (data.length === 0) {
-          setHasMore(false);
-        } else {
-          setItems((prevItems) => [...prevItems, ...data]);
-          setPage((prevPage) => prevPage + 1);
-        }
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const GetFiltter = async (items) => {
-    try {
-      setPage(1);
-      setHasMore(true);
-      const { data } = await axios.get(
-        "http://localhost:5000/api/blog/getAllBlogs",
-        {
-          params: {
-            items: items,
-            page: 1,
-          },
-        }
-      );
-
-      setItems(data);
-      setPage((prevPage) => prevPage + 1);
-      setFillterData(items);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   return (
     <>
       {isLoading ? (
         <MainLoader />
       ) : (
         <>
-          <Stack
-            width={"100%"}
-            justifyContent={"center"}
-            alignItems={"center"}
-            gap={"10px"}
-            direction={"row"}
-          >
-            {chips.map((ele, id) => (
-              <Chip
-                variant={ele.label === FillterData ? "filled" : "outlined"}
-                color={ele.color}
-                onClick={() => GetFiltter(ele.label)}
-                key={id}
-                sx={{ cursor: "pointer" }}
-                label={ele.label}
-              />
-            ))}
+          <Stack width={"100%"} justifyContent={"center"} alignItems={"center"}>
+            <Stack
+              overflow={"auto"}
+              width="90%"
+              justifyContent={{ xs: "flex-start", sm: "center" }}
+              gap="10px"
+              sx={{
+                "&::-webkit-scrollbar": {
+                  display: "none",
+                },
+              }}
+              direction={"row"}
+            >
+              {loc.pathname === "/allBlog" &&
+                chips.map((ele, id) => (
+                  <Chip
+                    variant={ele.label === FillterData ? "filled" : "outlined"}
+                    color={ele.color}
+                    onClick={() => GetFiltter(ele.label)}
+                    key={id}
+                    sx={{ cursor: "pointer" }}
+                    label={ele.label}
+                  />
+                ))}
+            </Stack>
           </Stack>
           <InfiniteScroll
             dataLength={props.items.length}
@@ -170,13 +82,20 @@ const BlogData = (props) => {
                 sx={{
                   display: "grid",
                   gridTemplateColumns: "repeat(4, 1fr)",
-                  gap: "10px",
+                  gap: "5px",
                   justifyContent: "flex-start",
                   "& > :not(style)": {
                     m: 1,
-                    width: 350,
+
                     height: "max-content",
                     marginTop: "30px",
+
+                    [theme.breakpoints.down("lg")]: {
+                      width: "350px",
+                    },
+                    [theme.breakpoints.down("md")]: {
+                      width: "90%",
+                    },
                   },
 
                   [theme.breakpoints.down("xl")]: {
@@ -185,13 +104,15 @@ const BlogData = (props) => {
                   [theme.breakpoints.down("lg")]: {
                     gridTemplateColumns: "repeat(2, .5fr)",
                   },
-                  [theme.breakpoints.down("sm")]: {
-                    gridTemplateColumns: "repeat(1, 1fr)",
+                  [theme.breakpoints.down("md")]: {
+                    gridTemplateColumns: "repeat(1, 100%)",
+                    placeItems: "center",
+                    width: "100%",
                   },
                 }}
               >
                 {props.items.map((ele, id) => {
-                  return <BlogCard ele={ele} chips={chips} />;
+                  return <BlogCard ele={ele} key={id} chips={chips} />;
                 })}
               </Box>
             </Stack>

@@ -1,22 +1,25 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 
 import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
-
-import { Container, Box } from "@mui/system";
-import Typography from "@mui/material/Typography";
-import { Button, FormControl, Stack, TextField, useTheme } from "@mui/material";
-import { Link, useNavigate } from "react-router-dom";
-import InputAdornment from "@mui/material/InputAdornment";
-import PersonIcon from "@mui/icons-material/Person";
+import "react-quill/dist/quill.bubble.css";
+import { Box } from "@mui/system";
+import {
+  Avatar,
+  Button,
+  FormControl,
+  Paper,
+  Stack,
+  TextField,
+  useTheme,
+} from "@mui/material";
 import FunctionContext from "../../context/Function/FunctionContext";
 import StateContext from "../../context/State/StateContext";
-import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
-import AssignmentIcon from "@mui/icons-material/Assignment";
 import BasicLoader from "../../utils/Loader/BasicLoader";
 import { BlogContext } from "../../context/Blogs/BlogContext";
+import AddIcon from "@mui/icons-material/Add";
+
 const CreateBlog = () => {
   const { user, select, blog, blogdesc, setBlogdesc, isLoading, isLogin } =
     useContext(StateContext);
@@ -25,25 +28,27 @@ const CreateBlog = () => {
 
   const { createBlog } = useContext(BlogContext);
 
+  const formats = ["bold"];
+
   const modules = {
     toolbar: [
-      // [{ font: [] }],
       [{ header: [1, 2, 3, 4, 5, 6, false] }],
-      [{ size: ["small", false, "large", "huge"] }], // custom dropdown
-
-      ["bold", "italic", "underline", "strike"], // toggled buttons
+      [{ size: ["small", false, "large", "huge"] }],
+      ["bold", "italic", "underline", "strike"],
       ["blockquote", "code-block"],
-      [{ color: [] }, { background: [] }], // dropdown with defaults from theme
-      [{ script: "sub" }, { script: "super" }], // superscript/subscript
+      [{ color: [] }, { background: [] }],
+      [{ script: "sub" }, { script: "super" }],
 
       [{ list: "ordered" }, { list: "bullet" }],
-      [{ indent: "-1" }, { indent: "+1" }], // outdent/indent
-      [{ direction: "rtl" }], // text direction
+      [{ indent: "-1" }, { indent: "+1" }],
+      [{ direction: "rtl" }],
       [{ align: [] }],
 
       ["clean", "link", "video"],
     ],
   };
+
+  const { pic } = useContext(StateContext);
 
   const theme = useTheme();
 
@@ -53,249 +58,112 @@ const CreateBlog = () => {
       <Box
         sx={{
           display: "flex",
-          alignItems: "center",
-          // justifyContent: "center",
+          position: "relative",
           flexDirection: "column",
-          mt: "100px",
+          pt: "70px",
+          px: "20px",
         }}
         className="appeareffect"
       >
-        <Box
+        <Paper
+          component={"img"}
+          width={"100%"}
+          alt="Add your image"
           sx={{
+            objectFit: "cover",
+            borderRadius: "10px",
+            backgroundColor: "#888",
             [theme.breakpoints.up("xs")]: {
-              width: "350px",
-            },
-            [theme.breakpoints.up("sm")]: {
-              width: "610px",
+              height: "200px",
             },
             [theme.breakpoints.up("md")]: {
-              width: "810px",
-            },
-            [theme.breakpoints.up("lg")]: {
-              width: "1010px",
+              height: "350px",
             },
           }}
-        >
-          <Typography variant="h4" color="initial" marginBottom={"15px"}>
-            Create Blog
-          </Typography>
+          src={
+            pic
+              ? pic
+              : "https://images.unsplash.com/photo-1682695794816-7b9da18ed470?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+          }
+        />
+
+        <Box className="outlineNone" width={"200px"}>
+          <FormControl fullWidth margin="dense">
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              displayEmpty
+              value={select}
+              inputProps={{ "aria-label": "Choose Category" }}
+              onChange={handleSelect}
+            >
+              <MenuItem value="">
+                <em>Choose Category</em>
+              </MenuItem>
+              <MenuItem value={"Entertainment"}>Entertainment</MenuItem>
+              <MenuItem value={"Education"}>Education</MenuItem>
+              <MenuItem value={"Sports"}>Sports</MenuItem>
+              <MenuItem value={"Technology"}>Technology</MenuItem>
+              <MenuItem value={"polytics"}>polytics</MenuItem>
+              <MenuItem value={"Vlogs"}>Vlogs</MenuItem>
+            </Select>
+          </FormControl>
         </Box>
 
         <Stack
           direction={"row"}
-          sx={{
-            [theme.breakpoints.up("xs")]: {
-              flexDirection: "column",
-            },
-            [theme.breakpoints.up("lg")]: {
-              flexDirection: "row",
-            },
-          }}
+          alignItems={"center"}
+          justifyContent={"space-between"}
         >
-          <FormControl margin="dense">
+          <Stack
+            className="outlineNone"
+            direction={"row"}
+            width="100%"
+            alignItems={"center"}
+          >
+            <label style={{ cursor: "pointer" }} htmlFor="fileInput">
+              <Avatar>
+                <AddIcon />
+              </Avatar>
+            </label>
+            <input
+              type={"file"}
+              onChange={(e) => postDetailes(e.target.files[0])}
+              id="fileInput"
+              style={{ display: "none" }}
+            />
+
             <TextField
-              id="filled-basic"
-              label="Enter title"
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <PersonIcon />
-                  </InputAdornment>
-                ),
+              type="text"
+              placeholder="Title"
+              id="input"
+              sx={{
+                width: "100%",
               }}
-              margin="dense"
-              variant="outlined"
               name="title"
               value={blog.title}
               onChange={handleBlog}
-              sx={{
-                mr: "10px",
-                [theme.breakpoints.up("xs")]: {
-                  width: "350px",
-                },
-                [theme.breakpoints.up("sm")]: {
-                  width: "600px",
-                },
-                [theme.breakpoints.up("md")]: {
-                  width: "800px",
-                },
-                [theme.breakpoints.up("lg")]: {
-                  width: "500px",
-                },
-              }}
             />
-          </FormControl>
-          <FormControl margin="dense">
-            <TextField
-              id="filled-basic"
-              label="Enter description"
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <AssignmentIcon />
-                  </InputAdornment>
-                ),
-              }}
-              margin="dense"
-              variant="outlined"
-              sx={{
-                [theme.breakpoints.up("xs")]: {
-                  width: "350px",
-                },
-                [theme.breakpoints.up("sm")]: {
-                  width: "600px",
-                },
-                [theme.breakpoints.up("md")]: {
-                  width: "800px",
-                },
-                [theme.breakpoints.up("lg")]: {
-                  width: "500px",
-                },
-              }}
-              name="desc"
-              value={blog.desc}
-              onChange={handleBlog}
-            />
-          </FormControl>
-        </Stack>
-
-        <Stack
-          direction={"row"}
-          sx={{
-            [theme.breakpoints.up("xs")]: {
-              flexDirection: "column",
-            },
-            [theme.breakpoints.up("lg")]: {
-              flexDirection: "row",
-            },
-          }}
-          mb={"20px"}
-        >
-          <Box
-            sx={{
-              mr: "10px",
-              [theme.breakpoints.up("xs")]: {
-                width: "350px",
-              },
-              [theme.breakpoints.up("sm")]: {
-                width: "600px",
-              },
-              [theme.breakpoints.up("md")]: {
-                width: "800px",
-              },
-              [theme.breakpoints.up("lg")]: {
-                width: "500px",
-              },
-            }}
+          </Stack>
+          <Button
+            variant="contained"
+            onClick={createBlog}
+            sx={{ px: "30px", width: "max-content" }}
+            color="warning"
           >
-            <FormControl fullWidth margin="dense">
-              <InputLabel id="demo-simple-select-label">Category</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={select}
-                label="Category"
-                onChange={handleSelect}
-              >
-                <MenuItem value={"Entertainment"}>Entertainment</MenuItem>
-                <MenuItem value={"Education"}>Education</MenuItem>
-                <MenuItem value={"Sports"}>Sports</MenuItem>
-                <MenuItem value={"Technology"}>Technology</MenuItem>
-                <MenuItem value={"polytics"}>polytics</MenuItem>
-                <MenuItem value={"Vlogs"}>Vlogs</MenuItem>
-              </Select>
-            </FormControl>
-          </Box>
-          <FormControl margin="dense">
-            <TextField
-              type={"file"}
-              onChange={(e) => postDetailes(e.target.files[0])}
-              inputProps={{ accept: "image/*" }}
-              id="filled-basic"
-              variant="outlined"
-              sx={{
-                [theme.breakpoints.up("xs")]: {
-                  width: "350px",
-                },
-                [theme.breakpoints.up("sm")]: {
-                  width: "600px",
-                },
-                [theme.breakpoints.up("md")]: {
-                  width: "800px",
-                },
-                [theme.breakpoints.up("lg")]: {
-                  width: "500px",
-                },
-              }}
-            />
-          </FormControl>
+            Publish
+          </Button>
         </Stack>
 
-        <Stack
-          sx={{
-            height: "250px",
-            [theme.breakpoints.up("xs")]: {
-              width: "350px",
-            },
-            [theme.breakpoints.up("sm")]: {
-              width: "610px",
-            },
-            [theme.breakpoints.up("md")]: {
-              width: "810px",
-            },
-            [theme.breakpoints.up("lg")]: {
-              width: "1010px",
-            },
-          }}
-        >
+        <Stack direction={"row"} justifyContent={"space-between"}>
           <ReactQuill
-            theme="snow"
-            style={{ width: "100%", height: "100%" }}
+            theme="bubble"
+            placeholder="Tell your story..."
+            style={{ width: "100%", height: "fit-content" }}
             modules={modules}
             value={blogdesc}
             onChange={setBlogdesc}
           />
-        </Stack>
-
-        <Stack
-          direction={"row"}
-          sx={{
-            [theme.breakpoints.up("xs")]: {
-              width: "350px",
-              mt: "130px",
-              // flexDirection: "column",
-            },
-            [theme.breakpoints.up("sm")]: {
-              width: "610px",
-              mt: "100px",
-              flexDirection: "row",
-            },
-            [theme.breakpoints.up("md")]: {
-              width: "810px",
-              mt: "80px",
-            },
-            [theme.breakpoints.up("lg")]: {
-              width: "1010px",
-              mt: "60px",
-            },
-          }}
-        >
-          <Button
-            variant="contained"
-            onClick={handleOpen}
-            sx={{ px: "30px", mr: "10px" }}
-            color="primary"
-          >
-            Preview
-          </Button>
-          <Button
-            variant="contained"
-            onClick={createBlog}
-            sx={{ px: "30px" }}
-            color="warning"
-          >
-            Publish blog
-          </Button>
         </Stack>
       </Box>
     </>

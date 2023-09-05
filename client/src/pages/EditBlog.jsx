@@ -1,3 +1,4 @@
+import "react-quill/dist/quill.snow.css";
 import React, { useContext, useState, useEffect } from "react";
 
 import { Container, Box } from "@mui/system";
@@ -8,27 +9,16 @@ import InputAdornment from "@mui/material/InputAdornment";
 import PersonIcon from "@mui/icons-material/Person";
 import FunctionContext from "../context/Function/FunctionContext";
 import StateContext from "../context/State/StateContext";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import Select from "@mui/material/Select";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import ReactQuill from "react-quill";
 import BasicLoader from "../utils/Loader/BasicLoader";
 import MainLoader from "../utils/Loader/MainLoader";
 import { BlogContext } from "../context/Blogs/BlogContext";
 const EditBlog = () => {
-  const {
-    user,
-    select,
-    blog,
-    item,
-    setBlogdesc,
-    blogdesc,
-    isLoading,
-    otherLoading,
-  } = useContext(StateContext);
-  const { handleBlog, getBlog } = useContext(FunctionContext);
-  const { editBlog } = useContext(BlogContext);
+  const { blog, item, setBlogdesc, blogdesc, isLoading, otherLoading } =
+    useContext(StateContext);
+  const { handleBlog } = useContext(FunctionContext);
+  const { editBlog, getBlog } = useContext(BlogContext);
   const loc = useLocation();
   const { id } = useParams("");
 

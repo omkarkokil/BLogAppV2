@@ -21,6 +21,7 @@ import Timestamp from "react-timestamp";
 import { CommentContext } from "../../../../context/Comment/CommentContext";
 import StateContext from "../../../../context/State/StateContext";
 import FunctionContext from "../../../../context/Function/FunctionContext";
+import { format } from "date-fns";
 
 const MakeComment = ({ id }) => {
   const { makeComment, allComments } = useContext(StateContext);
@@ -28,13 +29,13 @@ const MakeComment = ({ id }) => {
   const { createComment } = useContext(CommentContext);
   return (
     <>
-      <Box marginY={"10px"} width={"95%"}>
+      <Box marginY={"10px"} width={"100%"}>
         <Divider />
         <Typography fontSize={"1.3em"} color="orangered" fontStyle={"italic"}>
           Add a comment
         </Typography>
       </Box>
-      <Stack width="90%" marginY={"20px"}>
+      <Stack width="100%" marginY={"20px"}>
         <FormControl sx={{ m: 1, width: "100%" }} variant="outlined">
           <InputLabel htmlFor="outlined-adornment-password">Comment</InputLabel>
           <OutlinedInput
@@ -74,7 +75,7 @@ const MakeComment = ({ id }) => {
           No Comment on this blog
         </Typography>
       ) : (
-        <Box width={"80%"}>
+        <Box width={"100%"}>
           <Box marginY={"10px"}>
             <Divider />
             <Typography
@@ -90,7 +91,7 @@ const MakeComment = ({ id }) => {
               justifyContent={"space-between"}
               marginTop={"20px"}
             >
-              <Typography variant="h4">{`${allComments.length} comments`}</Typography>
+              <Typography variant="h5">{`${allComments.length} comments`}</Typography>
               <Link to={`/comment/${id}`}>
                 <Button variant="contained">Show all</Button>
               </Link>
@@ -104,23 +105,19 @@ const MakeComment = ({ id }) => {
                   <Avatar sx={{ marginRight: "10px" }}>
                     <img src={ele.author.pic} alt="none" height={"100%"} />
                   </Avatar>
-                  <Typography>
-                    {ele.author.name} on <Timestamp date={ele.createdAt} />
-                  </Typography>
+                  <Box>
+                    <Typography color={"#888"} variant="body2">
+                      {ele.author.name}
+                    </Typography>
+                    <Typography color={"#888"} variant="body2">
+                      {format(Date.now(ele.createdAt), "dd-MM-yyyy")}
+                    </Typography>
+                  </Box>
                 </Stack>
-                <Stack
-                  sx={{
-                    boxShadow: "0 0 3px #333",
-                    padding: "7px 20px",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    borderRadius: "5px",
-                    width: "max-content",
-                    color: "orangered",
-                    backgroundColor: "#fff",
-                  }}
-                >
-                  <Typography>{ele.comment}</Typography>
+                <Stack>
+                  <Typography px={"5px"} variant="body1">
+                    {ele.comment}
+                  </Typography>
                 </Stack>
               </Stack>
             );

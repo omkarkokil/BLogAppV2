@@ -24,7 +24,8 @@ const BlogCard = ({ ele, chips }) => {
   return (
     <Card
       elevation={3}
-      sx={{ maxWidth: 400, px: "10px", pb: "10px" }}
+      fontSize={{ xs: "1.7em", sm: "2.2em" }}
+      sx={{ px: "10px", pb: "10px" }}
       key={ele._id}
     >
       {loc.pathname === "/myprofile" || ele._id === currentUser._id ? (
@@ -80,9 +81,10 @@ const BlogCard = ({ ele, chips }) => {
         >
           {ele.title}
         </Typography>
-        <Typography variant="body2" color="text.secondary">
-          {ele.desc.slice(0, 100)}
-        </Typography>
+        <Box
+          fontSize={{ xs: ".9em" }}
+          dangerouslySetInnerHTML={{ __html: `${ele?.blog?.slice(0, 120)}...` }}
+        ></Box>
       </CardContent>
       <CardActions>
         <Stack direction={"row"} width="100%" justifyContent="space-between">

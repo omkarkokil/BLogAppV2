@@ -39,6 +39,9 @@ const StateProvider = ({ children }) => {
 
   const [page, setPage] = useState(2);
 
+  const [FillterData, setFillterData] = useState("all");
+  const [hasMore, setHasMore] = useState(true);
+
   return (
     <StateContext.Provider
       value={{
@@ -78,6 +81,10 @@ const StateProvider = ({ children }) => {
         setPic,
         otherLoading,
         setOtherLoading,
+        FillterData,
+        setFillterData,
+        hasMore,
+        setHasMore,
       }}
     >
       {children}
