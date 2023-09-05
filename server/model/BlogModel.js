@@ -5,13 +5,9 @@ const blogSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  desc: {
-    type: String,
-    required: true,
-  },
   blog: {
     type: String,
-    // required: true
+    required: true
   },
   category: {
     type: String,
@@ -20,7 +16,6 @@ const blogSchema = mongoose.Schema({
   blogPic: {
     type: String,
   },
-
   userId: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,

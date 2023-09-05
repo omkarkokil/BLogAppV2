@@ -3,9 +3,9 @@ const Blog = require("../model/BlogModel");
 
 const createBlog = async (req, res) => {
   try {
-    const { title, desc, blog, category, date, userId, name, userPic, blogPic } = req.body;
+    const { title, blog, category, date, userId, name, userPic, blogPic } = req.body;
 
-    if (!title || !desc || !category || !blog) {
+    if (!title || !category || !blog) {
       return res.json({ msg: "All fields are madatory", status: false });
     }
 
@@ -16,7 +16,6 @@ const createBlog = async (req, res) => {
 
     const note = await Blog.create({
       title,
-      desc,
       category,
       blogPic,
       date,
