@@ -30,15 +30,13 @@ const BlogProvider = ({ children }) => {
     page,
     setPage,
   } = useContext(StateContext);
-
   const { toastOption } = useContext(FunctionContext);
-
   const navigate = useNavigate();
 
   const createBlog = async () => {
     setIsLoading(true);
     try {
-      const { title, desc } = blog;
+      const { title } = blog;
 
       const { data } = await axios.post(
         process.env.REACT_APP_CREATE_BLOG,
@@ -166,7 +164,7 @@ const BlogProvider = ({ children }) => {
       const { data } = await axios.get(process.env.REACT_APP_GET_ALL_BLOGS, {
         params: {
           page: 1,
-          limit: 5,
+          limit: 8,
           items: FillterData,
         },
       });

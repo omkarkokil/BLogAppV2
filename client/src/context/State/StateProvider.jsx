@@ -41,6 +41,8 @@ const StateProvider = ({ children }) => {
 
   const [FillterData, setFillterData] = useState("all");
   const [hasMore, setHasMore] = useState(true);
+  const [openSearch, setOpenSearch] = useState(false);
+  const [searchBlogs, setSearchBlogs] = useState([]);
 
   return (
     <StateContext.Provider
@@ -85,6 +87,10 @@ const StateProvider = ({ children }) => {
         setFillterData,
         hasMore,
         setHasMore,
+        openSearch,
+        setOpenSearch,
+        searchBlogs,
+        setSearchBlogs,
       }}
     >
       {children}

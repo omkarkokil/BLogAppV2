@@ -11,7 +11,8 @@ import BlogCard from "./Components/BlogCard";
 
 const BlogData = (props) => {
   const loc = useLocation("");
-  const { isLoading, setPage, hasMore, FillterData } = useContext(StateContext);
+  const { isLoading, setPage, hasMore, FillterData, setFillterData } =
+    useContext(StateContext);
 
   const { fetchData, GetFiltter } = useContext(BlogContext);
 
@@ -60,8 +61,11 @@ const BlogData = (props) => {
                 ))}
             </Stack>
           </Stack>
+
           <InfiniteScroll
             dataLength={props.items.length}
+            className="Infinite-scroll-remove"
+            style={{ marginBottom: "150px" }}
             next={fetchData}
             hasMore={hasMore}
             loader={

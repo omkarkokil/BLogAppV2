@@ -4,13 +4,16 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
+import FunctionContext from "../Function/FunctionContext";
 
 export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
-  const { setIsLoading, user, pic, toastOption, setIsLogin, setCurrentUser } =
+  const { setIsLoading, user, pic, setIsLogin, setCurrentUser } =
     useContext(StateContext);
+
+  const { toastOption } = useContext(FunctionContext);
 
   useEffect(() => {
     if (localStorage.getItem("user")) {
@@ -73,7 +76,7 @@ const AuthProvider = ({ children }) => {
 
       // Checking data status from backend
       if (!data.status) {
-        toast.error(data.msg, toastOption);
+        toast.error(data.msg);
         return false;
       }
 

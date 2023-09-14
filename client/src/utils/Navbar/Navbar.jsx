@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Avatar, Box, Button, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Menu from "@mui/material/Menu";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
@@ -12,10 +12,12 @@ import FunctionContext from "../../context/Function/FunctionContext";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useTheme } from "@mui/material/styles";
 import { AuthContext } from "../../context/Authentication/AuthContext";
+import SearchIcon from "@mui/icons-material/Search";
 
 const Navbar = () => {
-  const { isLogin, currentUser } = useContext(StateContext);
-  // console.log(currentUser);
+  const { isLogin, currentUser, openSearch, setOpenSearch } =
+    useContext(StateContext);
+
   const { logOut } = useContext(AuthContext);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [isScroll, setIsScroll] = useState(false);
@@ -30,20 +32,18 @@ const Navbar = () => {
 
   const changeNav = () => {
     const pixel = window.scrollY;
-
     if (pixel > 100) {
       setIsScroll(true);
     } else {
       setIsScroll(false);
     }
   };
-  var loc = window.location.pathname;
+  const { pathname } = useLocation();
   const [navOn, setNavOn] = useState(false);
   window.addEventListener("scroll", changeNav);
   if (navOn === true) {
     console.log("Hii");
   }
-
   const theme = useTheme();
 
   return (
@@ -77,32 +77,37 @@ const Navbar = () => {
           zIndex: 10000,
         }}
         backgroundColor={
-          loc === "/" ? (isScroll ? "#333" : "transparent") : "#fff"
+          pathname === "/" ? (isScroll ? "#333" : "transparent") : "#fff"
         }
         boxShadow={isScroll ? "0 0 3px #333" : ""}
       >
         <Box sx={{ marginX: "20px" }}>
-          <Typography
-            variant="h4"
-            className="logoFor"
-            sx={{
-              color: loc === "/" ? "ghostwhite" : "#000",
-              fontWeight: "bold",
-              [theme.breakpoints.up("xs")]: {
-                fontSize: "1.2em",
-              },
-              [theme.breakpoints.up("sm")]: {
-                fontSize: "1.5em",
-              },
-              [theme.breakpoints.up("md")]: {
-                fontSize: "2em",
-              },
-            }}
-          >
-            MagicalWinds
-          </Typography>
+          <Link to={"/"}>
+            <Typography
+              variant="h4"
+              className="logoFor"
+              sx={{
+                color: pathname === "/" ? "ghostwhite" : "#000",
+                fontWeight: "bold",
+                [theme.breakpoints.up("xs")]: {
+                  fontSize: "1.2em",
+                },
+                [theme.breakpoints.up("sm")]: {
+                  fontSize: "1.5em",
+                },
+                [theme.breakpoints.up("md")]: {
+                  fontSize: "2em",
+                },
+              }}
+            >
+              MagicalWinds
+            </Typography>
+          </Link>
         </Box>
         <Stack alignItems={"center"} direction={"row"}>
+          <IconButton onClick={() => setOpenSearch(true)}>
+            <SearchIcon />
+          </IconButton>
           <Stack
             className="blk"
             direction={{ md: "row", sm: "column" }}
@@ -111,7 +116,7 @@ const Navbar = () => {
             <IconButton
               className="HamNav"
               sx={{
-                color: loc === "/" ? "#fff" : "#000",
+                color: pathname === "/" ? "#fff" : "#000",
                 [theme.breakpoints.up("xs")]: {
                   display: "block",
                 },
@@ -141,7 +146,7 @@ const Navbar = () => {
               <Link
                 className="class-a"
                 style={{
-                  color: loc === "/" ? "#fff" : "#000",
+                  color: pathname === "/" ? "#fff" : "#000",
                 }}
                 to="/"
                 onClick={() => setNavOn(false)}
@@ -153,7 +158,7 @@ const Navbar = () => {
                 className="class-a"
                 to={"/allBlog"}
                 style={{
-                  color: loc === "/" ? "#fff" : "#000",
+                  color: pathname === "/" ? "#fff" : "#000",
                 }}
                 onClick={() => setNavOn(false)}
               >

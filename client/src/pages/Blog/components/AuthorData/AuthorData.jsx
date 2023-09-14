@@ -1,17 +1,17 @@
 import { Box, Paper, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
-import React, { useCallback, useContext, useEffect, useMemo } from "react";
-import { Link, useLocation } from "react-router-dom";
+import React, { useContext, useMemo } from "react";
+import { Link } from "react-router-dom";
 import StateContext from "../../../../context/State/StateContext";
 
 const AuthorData = ({ id }) => {
   const { items, item } = useContext(StateContext);
-  const loc = useLocation();
+
   const getAuthorBlogs = useMemo(() => {
     return items.filter((Blog) => {
       return Blog._id !== id && Blog.userId === item.userId;
     });
-  }, [id, loc, items, item]);
+  }, []);
 
   return (
     <>

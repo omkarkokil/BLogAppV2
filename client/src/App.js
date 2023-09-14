@@ -18,6 +18,7 @@ import BlogProvider from "./context/Blogs/BlogContext";
 import Home from "./pages/Home/Home";
 import Comment from "./pages/Comments/Comment"
 import CommentProvider from "./context/Comment/CommentContext";
+import Search from "./utils/Search/Search";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
               <BlogProvider>
                 <CommentProvider>
                   <PreviewModal />
+                  <Search />
                   <Navbar />
                   <ToastContainer />
                   <Routes>

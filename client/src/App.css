@@ -8,6 +8,10 @@
   text-decoration: none;
 }
 
+.Infinite-scroll-remove::-webkit-scrollbar {
+  display: none;
+}
+
 .outlineNone .MuiOutlinedInput-notchedOutline {
   border: none !important;
   color: #000;

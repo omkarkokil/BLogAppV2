@@ -136,6 +136,7 @@ const CreateBlog = () => {
             <TextField
               type="text"
               placeholder="Title"
+              autoComplete="off"
               id="input"
               sx={{
                 width: "100%",

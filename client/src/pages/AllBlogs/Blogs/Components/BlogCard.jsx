@@ -25,7 +25,7 @@ const BlogCard = ({ ele, chips }) => {
     <Card
       elevation={3}
       fontSize={{ xs: "1.7em", sm: "2.2em" }}
-      sx={{ px: "10px", pb: "10px" }}
+      sx={{ p: "10px" }}
       key={ele._id}
     >
       {loc.pathname === "/myprofile" || ele._id === currentUser._id ? (

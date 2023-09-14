@@ -1,19 +1,15 @@
-const express = require("express");
+
 const Blog = require("../model/BlogModel");
 
 const createBlog = async (req, res) => {
   try {
     const { title, blog, category, date, userId, name, userPic, blogPic } = req.body;
-
     if (!title || !category || !blog) {
       return res.json({ msg: "All fields are madatory", status: false });
     }
-
     if (!blogPic) {
       return res.json({ msg: "image not fetched", status: false });
     }
-
-
     const note = await Blog.create({
       title,
       category,
@@ -25,7 +21,6 @@ const createBlog = async (req, res) => {
       blog
     });
 
-
     return res.json({ note, msg: "Blog created successfully", status: true });
   } catch (error) {
     console.log(error);
@@ -36,15 +31,15 @@ const createBlog = async (req, res) => {
 const getAllBlogs = async (req, res) => {
   try {
     const page = req.query.page ? parseInt(req.query.page) : 1;
-    const limit = req.query.limit ? parseInt(req.query.limit) : 5;
+    const limit = req.query.limit ? parseInt(req.query.limit) : 8;
     const skip = (page - 1) * limit;
     const items = req.query.items
     let blog;
 
-    if (items === "all" || items === "" || items === null) {
+    if (items === 'all') {
       blog = await Blog.find().sort({ _id: -1 }).skip(skip).limit(limit).exec();
     } else {
-      blog = await Blog.find({ category: items }).sort({ _id: -1 }).skip(skip).limit(limit).exec();
+      blog = await Blog.find({ category: { $in: items } }).sort({ _id: -1 }).skip(skip).limit(limit).exec();
     }
     return res.json(blog);
   } catch (error) {
@@ -129,6 +124,40 @@ async function editBlog(req, res) {
   }
 }
 
+const searchBlogs = async (req, res) => {
+  try {
+    const blogs = await Blog.aggregate([
+      {
+        $search: {
+          index: "serach",
+          autocomplete: {
+            "query": `${req.query.title}`,
+            "path": "title"
+          }
+        }
+      },
+      { $sort: { createdAt: -1 } },
+      { $limit: 5 },
+      {
+        $project: {
+          title: 1,
+          blog: 1,
+          blogPic: 1,
+          createdAt: 1
+        }
+      }
+    ])
+
+    if (!blogs.length) {
+      return res.status(202).json({ msg: 'No Blogs.' })
+    }
+    res.json(blogs)
+
+  } catch (err) {
+    return res.status(500).json({ msg: `Error from backend${err.message}` })
+  }
+}
+
 module.exports = {
   getAllBlogs,
   createBlog,
@@ -137,4 +166,5 @@ module.exports = {
   getCurrentUserBlog,
   deleteblog,
   editBlog,
+  searchBlogs
 };

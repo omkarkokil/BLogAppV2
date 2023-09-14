@@ -3,6 +3,7 @@ import StateContext from "../State/StateContext";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import FunctionContext from "../Function/FunctionContext";
 
 export const CommentContext = createContext();
 
@@ -14,9 +15,10 @@ const CommentProvider = ({ children }) => {
     setMakeComment,
     currentUser,
     setOtherLoading,
-    toastOption,
     setIsLoading,
   } = useContext(StateContext);
+
+  const { toastOption } = useContext(FunctionContext);
 
   const createComment = async (id) => {
     setOtherLoading(true);
