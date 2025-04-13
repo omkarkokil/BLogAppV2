@@ -1,0 +1,286 @@
+@import url("https://fonts.googleapis.com/css2?family=Playball&family=Rubik&family=Kaushan+Script&family=Tapestry&family=Trade+Winds&family=Work+Sans&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Rubik", sans-serif !important;
+  text-decoration: none;
+}
+
+.Infinite-scroll-remove::-webkit-scrollbar {
+  display: none;
+}
+
+.outlineNone .MuiOutlinedInput-notchedOutline {
+  border: none !important;
+  color: #000;
+}
+#input {
+  font-size: 40px;
+}
+
+@media (max-width: 600px) {
+  #input {
+    font-size: 30px !important;
+  }
+}
+.pen {
+  height: 150px;
+  right: 20%;
+  top: 10%;
+  position: absolute;
+}
+
+.blogyellow {
+  height: 80vh;
+  right: -10%;
+  bottom: -15%;
+  position: absolute;
+}
+.blogblue {
+  height: 70vh;
+  right: -15%;
+  bottom: -20%;
+  position: absolute;
+}
+
+@media (max-width: 400px) {
+  .blogyellow {
+    height: 35vh;
+  }
+
+  .blogblue {
+    height: 35vh;
+  }
+
+  .pen {
+    height: 70px;
+    top: 50%;
+  }
+}
+
+@media (max-width: 900px) {
+  .class-a {
+    color: #000 !important;
+  }
+}
+
+@media (min-width: 400px) and (max-width: 900px) {
+  .imaginary {
+    display: none;
+  }
+
+  .blogyellow {
+    height: 45vh;
+  }
+
+  .blogblue {
+    height: 45vh;
+  }
+
+  .pen {
+    height: 70px;
+    top: 50%;
+  }
+}
+
+@media (min-width: 900px) and (max-width: 1200px) {
+  .blogyellow {
+    height: 60vh;
+  }
+
+  .blogblue {
+    height: 60vh;
+  }
+
+  .pen {
+    height: 125px;
+    top: 30%;
+  }
+}
+
+.navBasic {
+  display: flex !important;
+  flex-direction: column !important;
+  position: absolute;
+  top: 50px;
+  right: 50px;
+  background: #fff;
+  width: 125px;
+  height: 100px;
+  box-shadow: 0 0 3px #333;
+  border-radius: 5px;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.homeBack {
+  background: linear-gradient(132deg, rgb(1, 96, 105) 0%, rgb(0, 72, 95) 100%);
+  position: relative;
+}
+
+.imaginary {
+  position: absolute;
+  bottom: -5%;
+  /* height: 52vh;
+  width: 50%; */
+  z-index: 3;
+  background: url("./img/imgae.png") no-repeat center/cover;
+}
+
+.img2 {
+  right: 0% !important;
+  bottom: -10% !important;
+  animation-delay: 0.5s !important;
+
+  background: url("./img/calc.png") no-repeat center/cover;
+}
+
+a {
+  color: #000;
+  text-decoration: none;
+}
+
+.scale {
+  transition: all 1s;
+}
+.scale:hover {
+  scale: 1.03;
+}
+
+.blk .class-a {
+  color: #000;
+  margin: 0 12px;
+  transition: 0.4s;
+}
+.blk .class-a:hover {
+  transform: translateY(-2px);
+}
+
+.logoFor {
+  font-family: "Kaushan Script", cursive !important;
+
+  font-weight: bold;
+  font-size: 2em;
+}
+
+.basic {
+  font-size: 1.2em;
+  font-family: "Kaushan Script", cursive !important;
+  color: orangered;
+  text-shadow: 0 0 5px #333;
+  font-weight: bold !important;
+}
+
+.typeone {
+  font-family: "Kaushan Script", cursive !important;
+  font-size: 4em;
+  color: #f3f3f3;
+  text-shadow: 0 0 5px #333;
+  font-weight: bold !important;
+  background-clip: text;
+}
+
+.appeareffect {
+  transform: translateY(-50px);
+  visibility: hidden;
+  opacity: 0;
+  animation: 1s appear forwards;
+}
+
+@keyframes appear {
+  100% {
+    transform: translateY(0px);
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+.newEffect {
+  transform: translateY(1000px);
+  animation: 1s effect forwards;
+}
+
+@keyframes effect {
+  100% {
+    transform: translateY(0px);
+    /* visibility: visible;
+    opacity: 1; */
+  }
+}
+
+.preloaderBg {
+  position: fixed;
+  z-index: 10;
+  top: 25%;
+  background: #fff;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+
+.preloader {
+  margin: auto;
+  background: url("./img/android-chrome-192x192.png") no-repeat center;
+  background-size: 150px;
+  width: 300px;
+  height: 300px;
+}
+
+.preloader2 {
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #f00;
+  border-radius: 50%;
+  width: 250px;
+  height: 250px;
+  animation: spin 1s ease-in-out infinite;
+  position: relative;
+  margin: auto;
+  top: -280px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.ribbon {
+  border-radius: 1rem;
+  background: white;
+  box-shadow: 4px 4px 15px rgba(#000, 0.15);
+  position: relative;
+  color: #434343;
+}
+
+.ribbon::before {
+  position: absolute;
+  top: 2rem;
+  right: -0.5rem;
+  content: "";
+  height: 28px;
+  width: 28px;
+  transform: rotate(45deg);
+  z-index: -1;
+}
+
+.ribbon::after {
+  z-index: 10;
+  position: absolute;
+  content: attr(data-label);
+  top: 11px;
+  right: -14px;
+  padding: 0.5rem;
+  width: 10rem;
+  color: white;
+  border-radius: 5px;
+
+  text-align: center;
+  font-family: "Roboto", sans-serif;
+
+  box-shadow: 4px 4px 15px rgba(26, 35, 126, 0.2);
+}
